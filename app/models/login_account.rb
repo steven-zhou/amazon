@@ -16,9 +16,7 @@ class LoginAccount < ActiveRecord::Base
   has_many :to_do_lists
   has_one :default_value, :class_name => "UserPreference", :foreign_key => "login_account_id"
   belongs_to :person
-  belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
-  belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
-  belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
+ 
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
   validates_presence_of  :user_name
 
