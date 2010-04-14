@@ -1,1 +1,5 @@
-$("#group_description").html("<%= escape_javascript("#{@group_type.description}") %>");
+<%- if @group_type.new_record? %>
+  $("#group_description").html("").hide();
+<%- else %>
+  $("#group_description").show().html("<%= escape_javascript("#{@group_type.description.gsub("\n","<br>")}") %>");
+<%- end %>

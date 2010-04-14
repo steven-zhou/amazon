@@ -3602,6 +3602,9 @@ $(function(){
 
 $(function(){
   $("#compile_button").live('click', function(){
+    $(this).attr("disabled", true);
+    $(this).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
+
     var temp = "";
     temp += "login_account_id=" + $("#login_account_id").val();
     temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");

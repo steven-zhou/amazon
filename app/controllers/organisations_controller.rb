@@ -33,13 +33,14 @@ class OrganisationsController < ApplicationController
 
   def show
     @list_headers = @current_user.all_organisation_lists
+    @list_headers = [OrganisationPrimaryList.first] if @list_headers.blank?
     @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
     @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
 
-    @o = @list_header.entity_on_list.uniq rescue @o = OrganisationPrimaryList.first.entity_on_list.uniq
+    @o = @list_header.entity_on_list.uniq
     @organisation = Organisation.find_by_id(params[:id].to_i)
     @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
     session[:current_organisation_id] = @organisation.id
@@ -71,6 +72,25 @@ class OrganisationsController < ApplicationController
         @organisation.primary_email_address = @organisation.try(:emails).find_by_priority_number(1).try(:value)
         @organisation.primary_phone_num = @organisation.try(:phones).find_by_priority_number(1).try(:value)
         @organisation.save
+
+        # create custom field for org
+         @extra_types = ExtraMetaType.active
+        i=1
+        @extra_types.each do |group|
+          @extra =  Extra.new
+          @extra.entity_id = @organisation.id
+          @extra.group_id = group.id
+          @extra.entity_type = "Organisation"
+          group.extra_types.each do |label|
+            @extra.__send__(("label#{i}_id=").to_sym,label.id)
+            @extra.__send__(("label#{i}_value=").to_sym,nil)
+            i=i+1
+          end
+          @extra.save
+          i=1
+        end
+
+
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
         if !params[:image].nil?
           @image = Image.new(params[:image])
@@ -100,6 +120,7 @@ class OrganisationsController < ApplicationController
 
   def edit
     @list_headers = @current_user.all_organisation_lists
+    @list_headers = [OrganisationPrimaryList.first] if @list_headers.blank?
     @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
     @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     @active_tab = params[:active_tab]
@@ -107,6 +128,7 @@ class OrganisationsController < ApplicationController
     @current_user = LoginAccount.find(session[:user])
     @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
+
     @o = @list_header.entity_on_list.uniq
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]

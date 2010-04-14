@@ -130,7 +130,12 @@ input[type="submit"] {
   margin-top:15px;
 }
 
-
+#retrieve_password_form a {
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #143F72;
+  font-weight: bold;
+}
 
 /* SIMPLE CAPTCHA CSS STYLING*/
 #simple_captcha .form_line #captcha_image {width: auto; height: auto; display:inline;}

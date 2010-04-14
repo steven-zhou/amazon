@@ -10,15 +10,18 @@
         =tag_type.label :category, 'Category'
         =tag_type.text_field :category, :disabled=>(@tag_type.status == false)
 
-    -#.form_line
-      .field_100
-        =tag_type.label :description, 'Description'
-        =tag_type.text_field :description, :disabled=>(@tag_type.status == false)
+    - if @category == "Group"
+      .form_line{:style => "height:auto;"}
+        .field_100{:style => "height:auto;"}
+          =tag_type.label :description, 'Description'
+          =tag_type.text_area :description, :disabled=>(@tag_type.status == false), :style => "height:100px;width:96%;"
+    - else
+      .form_line
+        .field_100
+          =tag_type.label :description, 'Description'
+          =tag_type.text_field :description, :disabled=>(@tag_type.status == false)
 
-    .form_line{:style => "height:auto;"}
-      .field_100{:style => "height:auto;"}
-        =tag_type.label :description, 'Description'
-        =tag_type.text_area :description, :disabled=>(@tag_type.status == false), :style => "height:100px;width:96%;"
+    
 
     .form_line
       .field_5
