@@ -30,6 +30,11 @@ $(document).ready(function() {
 
 
 $(function() {
+  
+  $('form').live('submit', function(){
+    disable_form_after_submit($(this));
+  });
+
   jQuery.fn.submitWithAjax = function($callback) {
     this.live('submit', function() {
       $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
@@ -64,7 +69,7 @@ $(function() {
 
 
 $(function() {
-      $("#captcha").addClass("compulsory_field");
+  $("#captcha").addClass("compulsory_field");
   $("#forgot_password").click(function(){
     $("#captcha").addClass("compulsory_field");
 
@@ -96,10 +101,10 @@ $(function(){
     return false;
   };
 
-  $(".compulsory_field").live('keyup', function(){
+  $(".compulsory_field").live('keyup', function(e){
     var current_form = $('#'+$(this).closest('form').attr('id'));
 
-    if ($.trim($(this).val())!="")
+    if ($.trim($(this).val())!="" && e.which !=13)
     {
       compulsory_check($(this));
     }
@@ -140,17 +145,15 @@ $(function(){
 
   };
 
-  $('form').live('submit', function(){
-    disable_form_after_submit($(this));
-  });
+  enable_form_after_submit_finish = function(){
+    $("form :input").removeAttr("readonly");
+    $("form :select").removeAttr("readonly");
+    $("form :textarea").removeAttr("readonly");
+    $('form :input[type="submit"]').removeAttr("disabled");
+    $('.fake_submit_button').removeAttr("disabled");
+    $('#spinner').remove();
+  };
 
-  $('form').keypress(function(e){
-    if(e.which == 13){
-      return false;
-    }else{
-      return true;
-    }
-  });
 });
 
 $(function() {
@@ -168,31 +171,31 @@ $(function() {
 
 
 $(function(){
-    check_email_field = function(target){
-        if(target.val()!=""){
-            _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test(target.val());
-            if((!_valid)){
-                $("#signup_submit").attr('disabled', true);
-                alert("Invalid Email Address");
-            }
-        }
-    };
+  check_email_field = function(target){
+    if(target.val()!=""){
+      _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test(target.val());
+      if((!_valid)){
+        $("#signup_submit").attr('disabled', true);
+        alert("Invalid Email Address");
+      }
+    }
+  };
 
-    $(".email_field").live('change', function(){
-        check_email_field($(this));
-    });
+  $(".email_field").live('change', function(){
+    check_email_field($(this));
+  });
 });
 
 
 $(function() {
 
-    $('#potential_member_first_name').blur(function(){
-       $('#captcha').addClass('compulsory_field');
-    });
+  $('#potential_member_first_name').blur(function(){
+    $('#captcha').addClass('compulsory_field');
+  });
 
-    $('#captcha').click(function(){
-        $(this).addClass('compulsory_field');
-    })
+  $('#captcha').click(function(){
+    $(this).addClass('compulsory_field');
+  })
 });
 
 

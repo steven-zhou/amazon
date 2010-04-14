@@ -83,7 +83,9 @@ GroupList.create(:tag_id => superuser.id, :list_header_id => opl.id)
 #following initializing must be after 'Initializing Organisation Primary List'
 puts "Initializing Client Organisation and Client Setups"
 client = ClientOrganisation.create :full_name => "Client Organisation", :level => '0'
-ClientSetup.create :organisation_id => client.id, :feedback_to => "feedback@memberzone.com.au", :reply_from => "feedback@memberzone.com.au", :superadmin_message => "superadmin message", :level_0_label => "level_0", :level_1_label => "level_1", :level_2_label => "level_2"
+ClientSetup.create(:organisation_id => client.id, :feedback_to => "feedback@memberzone.com.au", :reply_from => "feedback@memberzone.com.au",
+                   :superadmin_message => "superadmin message", :level_0_label => "level_0", :level_1_label => "level_1", :level_2_label => "level_2",
+                   :number_of_login_attempts => 99999, :new_account_graceperiod => 99999, :session_timeout => 99999, :password_lifetime => 99999)
 
 #following initializing must be after 'Initializing Client Organisation and Client Setups'
 puts "Initializing password for member zone user"
