@@ -155,13 +155,16 @@ class GuestsController < ApplicationController
     @guest = Guest.find_by_email(params[:email]) rescue @guest = nil
 
     if !simple_captcha_valid? or @guest.nil?
-       @error_messsage =  "Please check if your details are correct. <a class='alt_option try_again' style='margin:0;'>Try again</a>"
+      @error_messsage =  "Please check if your details are correct. <a class='alt_option try_again' style='margin:0;'>Try again</a>"
     else
-      email = EmailDispatcher.create_send_guest_username_and_password(@guest)
-      EmailDispatcher.deliver(email)
+      @guest.password = Guest.generate_password
+      @guest.password_by_system = true
+      if @guest.save
+        email = EmailDispatcher.create_send_guest_username_and_password(@guest)
+        EmailDispatcher.deliver(email)
 
-     @successful_messsage = "Details were sent. Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href=''>Close</a>"
-      
+        @successful_messsage = "Details were sent. Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href=''>Close</a>"
+      end
     end
     
     respond_to do |format|
