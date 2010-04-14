@@ -33,13 +33,13 @@ class OrganisationsController < ApplicationController
 
   def show
     @list_headers = @current_user.all_organisation_lists
+    @list_headers = [OrganisationPrimaryList.first] if @list_headers.blank?
     @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
     @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
 
-    @list_header = OrganisationPrimaryList.first if @list_header.nil?
     @o = @list_header.entity_on_list.uniq
     @organisation = Organisation.find_by_id(params[:id].to_i)
     @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
@@ -101,6 +101,7 @@ class OrganisationsController < ApplicationController
 
   def edit
     @list_headers = @current_user.all_organisation_lists
+    @list_headers = [OrganisationPrimaryList.first] if @list_headers.blank?
     @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
     @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     @active_tab = params[:active_tab]
@@ -109,7 +110,6 @@ class OrganisationsController < ApplicationController
     @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
 
-    @list_header = OrganisationPrimaryList.first if @list_header.nil?
     @o = @list_header.entity_on_list.uniq
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
