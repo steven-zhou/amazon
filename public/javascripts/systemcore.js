@@ -261,19 +261,22 @@ $(function(){
 
     }
   });
+
+  $(".clear_tab").click(function(){
+    if ($(this).attr('field') != ""){
+
+      $("#new_"+$(this).attr('field'))[0].reset();
+    }
+
+  });
+
+  $(".clear_group_form").click(function(){
+    $('.find_group_meta_type').val("").change();
+  });
+
 });
 
-$(".clear_tab").click(function(){
-  if ($(this).attr('field') != ""){
 
-    $("#new_"+$(this).attr('field'))[0].reset();
-  }
-
-});
-
-$(".clear_group_form").click(function(){
-  $('.find_group_meta_type').val("").change();
-});
 
 clear_employment_form = function()
 {
@@ -284,45 +287,45 @@ clear_employment_form = function()
   $('#suspender_container_0').html('');
   $('#terminator_container_0').html('');
 };
-
-
-$("#delete_photo").click(function(){
-
-  var link =$(this);
-  $('#warning_message_text').html("Are you sure you wish to delete the photo ? ");
-  $('#warning_message_image').css("display","");
-  $('#warning_message').dialog({
-    modal: true,
-    resizable: false,
-    draggable: true,
-    height: 'auto',
-    width: 'auto',
-    buttons: {
-
-      No: function(){
-        $(this).dialog('destroy');
-        return true;
-
-      },
-      Yes: function(){
-        $.post(link.attr('href'), "_method=delete", null, 'script');
-        $("#photo").attr("src", "/images/Icons/System/image-missing.png");
-        $("#delete_photo").hide();
-        $(this).dialog('destroy');
-        return true;
-      }
-    }
-  });
-  $('#warning_message').dialog('option', 'title', 'Warning');
-
-  $('#warning_message').parent().find("a").css("display","none");
-  $("#warning_message").parent().css('background-color','#D1DDE6');
-  $("#warning_message").css('background-color','#D1DDE6');
-
-  $('#warning_message').dialog('open');
-});
-
 $(function(){
+
+  $("#delete_photo").click(function(){
+
+    var link =$(this);
+    $('#warning_message_text').html("Are you sure you wish to delete the photo ? ");
+    $('#warning_message_image').css("display","");
+    $('#warning_message').dialog({
+      modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 'auto',
+      buttons: {
+
+        No: function(){
+          $(this).dialog('destroy');
+          return true;
+
+        },
+        Yes: function(){
+          $.post(link.attr('href'), "_method=delete", null, 'script');
+          $("#photo").attr("src", "/images/Icons/System/image-missing.png");
+          $("#delete_photo").hide();
+          $(this).dialog('destroy');
+          return true;
+        }
+      }
+    });
+    $('#warning_message').dialog('option', 'title', 'Warning');
+
+    $('#warning_message').parent().find("a").css("display","none");
+    $("#warning_message").parent().css('background-color','#D1DDE6');
+    $("#warning_message").css('background-color','#D1DDE6');
+
+    $('#warning_message').dialog('open');
+  });
+
+
   $("#contact_phone_submit").live('click', check_empty_value);
 });
 
@@ -1165,11 +1168,11 @@ $(".person_group_toggle_button").live('click', function(){
   if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
     $('.person_group_delete_button').css("display","none");
   else
-  $('.person_group_delete_button').css("display","");
+    $('.person_group_delete_button').css("display","");
   $('#'+$(this).attr('toggle_id_name')).toggle('blind');
   $('.person_group_close').css("display","");
   $(this).css("display","none");
-  });
+});
 
 $(".person_group_close").live('click',function(){
 
@@ -1177,15 +1180,15 @@ $(".person_group_close").live('click',function(){
   var link = $(this);
   if( $('#group_input_change_or_not').val() == "false")
   {
-  $('#'+link.attr('toggle_id_name')).toggle('blind');
+    $('#'+link.attr('toggle_id_name')).toggle('blind');
 
-  if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
-  $('.person_group_delete_button').css("display","none");
-  else
-  $('.person_group_delete_button').css("display","");
+    if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+      $('.person_group_delete_button').css("display","none");
+    else
+      $('.person_group_delete_button').css("display","");
 
-  link.css("display","none");
-  $('.person_group_toggle_button').css("display","");
+    link.css("display","none");
+    $('.person_group_toggle_button').css("display","");
 
 
   }
@@ -1211,29 +1214,29 @@ $(".person_group_close").live('click',function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
 
 
-        if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
-          $('.person_group_delete_button').css("display","none");
-        else
-          $('.person_group_delete_button').css("display","");
+          if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+            $('.person_group_delete_button').css("display","none");
+          else
+            $('.person_group_delete_button').css("display","");
 
-        link.css("display","none");
-        $('.person_group_toggle_button').css("display","");
+          link.css("display","none");
+          $('.person_group_toggle_button').css("display","");
 
-        $('#group_input_change_or_not').val("false");
-        $(this).dialog('destroy');
-        return true;
+          $('#group_input_change_or_not').val("false");
+          $(this).dialog('destroy');
+          return true;
+        }
       }
-    }
 
-  });
-  $('#warning_message').dialog('option', 'title', 'Warning');
+    });
+    $('#warning_message').dialog('option', 'title', 'Warning');
 
-  $('#warning_message').parent().find("a").css("display","none");
-  $("#warning_message").parent().css('background-color','#D1DDE6');
-  $("#warning_message").css('background-color','#D1DDE6');
+    $('#warning_message').parent().find("a").css("display","none");
+    $("#warning_message").parent().css('background-color','#D1DDE6');
+    $("#warning_message").css('background-color','#D1DDE6');
 
-  $('#warning_message').dialog('open');
-}
+    $('#warning_message').dialog('open');
+  }
 
 });
 
@@ -4056,7 +4059,7 @@ $(function(){
       }
       if (current_op == "show_organisation_list")
       {
-         window.open("/organisations/"+$(this).attr("param1")+"/","_self");
+        window.open("/organisations/"+$(this).attr("param1")+"/","_self");
 
       }
 
