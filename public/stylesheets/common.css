@@ -1216,7 +1216,7 @@ img.thumb {
 }
 
 #app #main #content  .container_icon { /*For find people page*/
-
+background-image: url(/images/container_notselected_bg.png);
                                        font-family:Arial, Helvetica, sans-serif;
                                        background-repeat:repeat;
                                        color: #2C2C2C;
@@ -2765,7 +2765,7 @@ div#permission_form .options{
 
 .container_icon.active{
 
-  background-image:url(/images/container_bg.png);
+  background-image:url(/images/container_bg.png) !important;
   font-family:Arial, Helvetica, sans-serif;
   background-repeat:repeat;
   color: #2C2C2C;

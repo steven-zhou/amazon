@@ -1216,7 +1216,7 @@ img.thumb {
 }
 
 #app #main #content  .container_icon { /*For find people page*/
-
+background-image: url(/images/container_orange_bg.png);
                                        font-family:Arial, Helvetica, sans-serif;
                                        background-repeat:repeat;
                                        color: #2C2C2C;
