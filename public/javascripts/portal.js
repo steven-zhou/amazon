@@ -128,8 +128,6 @@ $(function(){
 
   });
 
-
-
   disable_form_after_submit = function(target_form){
     target_form.find("input").attr("readonly", true);
     target_form.find("input[type = 'submit']").attr("disabled", true);
