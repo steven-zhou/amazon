@@ -83,6 +83,7 @@ class SigninController < ApplicationController
     session[:current_list_id] = nil
     session[:current_person_id] = nil
     session[:last_event] = nil
+    session[:current_organisation_id] = nil
     session[:current_org_list_id] = nil
     redirect_to login_url
   end
