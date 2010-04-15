@@ -1,6 +1,8 @@
 class GuestsController < ApplicationController
 
-  layout "portal"
+   layout :choose_layout
+#  layout "portal", :except => :show
+#  layout "portal_login"
   include SimpleCaptcha::ControllerHelpers
   before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password]
   before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password]
@@ -137,7 +139,7 @@ class GuestsController < ApplicationController
   end
 
   def show
-
+    @guest = Guest.find(session[:guest])
     respond_to do |format|
       format.html
     end
@@ -172,5 +174,16 @@ class GuestsController < ApplicationController
     end
     
   end
-  
+  private
+  def choose_layout
+
+  if @current_action=="show"
+
+    return "portal_login"
+  else
+    return "portal"
+  end
+
+
+  end
 end

@@ -206,3 +206,15 @@ $(function() {
     $('#regenerate_captcha').click();
   });
 });
+
+
+$(function(){
+
+  $("#change_password").live('click',function(){
+
+   $('#profile_submit').hide();
+   $('').show();
+    
+
+  })
+});
