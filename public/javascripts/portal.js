@@ -211,8 +211,13 @@ $(function(){
   $("#change_password").live('click',function(){
 
    $('#profile_submit').hide();
-   $('').show();
+   $('#person_change_password').show();
     
 
-  })
+  });
+
+  $('#cancel_change_password').live("click",function(){
+       $('#profile_submit').show();
+   $('#person_change_password').hide();
+  });
 });

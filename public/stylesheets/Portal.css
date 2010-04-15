@@ -370,6 +370,20 @@ a.alt_option{
 
 }
 
+#login_body #person_change_password {
+
+  -moz-border-radius:15px;
+  background-color: white;
+  background-repeat:no-repeat;
+  background-position:center center;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 80%;
+  height: 200px;
+  float:left;
+
+}
+
 
 #login_body #person_info #show_person_info {
   float: left;
@@ -381,7 +395,17 @@ a.alt_option{
 }
 
 
- #show_person_profile{
+#login_body #person_change_password #show_person_change_password {
+  float: left;
+  min-height: 30px;
+  padding-bottom: 5px;
+  width: 100%;
+  margin-left:20px;
+  margin-top:20px;
+}
+
+
+#show_person_profile{
   margin-top:29px;
   margin-left:28px;
 
@@ -399,7 +423,7 @@ a.alt_option{
 }
 #person_profile {
 
-    -moz-border-radius: 0px 0px 15px 15px;
+  -moz-border-radius: 0px 0px 15px 15px;
   background-color: white;
 
   background-position:center center;

@@ -1,6 +1,6 @@
 .div#show_person_profile
   %h1 Profile
-  -form_for @guest,:html=>{:class => "ajax_form",:submit_button_id=> "profile_submit"} do |g|
+  -form_for @guest,:html=>{:submit_button_id=> "profile_submit"} do |g|
     .form_line
       .field_40
         = g.text_field :first_name,:class=>"field compulsory_field",:title=>"First Name"
