@@ -150,16 +150,11 @@ input[type="submit"] {
   padding-top: 6%;
 }
 
-#signin_container  input[type=submit] {
-
+input[type=submit] {
   background-color: #E3E1E2;
   -moz-border-radius: 10px;
   padding:9% 18%;
   opacity:0.6; /*Firefox*/
-
-
-
-
 }
 
 .form_line {
@@ -180,9 +175,9 @@ input[type="submit"] {
   padding-left: 3px;
 }
 
-.form_line input {
+.form_line input[type=text], .form_line input[type=password] {
   width:100%;
-
+  height:24px;
 }
 
 
@@ -237,14 +232,6 @@ input[type="submit"] {
 .form_line .field_85 {width: 85%;}
 .form_line .field_90 {width: 90%;}
 .form_line .field_95 {width: 95%;}
-
-#signin_container  input[type=text] {
-  height:24px;
-}
-
-#signin_container  input[type=password] {
-  height:24px;
-}
 
 
 a.alt_option{
