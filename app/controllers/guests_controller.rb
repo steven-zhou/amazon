@@ -73,8 +73,8 @@ class GuestsController < ApplicationController
     #---comment--Check that the old password was correct
    
 
-    if !params[:guest][:old_password].nil? and  !params[:guest][:new_password].nil? and !params[:guest][:retype_new_password].nil? and @password_error_message.nil?
-     # update password
+    if !params[:guest][:old_password].nil? and  !params[:guest][:new_password].nil? and !params[:guest][:retype_new_password].nil?
+      # update password
       @password = true
       email = @guest.email
       @password_valid = true
@@ -84,7 +84,7 @@ class GuestsController < ApplicationController
       new_password_confirmation = params[:guest][:retype_new_password].nil? ? "" : params[:guest][:retype_new_password]
 
         
-            begin
+      begin
         @current_guest = Guest.authenticate(email,old_password)
       rescue
         @password_valid = false
@@ -102,10 +102,10 @@ class GuestsController < ApplicationController
         @current_guest.password = new_password
         @current_guest.password_by_system = false
         if @current_guest.save
-       @password_successful_message = "Password Already Changed"
+          @password_successful_message = "Password Already Changed"
 
         else
-          @password_error_message = "Password is not saved"
+          @password_error_message = "Password Is Not Saved"
         end
       end
 
@@ -113,26 +113,17 @@ class GuestsController < ApplicationController
 
      
     else
-    @password = false
+      @password = false
       #update person info
       if @guest.update_attributes(params[:guest])
-        @successful_message = "Details were save"
+        @successful_message = "Details Were Save"
       else
-        @error_message = "Can not update"
-
+        @error_message = "Can Not Update"
       end
-
     end
 
-
-    puts "*******************"
-
-    puts @password_error_message
-    puts @error_message
-    puts @password_valid
-    puts @successful_message
     
-   respond_to do |format|
+    respond_to do |format|
       format.js
     end
 
