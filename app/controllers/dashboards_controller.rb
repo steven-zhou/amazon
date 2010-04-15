@@ -13,7 +13,8 @@ class DashboardsController < ApplicationController
     @to_do_lists = @current_user.to_do_lists
     if @current_user.class.to_s == "SystemUser"
       @current_user.update_password = false
-      @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 99999 : ClientSetup.first.number_of_login_attempts
+      @default_set_up = (ClientSetup.first.number_of_login_attempts == 0) ? 99999 : ClientSetup.first.number_of_login_attempts
+      @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 99999 : @default_set_up
     else
       @current_user.access_attempts_count = 99999
     end
@@ -42,27 +43,40 @@ class DashboardsController < ApplicationController
       if @login_account.update_attributes(params[:login_account])
         flash[:message] = " Saved successfully"
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated their password.")
-        redirect_to login_url
+         render 'back_to_login.js'
       else
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update their password .")
-        flash[:error] = flash_message(:type => "field_missing", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("can't be blank"))
-        flash[:error] = flash_message(:type => "format error", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("regular expression of password is wrong."))
-        flash[:error] = flash_message(:type => "field_missing", :field => "repeat_password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?( "password confirmation is different with password"))
-        flash[:error] = flash_message(:type => "too_short", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("pick a longer name"))
-        flash[:error] = flash_message(:type => "too_long", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("pick a shorter name"))
-        flash[:error] = flash_message(:type => "field_missing", :field => "question1_answer")if(!@login_account.errors[:question1_answer].nil? && @login_account.errors.on(:question1_answer).include?("you must type three security questions answer."))
-        flash[:error] = flash_message(:type => "field_missing", :field => "question2_answer")if(!@login_account.errors[:question2_answer].nil? && @login_account.errors.on(:question2_answer).include?("you must type three security questions answer."))
-        flash[:error] = flash_message(:type => "field_missing", :field => "question3_answer")if(!@login_account.errors[:question3_answer].nil? && @login_account.errors.on(:question3_answer).include?("you must type three security questions answer."))
-        redirect_to :action => "check_password"
+        #----------------------------presence - of------------------------#
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "question1_answer")if(!@login_account.errors[:question1_answer].nil? && @login_account.errors.on(:question1_answer).include?("you must type two security questions answer."))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "question2_answer")if(!@login_account.errors[:question2_answer].nil? && @login_account.errors.on(:question2_answer).include?("you must type two security questions answer."))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "security_question1")if(!@login_account.errors[:security_question1].nil? && @login_account.errors.on(:security_question1).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "security_question2")if(!@login_account.errors[:security_question2].nil? && @login_account.errors.on(:security_question2).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "repeat_password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?( "password confirmation is different with password"))
+
+        #---------------------------mix------------------------#
+        flash.now[:error] = flash_message(:type => "format error", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("regular expression of password is wrong."))
+       
+        flash.now[:error] = flash_message(:type => "too_short", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("pick a longer password"))
+        flash.now[:error] = flash_message(:type => "too_long", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("pick a shorter password"))
+       
+        # redirect_to :action => "check_password"
+        # render :action => "check_password", :layout => 'reset_password'
+        #        respond_to  do |format|
+        #          format.js{ render 'change_password_wrong.js' }
+        #        end
+        render 'change_password_wrong.js'
       end
     rescue
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) entered an incorrect password when attempting to update their password.")
-      redirect_to  login_url
-      flash[:error] = "Invalid Password Entered, You Have only #{@current_user.access_attempts_count - 1} Attempts Left"
+        
+      flash.now[:error] = "Invalid Password Entered, You Have only #{@current_user.access_attempts_count - 1} Attempts Left"
       @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
       @current_user.access_attempts_count -= 1
       @current_user.online_status = false
       @current_user.save
+      
+      render 'change_password_wrong.js'
     end
   end
 

@@ -19,7 +19,7 @@
 		return this.each(function(){
 			var e = $(this).attr('id');
 //			$('.password_check').after('<div id="' + e + '_text"></div>');
-			$('.password_check').html('<div id="' + e + '_bar" style="border: 1px solid white; font-size: 1px; height: 25px; width: 0px;-moz-border-radius:10px;opacity:0.5;"></div>');
+			$('.password_check').html('<div id="' + e + '_bar" style="border: 1px solid transparent; font-size: 1px; height: 25px; width: 0px;-moz-border-radius:10px;opacity:0.5;"></div>');
 			$('#' + e + '_bar').after('<div id="' + e + '_text" style="text-align:center;"></div>');
                         $(this).keyup(function(){
 				$.fn.runPassword($(this).val(), e, o);

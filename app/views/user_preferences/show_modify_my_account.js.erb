@@ -5,42 +5,15 @@ $("#modify_my_account_dialog").dialog( {
 modal: true,
 resizable: false,
 draggable: true,
+position: 'top',
 height: 'auto',
 width: 600
 });
 $('#modify_my_account_dialog').dialog('option', 'title', 'My Account');
 $('#modify_my_account_dialog').dialog('open');
 
-$(function() {
-$(".password_change").jpassword({
-flat: true,
-onShow: function(jInput, jTooltip){ jTooltip.fadeIn(); },
-onHide: function(jInput, jTooltip){ jTooltip.fadeOut(); },
-lang: {
-please: "please type password over 6 characters",
-low: "Low security.",
-correct: "Correct security.",
-high: "High security.",
-length: "-X- characters would be a plus.",
-number: "Why not numbers?",
-uppercase: "And caps?",
-lowercase: "Some tiny?",
-punctuation: "Punctuations?",
-special: "Best, special characters?"
-},
-length: 6
-});
-});
+$(function(){
+  $('.password').pstrength();
 
-$(document).ready(function() {
-$(".admin_password_reset").validationEngine({
-validationEventTriggers:"keyup blur",
 
-success :  false,
-
-failure : function() {
-callFailFunction()
-}
-
-});
 });
