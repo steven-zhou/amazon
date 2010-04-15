@@ -16,37 +16,48 @@
 
 body {
   background-color: #C6D6E1;
-  /*background-image: url(/images/bg3.jpg);*/
+  background-image: url(/images/bg3.jpg);
   background-repeat: repeat;
   background-position: center -300px;
 }
 
+#main {
+  width: 960px;
+  margin: 0 auto;
+}
+
+#top_bar {
+  width: 100%;
+  background-color: #154073;
+  background-repeat: repeat;
+  height: 40px;
+}
+
 
 h1 {
-  color:#333;
+  color:#005592;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 28px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: bold;
   text-transform: normal;
   line-height: 1em;
   padding-bottom: 0px;
   margin-bottom: 5px;
 }
 
-
 #go_back_link {
-  background-color: #154073;
-  background-repeat: repeat;
+  width: 960px;
   height: 40px;
-
+  margin: 0 auto;
 }
 
 #go_back_link a{
   color:  #ABC6CF;
   font-family: Arial,Helvetica,sans-serif;
   font-size: 10px;
-  margin:30px 100px 150px 150px;
+  display:block;
+  padding: 11px 0px;
   text-decoration: underline;
 }
 
@@ -254,7 +265,7 @@ a.alt_option{
 }
 
 .footer{
-  margin: 0 auto;
+  margin: 0px auto;
   width: 40%;
   text-align: center;
   color: #796b52;
@@ -307,21 +318,20 @@ a.alt_option{
 
 
 /* For sign in screen */
-
 #sign_out_link {
-  background-color: #154073;
-  background-repeat: repeat;
+  width: 960px;
   height: 40px;
-
+  margin: 0 auto;
 }
 
 #sign_out_link a{
   color:  #ABC6CF;
   font-family: Arial,Helvetica,sans-serif;
   font-size: 10px;
-  margin-right: 250px;
-  text-decoration: underline;
+  display:block;
   float:right;
+  padding: 11px 0px;
+  text-decoration: underline;
 }
 
 #left_content {
@@ -332,26 +342,24 @@ a.alt_option{
 }
 
 #right_content {
-
   background-repeat: repeat;
   float:left;
   width: 70%;
+  margin-bottom: 10px;
 }
-#login_body {
-  background-color: #C6D6E1;
-  background-image: url(/images/bg3.jpg);
-  background-repeat: repeat;
-  background-position: center -300px;
+
+#login_body #top_bar {
+  background-color: #3f3f3f !important;
 }
+
 
 #login_body #signin_logo {
-
   -moz-border-radius: 0px 0px 15px 15px;
   background-color: white;
   background-image:url(/images/systemlogo.png);
   background-repeat:no-repeat;
   background-position:center center;
-  width: 60%;
+  width: 80%;
   height: 78px;
   float:right;
 
@@ -364,22 +372,22 @@ a.alt_option{
   background-repeat:no-repeat;
   background-position:center center;
   margin-top: 30px;
-  width: 60%;
+  width: 80%;
   height: 250px;
   float:right;
 
 }
 
 #login_body #person_change_password {
-
   -moz-border-radius:15px;
   background-color: white;
   background-repeat:no-repeat;
   background-position:center center;
-  margin-top: 30px;
+  margin-top: 10px;
   margin-left: 20px;
-  width: 80%;
+  width: 100%;
   min-height: 200px;
+
   float:left;
 
 }
@@ -427,7 +435,7 @@ a.alt_option{
   background-color: white;
 
   background-position:center center;
-  width: 80%;
+  width: 100%;
 
   float:left;
   margin-left:20px;

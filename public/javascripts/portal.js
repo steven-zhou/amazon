@@ -101,6 +101,8 @@ $(function(){
     return false;
   };
 
+  compulsory_check($('#username'));
+
   $(".compulsory_field").live('keyup', function(e){
     var current_form = $('#'+$(this).closest('form').attr('id'));
 
@@ -128,6 +130,18 @@ $(function(){
 
   });
 
+  $(".compulsory_field").blur(function(){
+    var current_form = $('#'+$(this).closest('form').attr('id'));
+    if ($.trim($(this).val())!="")
+    {
+      compulsory_check($(this));
+    }
+    else
+    {
+      $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+    }
+  });
+
   disable_form_after_submit = function(target_form){
     target_form.find("input").attr("readonly", true);
     target_form.find("input[type = 'submit']").attr("disabled", true);
@@ -139,7 +153,7 @@ $(function(){
       submit_button = target_form.find("input[type = 'submit']");
     }
     submit_button.attr("disabled", true);
-    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 15px;"></div>');
+    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 5px;"></div>');
 
   };
 
@@ -210,16 +224,18 @@ $(function(){
 
   $("#change_password").live('click',function(){
 
+
    $('#profile_submit').hide();
    $('#successful_message_container').hide();
    $('#fail_message_container').hide();
    $('#person_change_password').show();
+
     
 
   });
 
   $('#cancel_change_password').live("click",function(){
-       $('#profile_submit').show();
-   $('#person_change_password').hide();
+    $('#profile_submit').show();
+    $('#person_change_password').hide();
   });
 });

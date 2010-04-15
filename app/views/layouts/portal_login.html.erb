@@ -20,8 +20,7 @@
   </head>
 
   <body id="login_body">
-    <div id="top_bar"><div id="sign_out_link"><div style="height:9px;">&nbsp;</div><a href="/guests/">Sign Out</a></div></div>
-
+    <div id="top_bar"><div id="sign_out_link"><a href="">Sign Out</a></div></div>
     <div id="main"><!--main area wrapper-->
       <div id="content"><!--main content area "where the magic happens"-->
         <div id="left_content">
@@ -35,15 +34,10 @@
         <div id="right_content">
           <%= yield %>
         </div>
-        <div id="footer_holder" style="width:100%">
-          <div id ="footer" class="footer">
-            <span>Powered by: <%=image_tag('memberzone_footer.png')%>  &nbsp;&nbsp; Licensed to: Production Server   </span>
-          </div>
+        <div id ="footer" class="footer">
+          <span>Powered by: <%=image_tag('memberzone_footer.png')%>  &nbsp;&nbsp; Licensed to: Production Server   </span>
         </div>
       </div>
-      <br style="clear: both;"/>
     </div>
-
-
   </body>
 </html>
