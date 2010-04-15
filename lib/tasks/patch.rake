@@ -13,7 +13,7 @@ namespace :db do
     #    "add_family_id",
     #    "add_primary_phone_and_email",
     #    "reset_login_attempts",
-    #     "create_custom_field",
+         "create_custom_field",
     "clean_security_question"
   ] do
 
