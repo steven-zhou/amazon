@@ -1150,7 +1150,7 @@ disabled_form = function(){
 
 $(document).ready(function() {
   $(".admin_password_reset").validationEngine({
-    validationEventTriggers:"keyup blur",
+    validationEventTriggers:"blur",
 
     success :  false,
 
