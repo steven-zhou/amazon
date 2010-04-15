@@ -104,6 +104,8 @@ $(function(){
   compulsory_check($('#username'));
 
   $(".compulsory_field").live('keyup', function(e){
+
+   
     var current_form = $('#'+$(this).closest('form').attr('id'));
 
     if ($.trim($(this).val())!="" && e.which !=13)
@@ -224,9 +226,13 @@ $(function(){
 
   $("#change_password").live('click',function(){
 
-    $('#profile_submit').hide();
-    $('#person_change_password').show();
-    
+
+   $('#profile_submit').hide();
+   $('#successful_message_container').hide();
+   $('#fail_message_container').hide();
+   $('#person_change_password').show();
+
+      $(".compulsory_field").keyup();
 
   });
 

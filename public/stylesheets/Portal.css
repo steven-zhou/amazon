@@ -57,7 +57,7 @@ h1 {
   font-family: Arial,Helvetica,sans-serif;
   font-size: 10px;
   display:block;
-  padding: 11px 150px;
+  padding: 11px 0px;
   text-decoration: underline;
 }
 
@@ -330,7 +330,7 @@ a.alt_option{
   font-size: 10px;
   display:block;
   float:right;
-  padding: 11px 150px;
+  padding: 11px 0px;
   text-decoration: underline;
 }
 
@@ -342,10 +342,10 @@ a.alt_option{
 }
 
 #right_content {
-
   background-repeat: repeat;
   float:left;
   width: 70%;
+  margin-bottom: 10px;
 }
 
 #login_body #top_bar {
@@ -379,15 +379,15 @@ a.alt_option{
 }
 
 #login_body #person_change_password {
-
   -moz-border-radius:15px;
   background-color: white;
   background-repeat:no-repeat;
   background-position:center center;
-  margin-top: 30px;
+  margin-top: 10px;
   margin-left: 20px;
-  width: 80%;
-  height: 200px;
+  width: 100%;
+  min-height: 200px;
+
   float:left;
 
 }
@@ -441,3 +441,30 @@ a.alt_option{
   margin-left:20px;
 }
 
+#successful_password_message_container{
+  background-color:#D5E7A0;
+  width: auto;
+  padding: 2%;
+  margin:5px 117px 10px -7px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+
+}
+
+
+#fail_password_message_container{
+  background-color:#E68282;
+  width: auto;
+  padding: 2%;
+margin:5px 117px 10px -7px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+
+
+}
