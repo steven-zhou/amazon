@@ -1,11 +1,11 @@
 class GuestsController < ApplicationController
 
-   layout :choose_layout
-#  layout "portal", :except => :show
-#  layout "portal_login"
+  layout :choose_layout
+  #  layout "portal", :except => :show
+  #  layout "portal_login"
   include SimpleCaptcha::ControllerHelpers
-  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password]
-  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password]
+  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password,:update]
+  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password,:update]
 
   def guest_authentication
     unless session[:guest]
@@ -66,6 +66,71 @@ class GuestsController < ApplicationController
     end
   end
 
+
+  def update
+
+    @guest = Guest.find(params[:id])
+    #---comment--Check that the old password was correct
+    if !params[:guest][:old_password].nil? and  !params[:guest][:new_password].nil? and !params[:guest][:retype_new_password].nil?
+     # update password
+      email = @guest.email
+      password_valid = true
+      #---comment--get the info from the form view
+      old_password = params[:guest][:old_password].nil? ? "" : params[:guest][:old_password]
+      new_password = params[:guest][:new_password].nil? ? "" : params[:guest][:new_password]
+      new_password_confirmation = params[:guest][:retype_new_password].nil? ? "" : params[:guest][:retype_new_password]
+      begin
+        @current_guest = Guest.authenticate(email,old_password)
+      rescue
+        password_valid = false
+      end
+
+      #---comment--Check If they got the new password and password confirmation wrong
+      if (!password_valid)
+        flash[:warning] = flash_message(:type => "password_error")
+        redirect_to :action => "index"
+
+      elsif(new_password != new_password_confirmation)
+        flash[:warning] = flash_message(:type => "password_confirm_error")
+        redirect_to :action => "show"
+
+
+      else
+        # Change the password
+        @current_guest.password = new_password
+        @current_guest.password_by_system = false
+        if @current_guest.save
+          flash[:warning] = flash_message(:type => "password_change_ok")
+          redirect_to :action => 'show'
+
+        else
+          flash[:warning] = flash_message(:type => "set_password_error")
+          redirect_to :action => "index"
+
+        end
+      end
+
+    else
+
+      #update person info
+      if @guest.update_attributes(params[:guest])
+        redirect_to :action => 'show'
+      end
+
+    end
+
+
+
+
+
+
+
+
+
+
+
+    
+  end
 
 
   def login
@@ -177,12 +242,12 @@ class GuestsController < ApplicationController
   private
   def choose_layout
 
-  if @current_action=="show"
+    if @current_action=="show"
 
-    return "portal_login"
-  else
-    return "portal"
-  end
+      return "portal_login"
+    else
+      return "portal"
+    end
 
 
   end
