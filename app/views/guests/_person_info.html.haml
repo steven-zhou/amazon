@@ -1,20 +1,16 @@
 .div#show_person_info
-  .form_line
-    .field_10{:style=>"color:#005592;"}
-      = @guest.try(:first_name)
-      = @guest.try(:family_name)
-  .form_line
-    .field_70
-      %label Email:
-      = @guest.try(:email)
-  .form_line
-    .field_70
-      %label Contact number:
-      = @guest.try(:phone_num)
-  .form_line
-    .field_70
-      %label Registered since:
-      = @guest.try(:created_at).day.to_s + "-" +@guest.try(:created_at).month.to_s + "-" + @guest.try(:created_at).year.to_s
+  #name
+    = @guest.try(:first_name)
+    = @guest.try(:family_name)
+  %label Email:
+  .value
+    = @guest.try(:email)
+  %label Contact number:
+  .value
+    = @guest.try(:phone_num)
+  %label Registered since:
+  .value
+    = @guest.try(:created_at).day.to_s + "-" +@guest.try(:created_at).month.to_s + "-" + @guest.try(:created_at).year.to_s
 
 
 
