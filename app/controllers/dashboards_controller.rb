@@ -13,7 +13,8 @@ class DashboardsController < ApplicationController
     @to_do_lists = @current_user.to_do_lists
     if @current_user.class.to_s == "SystemUser"
       @current_user.update_password = false
-      @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 99999 : ClientSetup.first.number_of_login_attempts
+      @default_set_up = (ClientSetup.first.number_of_login_attempts == 0) ? 99999 : ClientSetup.first.number_of_login_attempts
+      @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 99999 : @default_set_up
     else
       @current_user.access_attempts_count = 99999
     end
