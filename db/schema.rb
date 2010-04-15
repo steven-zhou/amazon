@@ -813,20 +813,18 @@ ActiveRecord::Schema.define(:version => 20100414074810) do
     t.integer  "employer_id"
     t.integer  "workplace_id"
     t.integer  "membership_status_id"
+    t.integer  "membership_sub_status_id"
     t.integer  "membership_type_id"
     t.integer  "campaign_id"
     t.integer  "source_id"
+    t.integer  "last_transaction_id"
     t.date     "starting_date"
     t.text     "starting_comment"
     t.date     "ending_date"
     t.text     "ending_comment"
-    t.integer  "first_transaction_id"
-    t.decimal  "first_amount_paid",    :precision => 11, :scale => 3
-    t.date     "first_amount_date"
-    t.integer  "last_transaction_id"
-    t.decimal  "last_amount_paid",     :precision => 11, :scale => 3
+    t.decimal  "last_amount_paid",         :precision => 11, :scale => 3
     t.date     "last_amount_date"
-    t.decimal  "YTD_total",            :precision => 11, :scale => 3
+    t.decimal  "YTD_total",                :precision => 11, :scale => 3
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.boolean  "active"
