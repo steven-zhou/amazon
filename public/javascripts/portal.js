@@ -211,6 +211,8 @@ $(function(){
   $("#change_password").live('click',function(){
 
    $('#profile_submit').hide();
+   $('#successful_message_container').hide();
+   $('#fail_message_container').hide();
    $('#person_change_password').show();
     
 

@@ -16,4 +16,6 @@
         = link_to_function "Change password" ,:class=>"alt_option",:style=>"float:left",:id=>"change_password"
       .field_10
         =submit_tag 'Submit',:id=>"profile_submit",:style=>"float:right"
-
+    .form_line
+      .div{:id=>"successful_message_container",:class=>"register_feedback",:style=>"display:none;margin-right:125px;padding:2%;"}
+      .div{:id=>"fail_message_container",:class=>"register_feedback",:style=>"display:none;"}

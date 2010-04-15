@@ -71,26 +71,30 @@ class GuestsController < ApplicationController
 
     @guest = Guest.find(params[:id])
     #---comment--Check that the old password was correct
-    if !params[:guest][:old_password].nil? and  !params[:guest][:new_password].nil? and !params[:guest][:retype_new_password].nil?
+   
+
+    if !params[:guest][:old_password].nil? and  !params[:guest][:new_password].nil? and !params[:guest][:retype_new_password].nil? and @password_error_message.nil?
      # update password
+      @password = true
       email = @guest.email
-      password_valid = true
+      @password_valid = true
       #---comment--get the info from the form view
       old_password = params[:guest][:old_password].nil? ? "" : params[:guest][:old_password]
       new_password = params[:guest][:new_password].nil? ? "" : params[:guest][:new_password]
       new_password_confirmation = params[:guest][:retype_new_password].nil? ? "" : params[:guest][:retype_new_password]
-      begin
+
+        
+            begin
         @current_guest = Guest.authenticate(email,old_password)
       rescue
-        password_valid = false
+        @password_valid = false
       end
 
       #---comment--Check If they got the new password and password confirmation wrong
-      if (!password_valid)
-        flash[:warning] = flash_message(:type => "password_error")
-
+      if (!@password_valid)
+        @password_error_message = "The Old Password Is Not Correct"
       elsif(new_password != new_password_confirmation)
-        flash[:warning] = flash_message(:type => "password_confirm_error")
+        @password_error_message = "The New Password Is Not Match"
 
 
       else
@@ -98,25 +102,36 @@ class GuestsController < ApplicationController
         @current_guest.password = new_password
         @current_guest.password_by_system = false
         if @current_guest.save
-          flash[:warning] = flash_message(:type => "password_change_ok")
-         
+       @password_successful_message = "Password Already Changed"
 
         else
-          flash[:warning] = flash_message(:type => "set_password_error")
-
-
+          @password_error_message = "Password is not saved"
         end
       end
 
-    else
 
+
+     
+    else
+    @password = false
       #update person info
-      unless @guest.update_attributes(params[:guest])
-        flash[:warning] = "Can not update"
+      if @guest.update_attributes(params[:guest])
+        @successful_message = "Details were save"
+      else
+        @error_message = "Can not update"
+
       end
 
     end
 
+
+    puts "*******************"
+
+    puts @password_error_message
+    puts @error_message
+    puts @password_valid
+    puts @successful_message
+    
    respond_to do |format|
       format.js
     end
