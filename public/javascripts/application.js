@@ -797,7 +797,6 @@ $(function(){
     sortname: "grid_object_id",
     sortorder: "asc",
     usepager: true,
-    title: 'Feedback Items',
     useRp: true,
     rp: 20,
     showTableToggleBtn: false,
@@ -819,15 +818,8 @@ $(function(){
 });
 
 $(function(){
-  $('table#feedback_search_grid tbody tr').live('click',function(){
-    $('table#feedback_search_grid tbody tr.trSelected').removeClass('trSelected');
-    $(this).addClass('trSelected');
-  });
-});
-
-$(function(){
   $('table#feedback_search_grid tbody tr').live('mouserover', function(){
-    $(this).css('cursor',"pointer");
+    $(this).css("cursor","pointer");
   });
 });
 

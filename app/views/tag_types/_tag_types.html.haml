@@ -6,9 +6,9 @@
       %div{:level => "2", :class => "#{setting_status} toggle_multilevel_options " }
         .options
           -if tag_type.to_be_removed == false
-            = link_to_function (image_tag('Icons/System/add_child.png'), :class => "new_tag", :title=>"New Child", :tag => @category, :tag_type_id => tag_type.id)  unless (@category == "Table" || @category == "Contact" || @category == "Receipt"||@category = "Extra" || tag_type.status == false || tag_type.tag_meta_type.status == false)
-            = link_to image_tag('edit_icon.png'), edit_tag_type_path(tag_type), :class => 'get_tag', :title=>"Edit"
-            = (link_to image_tag('delete_icon.png'), tag_type_path(tag_type), :class => 'delete', :field => "TagTypes",:error_message_field => "TagTypes", :title=>"Remove") unless (@category = "Extra")
+            = link_to_function (image_tag('Icons/System/add_child.png'), :class => "new_tag", :title=>"New Child", :tag => @category, :tag_type_id => tag_type.id)  unless (@category == "Table" || @category == "Contact" || @category == "Receipt" || @category == "Extra" || tag_type.status == false || tag_type.tag_meta_type.status == false)
+            = link_to image_tag('edit_icon.png'), edit_tag_type_path(tag_type), :class => 'get_tag', :title=>"Edit" unless (@category == "Table")
+            = link_to image_tag('delete_icon.png'), tag_type_path(tag_type), :class => 'delete', :field => "TagTypes",:error_message_field => "TagTypes", :title=>"Remove" unless (@category == "Extra" || @category == "Table")
           -else
             = link_to image_tag('Icons/System/Restore.png'),retrieve_tag_type_path(tag_type),:class => 'get',:field => "tag_types", :id => 'tag_types_retrieve_button', :tag_types_id => tag_type.id, :title=>"Retrieve"
         .title

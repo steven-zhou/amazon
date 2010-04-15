@@ -10,11 +10,11 @@ namespace :db do
     #    "add_membership_status",
     #    "add_person_mail_template",
     #    "modify_client_setups_level",
-    #   "add_family_id",
-    "add_primary_phone_and_email",
-    "reset_login_attempts",
-    "create_custom_field",
-    "clean_security_question"] do
+    #    "add_family_id",
+    #    "add_primary_phone_and_email",
+    #    "reset_login_attempts",
+         "create_custom_field"
+         ] do
 
     puts "Patch Done!"
   end

@@ -422,28 +422,10 @@ class OrganisationsController < ApplicationController
 
   def general_show_list
 
-    @organisations = Organisation.find(params[:person_id]) rescue @person = Person.find(session[:current_organisation_id])
+    @organisations = Organisation.find(params[:organisation_id]) rescue @organisations = Organisation.find(session[:current_organisation_id])
     @list_header = ListHeader.find(session[:current_org_list_id])
     @o = Array.new
     @o = @list_header.entity_on_list
-
-    ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
-
-    @o.each do |organisations|
-      @solg = ShowOrganisationListGrid.new
-      @solg.login_account_id = session[:user]
-      @solg.grid_object_id = organisations.id
-      @solg.field_1 = organisations.full_name
-      @solg.field_2 = organisations.short_name
-      @solg.field_3 = organisations.primary_address.first_line unless organisations.primary_address.blank?
-      @solg.field_4 = organisations.primary_phone.value unless organisations.primary_phone.blank?
-      @solg.field_5 = organisations.primary_email.address unless organisations.primary_email.blank?
-      @solg.save
-    end
-
-    @current_operation = params[:current_operation]
     respond_to do |format|
       format.js
     end
