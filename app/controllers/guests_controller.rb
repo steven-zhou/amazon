@@ -88,11 +88,9 @@ class GuestsController < ApplicationController
       #---comment--Check If they got the new password and password confirmation wrong
       if (!password_valid)
         flash[:warning] = flash_message(:type => "password_error")
-        redirect_to :action => "index"
 
       elsif(new_password != new_password_confirmation)
         flash[:warning] = flash_message(:type => "password_confirm_error")
-        redirect_to :action => "show"
 
 
       else
@@ -101,11 +99,11 @@ class GuestsController < ApplicationController
         @current_guest.password_by_system = false
         if @current_guest.save
           flash[:warning] = flash_message(:type => "password_change_ok")
-          redirect_to :action => 'show'
+         
 
         else
           flash[:warning] = flash_message(:type => "set_password_error")
-          redirect_to :action => "index"
+
 
         end
       end
@@ -113,23 +111,16 @@ class GuestsController < ApplicationController
     else
 
       #update person info
-      if @guest.update_attributes(params[:guest])
-        redirect_to :action => 'show'
+      unless @guest.update_attributes(params[:guest])
+        flash[:warning] = "Can not update"
       end
 
     end
 
+   respond_to do |format|
+      format.js
+    end
 
-
-
-
-
-
-
-
-
-
-    
   end
 
 
