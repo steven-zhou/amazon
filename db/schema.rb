@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100409045707) do
+ActiveRecord::Schema.define(:version => 20100414074810) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -719,9 +719,6 @@ ActiveRecord::Schema.define(:version => 20100409045707) do
     t.integer  "authentication_grace_period"
     t.boolean  "login_status"
     t.boolean  "system_user"
-    t.integer  "security_question1_id"
-    t.integer  "security_question2_id"
-    t.integer  "security_question3_id"
     t.text     "access_attempt_ip"
     t.integer  "access_attempts_count"
     t.boolean  "password_by_admin"
@@ -733,6 +730,9 @@ ActiveRecord::Schema.define(:version => 20100409045707) do
     t.boolean  "online_status"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.text     "security_question1"
+    t.text     "security_question2"
+    t.text     "security_question3"
   end
 
   create_table "mail_logs", :force => true do |t|

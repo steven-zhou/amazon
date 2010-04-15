@@ -90,8 +90,8 @@
   </div>
   <div class="bar_section" id="help">
     <%= image_tag('Icons/System/feedback.png', :id => "feedback", :title=>"Feedback") %>
-
-    <%= link_to_function image_tag('/images/help_icon.png', :title=>"Help"), {:id => "help_icon_tab"} %>
+    <%= image_tag('/images/help_icon.png', :title=>"Help")%>
+    <%-#= link_to_funtion image_tag('/images/help_icon.png', :title=>"Help"), {:id => "help_icon_tab"} %>
     <div id="help_lightbox"></div>
     <input id="controller" type="hidden" value="<%= @current_controller %>"/>
     <input id="action" type ="hidden" value="<%= @current_action %>" />

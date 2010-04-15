@@ -242,15 +242,15 @@ PaymentDay.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
 end
 
 
-puts "destroy security question ..."
-SecurityQuestion.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
-  if (LoginAccount.find_by_security_question1_id(i.id).nil? && LoginAccount.find_by_security_question2_id(i.id).nil? && LoginAccount.find_by_security_question3_id(i.id).nil?)
-    i.destroy
-  else
-    i.to_be_removed = false
-    i.save
-  end
-end
+#puts "destroy security question ..."
+#SecurityQuestion.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
+#  if (LoginAccount.find_by_security_question1_id(i.id).nil? && LoginAccount.find_by_security_question2_id(i.id).nil? && LoginAccount.find_by_security_question3_id(i.id).nil?)
+#    i.destroy
+#  else
+#    i.to_be_removed = false
+#    i.save
+#  end
+#end
 
 puts "destroy business category ..."
 BusinessCategory.find(:all,:conditions => ["to_be_removed = true"]).each do |i|

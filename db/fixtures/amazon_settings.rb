@@ -97,9 +97,9 @@ TerminationMethod.create :name => "By consent", :status => true,:to_be_removed =
 TerminationMethod.create :name => "By notice", :status => true,:to_be_removed =>false
 OrganisationType.create :name => "Public", :status => true,:to_be_removed =>false
 OrganisationType.create :name => "Pty Ltd", :status => true,:to_be_removed =>false
-SecurityQuestion.create :name => "What is your favorite pet's name?", :status => true,:to_be_removed =>false
-SecurityQuestion.create :name => "What is your father's name?", :status => true,:to_be_removed =>false
-SecurityQuestion.create :name => "What is your mother's name?", :status => true,:to_be_removed =>false
+#SecurityQuestion.create :name => "What is your favorite pet's name?", :status => true,:to_be_removed =>false
+#SecurityQuestion.create :name => "What is your father's name?", :status => true,:to_be_removed =>false
+#SecurityQuestion.create :name => "What is your mother's name?", :status => true,:to_be_removed =>false
 BusinessCategory.create :name => "Sales", :description => "10", :status => true,:to_be_removed =>false
 BusinessCategory.create :name => "Wholesaler", :description => "11", :status => true,:to_be_removed =>false
 BusinessCategory.create :name => "Service", :description => "12", :status => true,:to_be_removed =>false
