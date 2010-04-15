@@ -1,0 +1,19 @@
+.div#show_person_profile
+  %h1 Profile
+  -form_for @guest,:html=>{:class=>"ajax_form",:submit_button_id=> "profile_submit"} do |g|
+    .form_line
+      .field_40
+        = g.text_field :first_name,:class=>"field compulsory_field",:title=>"First Name"
+      .field_40
+        = g.text_field :family_name,:class=>"field compulsory_field",:title=>"Last Name"
+    .form_line
+      .field_40
+        = g.text_field :email,:value=>@guest.try(:email),:class=>"field compulsory_field",:title=>"Email"
+      .field_40
+        = g.text_field :phone_num,:class=>"field compulsory_field",:title=>"Phone Num"
+    .form_line
+      .field_70
+        = link_to_function "Change password" ,:class=>"alt_option",:style=>"float:left",:id=>"change_password"
+      .field_10
+        =submit_tag 'Submit',:id=>"profile_submit",:style=>"float:right"
+

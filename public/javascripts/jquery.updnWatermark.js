@@ -10,10 +10,7 @@
 */
 
 jQuery(document).ready(function($){
-
-$.updnWatermark.attachAll();
-
-
+  $.updnWatermark.attachAll();
 });
 
 
@@ -33,6 +30,7 @@ $.updnWatermark.attachAll();
                     .hide()
 					.bind("show", function() {
                         $(this).children().fadeIn("fast");
+                        $(this).show();
                     })
                     .bind("hide", function() {
                         $(this).children().hide();

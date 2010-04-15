@@ -4,14 +4,14 @@
       = label_tag 'organisation_id', 'System ID', :style => 'clear:both'
     %div
       .arrow_block
-        = link_to_function((image_tag 'Icons/Core/Lol/go-first.png'), :url =>"/transactions/show_organisational_transaction", :title=>"First", :class => "transaction_navigator")
-        = link_to_function((image_tag 'Icons/Core/Lol/go-previous.png'), :url =>"/transactions/show_organisational_transaction", :title=>"Previous", :class => "transaction_navigator")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-first.png'), :url =>"/receipting/show_organisational_deposit", :title=>"First", :class => "transaction_navigator")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-previous.png'), :url =>"/receipting/show_organisational_deposit", :title=>"Previous", :class => "transaction_navigator")
       = text_field_tag 'organisation_id', @organisation.id, {:onblur => 'system_id_check_input_change_or_not_transaction();',:id => 'system_id_tag', :class=> 'arrow_block change_without_check_js',:style =>"width: 100px",:form_name => "organisation_list"}
       %input{:style => "display:none;", :id => "current_tab_id", :name => "current_tab_id"}
       %input{:style => "display:none;", :id => "target", :name => "target"}
       .arrow_block
-        = link_to_function((image_tag 'Icons/Core/Lol/go-next.png'), :url =>"/transactions/show_organisational_transaction", :title=>"Next", :class => "transaction_navigator")
-        = link_to_function((image_tag 'Icons/Core/Lol/go-last.png'), :url =>"/transactions/show_organisational_transaction", :title=>"Last", :class => "transaction_navigator")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-next.png'), :url =>"/receipting/show_organisational_deposit", :title=>"Next", :class => "transaction_navigator")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-last.png'), :url =>"/receipting/show_organisational_deposit", :title=>"Last", :class => "transaction_navigator")
   .right
     %div#loleft{:style => "margin-left: 10px;"}
       .lolfont_left

@@ -1,4 +1,4 @@
 $('#personal_deposit').html('<%= escape_javascript(render(:partial => "deposits/deposit_template", :locals => {:title => "Person Transactions", :lol => "deposits/person_list_menu", :photo_info => "deposits/person_photo_info"})) %>');
-<%- if @current_tab_id == "histroy_page"%>
-  $('a.tab_switch_with_page_initial[field='+ 'histroy_page'+']').click();
+<%- if @current_tab_id == "receipt_histroy_page"%>
+  $('a.tab_switch_with_page_initial[field='+ 'receipt_histroy_page'+']').click();
 <%- end %>

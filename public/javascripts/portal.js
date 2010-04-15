@@ -128,8 +128,6 @@ $(function(){
 
   });
 
-
-
   disable_form_after_submit = function(target_form){
     target_form.find("input").attr("readonly", true);
     target_form.find("input[type = 'submit']").attr("disabled", true);
@@ -204,5 +202,22 @@ $(function() {
     $("#create_guest input[type='text']").val('').blur();
 
     $('#regenerate_captcha').click();
+  });
+});
+
+
+$(function(){
+
+  $("#change_password").live('click',function(){
+
+   $('#profile_submit').hide();
+   $('#person_change_password').show();
+    
+
+  });
+
+  $('#cancel_change_password').live("click",function(){
+       $('#profile_submit').show();
+   $('#person_change_password').hide();
   });
 });
