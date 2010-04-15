@@ -13,9 +13,11 @@ namespace :db do
     #   "add_family_id",
     "add_primary_phone_and_email",
     "reset_login_attempts",
-    "create_custom_field",
+<<<<<<< HEAD:lib/tasks/patch.rake
     "clean_security_question"] do
-
+=======
+    "create_custom_field"] do
+>>>>>>> 50378d852808e12c309d9fc21862821daa7df301:lib/tasks/patch.rake
     puts "Patch Done!"
   end
 end

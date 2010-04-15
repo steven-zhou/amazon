@@ -3791,3 +3791,9 @@ $(function(){
 //})
 //
 //});
+
+$(function(){
+  $('.password').pstrength();
+
+
+});

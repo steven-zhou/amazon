@@ -2087,9 +2087,9 @@ div#permission_form .options{
   background-color:#FFF;
   min-height: 40px;
   width: 640px;
-  margin-top: 15%;
+  margin-top: 51px;;
   margin-right: auto;
-  margin-bottom: auto;
+  margin-bottom: 1%;
   margin-left: auto;
   -moz-border-radius: 10px;
   -webkit-border-radius:10px;
@@ -2949,4 +2949,16 @@ input.error_flag{
 
 #org_structure_nav .nav_item.active {
   background: url(/images/pointer.png) no-repeat right;
+}
+
+
+
+.password {
+font-size : 12px;
+border : 1px solid #cc9933;
+width : 200px;
+font-family : arial, sans-serif;
+}
+.pstrength-minchar {
+font-size : 10px;
 }

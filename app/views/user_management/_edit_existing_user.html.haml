@@ -116,15 +116,15 @@
     -#= link_to_function 'Clear', :class => "user_clear_edit_form clear_form",:login_account_id => @login_account.id
 
 .full_container
-  %h2 Advance function
+  %h2 Advanced
 
   .form_line
-    .field_17{:class => @login_account.login_status ? "" : "hidden"}
+    .field_20{:class => @login_account.login_status ? "" : "hidden"}
       %label &nbsp
-      = link_to_function 'Generate new password', :id => "generate_new_password",:class =>"alt_option left", :login_account_id => @login_account.id
-    .field_17{:class => @login_account.login_status ? "" : "hidden"}
+      = link_to_function 'Generate New Password', :id => "generate_new_password",:class =>"alt_option left", :login_account_id => @login_account.id
+    .field_20{:class => @login_account.login_status ? "" : "hidden"}
       %label &nbsp
-      = link_to 'reset user online status', reset_online_status_login_account_path(@login_account), :class => "post alt_option"
+      = link_to 'Reset User Online Status', reset_online_status_login_account_path(@login_account), :class => "post alt_option"
 
 
 
