@@ -139,7 +139,7 @@ $(function(){
       submit_button = target_form.find("input[type = 'submit']");
     }
     submit_button.attr("disabled", true);
-    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 15px;"></div>');
+    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 5px;"></div>');
 
   };
 
