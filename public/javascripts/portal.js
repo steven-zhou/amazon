@@ -101,6 +101,8 @@ $(function(){
     return false;
   };
 
+  compulsory_check($('#username'));
+
   $(".compulsory_field").live('keyup', function(e){
     var current_form = $('#'+$(this).closest('form').attr('id'));
 
@@ -126,6 +128,18 @@ $(function(){
       $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
     }
 
+  });
+
+  $(".compulsory_field").blur(function(){
+    var current_form = $('#'+$(this).closest('form').attr('id'));
+    if ($.trim($(this).val())!="")
+    {
+      compulsory_check($(this));
+    }
+    else
+    {
+      $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+    }
   });
 
   disable_form_after_submit = function(target_form){
@@ -210,14 +224,14 @@ $(function(){
 
   $("#change_password").live('click',function(){
 
-   $('#profile_submit').hide();
-   $('#person_change_password').show();
+    $('#profile_submit').hide();
+    $('#person_change_password').show();
     
 
   });
 
   $('#cancel_change_password').live("click",function(){
-       $('#profile_submit').show();
-   $('#person_change_password').hide();
+    $('#profile_submit').show();
+    $('#person_change_password').hide();
   });
 });

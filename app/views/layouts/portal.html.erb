@@ -19,15 +19,14 @@
 
   </head>
 
-  <body>
-    <div id="top_bar"><div id="go_back_link"><div style="height:9px;">&nbsp;</div><a href=""><< back to Aghapy TV website</a></div></div>
-
+  <body>    
+    <div id="top_bar"><div id="go_back_link"><a href=""><< back to Aghapy TV website</a></div></div>
     <div id="main"><!--main area wrapper-->
-        <div id="content"><!--main content area "where the magic happens"-->
-          <%= yield %>
-        </div>
-        <br style="clear: both;"/>
+      <div id="content"><!--main content area "where the magic happens"-->
+        <%= yield %>
       </div>
+      <br style="clear: both;"/>
+    </div>
 
     <div id ="footer" class="footer">
       <span>Powered by: <%=image_tag('memberzone_footer.png')%>  &nbsp;&nbsp; Licensed to: Production Server   </span>

@@ -71,6 +71,7 @@ class PeopleController < ApplicationController
           @list_header = ListHeader.new
           @person = Person.new
           @p = Array.new
+          flash[:warning] = "No List Found Within Your Group"
         else
           if params[:id].nil? || params[:id] == "show" #when just jumping or change list
             @list_header = @current_user.default_value.try(:default_list_header).nil? ? @list_headers.first : @current_user.default_value.try(:default_list_header)
