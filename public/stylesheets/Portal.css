@@ -448,11 +448,12 @@ a.alt_option{
 }
 
 #login_body .tab_menu_item {
-  -moz-border-radius: 5px 5px 0px 0px;
+  -moz-border-radius: 10px 10px 0px 0px;
   background-color: white;
   background-position:center center;
   float:left;
   margin: 17px 0 0 21px;
+  padding: 2px;
 }
 
 #successful_password_message_container{
