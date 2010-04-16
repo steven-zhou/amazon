@@ -216,7 +216,8 @@ $(function() {
 $(function() {
   $('.try_again').live('click', function(){
     $("#create_guest input[type='text']").val('').blur();
-
+    $("#fail_message_container").css('display', 'none');
+    $(".register_cancel").show();
     $('#regenerate_captcha').click();
   });
 });

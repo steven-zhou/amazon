@@ -1,4 +1,3 @@
-$("#cancel").hide();
 <% if @error_messsage.blank? %>
   $('#successful_message_container').html('<%= escape_javascript("#{@successful_messsage}")%>').css('display', '');
   $('#fail_message_container').css('display', 'none');
