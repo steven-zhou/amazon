@@ -1,5 +1,12 @@
 <div id="tab_menu">
-  <%=render :partial =>"guess_menu"%>
+  <div class="tab_menu_item active" style="margin-left: 15px;">
+    <h1>Profile</h1>
+  </div>
+  <a href="/guests/contact">
+    <div class="tab_menu_item">
+      <h1>Contact Details</h1>
+    </div>
+  </a>
 </div>
 <div id="person_profile">
   <%=render :partial =>"person_profile"%>

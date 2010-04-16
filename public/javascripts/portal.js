@@ -29,8 +29,7 @@ $(document).ready(function() {
 });
 
 
-$(function() {
-  
+$(function() {  
   $('form').live('submit', function(){
     disable_form_after_submit($(this));
   });
@@ -225,7 +224,6 @@ $(function() {
 
 
 $(function(){
-
   $("#change_password").live('click',function(){
     $(this).hide();
     $("#feedback_area").attr("id","feedback_area_backup");
