@@ -480,3 +480,19 @@ a.alt_option{
   font-size: 11px;
   font-family: Arial,Helvetica,sans-serif;
 }
+
+#login_fail_message_container{
+  background-color:#E68282;
+  width: auto;
+  padding: 6%;
+  margin-right: auto;
+  margin-bottom: 11px;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+  margin-top:5px;
+
+}

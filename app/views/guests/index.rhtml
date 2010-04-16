@@ -15,12 +15,17 @@
           </div>
         </div>
 
-        <div id="signin_submit" style="">
+        <div id="signin_submit" style="width:102%">
           <input id="signin_button" type="submit" value="Sign In" disabled="true" style="padding:2% 4%;margin-bottom:15px;"/>
           <a href="" id="register_guest_account">Register</a> - <a href="/guests/forgot_password/" id="forgot_password">Forgot your password ?</a>
         </div>
-
+        <%unless @error_message.blank?%>
+        <div class="form_line">
+          <div class="register_feedback" id="login_fail_message_container" ><%=@error_message%></div>
+        </div>
+      <%end%>
       <% end -%>
+
     </div>
   </div>
   <br></br>
@@ -65,6 +70,7 @@
 
               <a href="" id="cancel" class="alt_option register_cancel" style="padding-top: 5px;width:20%;float:left;">Cancel</a>
             </div>
+
           </div>
 
 

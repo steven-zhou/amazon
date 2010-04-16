@@ -1,0 +1,8 @@
+
+<% unless @error_message.blank? %>
+
+  $('#login_fail_message_container').html('<%= escape_javascript("#{@error_message}")%>').css('display', '');
+  
+<%end%>
+
+    enable_form_after_submit_finish();
