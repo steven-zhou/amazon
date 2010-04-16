@@ -246,3 +246,15 @@ $(function(){
     $('#person_change_password').hide();
   });
 });
+
+
+$(function(){
+  $(".submit_hide_cancel").live('click', function(){
+    $(".cancel_disappear").hide();
+
+
+
+
+  })
+
+});

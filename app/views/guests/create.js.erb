@@ -1,11 +1,12 @@
+$(".cancel_disappear").show();
 $("#feedback_area").show();
 <% if @error_messsage.blank? %>
   $('#successful_message_container').html('<%= escape_javascript("#{@successful_messsage}")%>').css('display', '');
   $('#fail_message_container').css('display', 'none');
- 
+
 <%else%>
   $('#fail_message_container').html('<%= escape_javascript("#{@error_messsage}")%>').css('display', '');
   $('#successful_message_container').css('display', 'none');
 <%end%>
 
-    enable_form_after_submit_finish();
+enable_form_after_submit_finish();

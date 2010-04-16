@@ -1,6 +1,6 @@
 <div id="signin_container" title="Login Assistance">
   <div id="signin_logo" ></div>
-  <div id="signin_form" style="padding:0 10%">
+  <div id="signin_form">
     <div class="sign_content_title" > Member Portal </div>
     <div id="signin_form_wrapper">
       <% form_tag('/guests/login/', :id => "login_form", :submit_button_id => "signin_button") do -%>
@@ -40,7 +40,7 @@
 
 <div id="register_container" style="display:none;">
   <div id="signin_container">
-    <div id="register_form" style="padding:0 10%">
+    <div id="register_form" >
       <div class="sign_content_title"> Member Registration </div>
       <div id="signin_form_wrapper">
         <% form_tag('/guests/create/',:id=>"create_guest",:class => "ajax_form", :submit_button_id => "register_button") do -%>
@@ -68,9 +68,9 @@
           <div id="sub_width" style="width: 102%;">
             <div id="register_submit" style="width:60%;float:right;">
 
-              <input id="register_button" type="submit" value="Register" disabled="true" style="padding:8px;width:40%;float:right;margin-bottom:15px;"/>
+              <input id="register_button" class="submit_hide_cancel" type="submit" value="Register" disabled="true" style="padding:8px;width:40%;float:right;margin-bottom:15px;"/>
 
-              <a href="/guests/" id="cancel" class="alt_option register_cancel" style="padding-top: 5px;width:20%;float:left;">cancel</a>
+              <a href="/guests/" id="cancel" class="alt_option cancel_disappear register_cancel" style="padding-top: 5px;width:20%;">cancel</a>
             </div>
 
           </div>
