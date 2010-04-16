@@ -1,9 +1,9 @@
 -# Displays A Contact
 -div_for(contact, :class => 'header_container toggle_options', :field => "contact") do
-  %div 
+  %div.left
     .title
-      %h2{:class=>("red" if contact.contact_meta_type.to_be_removed == true)}= "#{contact.contact_meta_type.name}"
-    .options{:class => 'person_contact_edit_delete person_tag',:id => 'person_contact_edit_delete', :style=>"display:none"}
+      %h2{:style => "font-size:14px;", :class=>("red" if contact.contact_meta_type.to_be_removed == true)}= "#{contact.contact_meta_type.name}"
+    .options{:class => 'person_contact_edit_delete person_tag',:id => 'person_contact_edit_delete', :style=>"display:none;float:left;margin-left:8px;"}
       - if contact.read_attribute("type") == "Phone" #contact.class == Phone.new.class
         -if contact.contactable_type == "Person"
           -if(contact.priority_number==1)
@@ -67,16 +67,16 @@
         = link_to image_tag('edit_icon.png'), edit_instant_messaging_path(contact), :class => 'get edit_instant_messaging edit_option', :field => "contact", :id => 'instant_messaging_edit_button', :instant_messaging_id => contact.id, :title=>"Edit"
         = link_to image_tag('delete_icon.png'), instant_messaging_path(contact), :class => 'delete delete_instant_messaging delete_option', :field => "contact", :id => 'instant_messaging_delete_button', :instant_messaging_id => contact.id,:error_message_field => contact.contact_meta_type.name+ " IM Contact", :title=>"Remove"
     %br.clear
-  %div{:style => "float:right;"}
-    -if contact.type =="Phone"
-      = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
-    -elsif contact.type=="Website"
-      %a{:href => "http://#{contact.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+  %div{:style => "float:right;text-align:right;font-size:14px;"}
+    %span{:style => "font-weight:bold;"}
+      -if contact.type =="Phone"
         = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
-    -elsif contact.type == "Email"
-      %a{:href => "mailto:#{contact.value}", :class => "alt_link"}
-        = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
+      -elsif contact.type=="Website"
+        %a{:href => "http://#{contact.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+          = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
+      -elsif contact.type == "Email"
+        %a{:href => "mailto:#{contact.value}", :class => "alt_link"}
+          = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
+
     %br
-    -#- if (contact.read_attribute("type") == "Phone")
-      = contact.preferrence_day_times 
     = contact.remarks
