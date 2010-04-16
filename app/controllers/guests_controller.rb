@@ -4,7 +4,7 @@ class GuestsController < ApplicationController
   #  layout "portal", :except => :show
   #  layout "portal_login"
   include SimpleCaptcha::ControllerHelpers
-  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password,:update]
+  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password,:update, :contact]
   before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password,:update]
 
   def guest_authentication
@@ -120,9 +120,9 @@ class GuestsController < ApplicationController
       @password = false
       #update person info
       if @guest.update_attributes(params[:guest])
-        @successful_message = "Details Were Save"
+        @successful_message = "Details Saved"
       else
-        @error_message = "Can Not Update"
+        @error_message = "Error"
       end
     end
 
@@ -212,7 +212,12 @@ class GuestsController < ApplicationController
   end
 
   def show
-    @guest = Guest.find(session[:guest])
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def contact
     respond_to do |format|
       format.html
     end
@@ -247,16 +252,13 @@ class GuestsController < ApplicationController
     end
     
   end
+
   private
   def choose_layout
-
-    if @current_action=="show"
-
+    if (@current_action == "show" || @current_action == "contact")
       return "portal_login"
     else
       return "portal"
     end
-
-
   end
 end

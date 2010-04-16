@@ -1,5 +1,5 @@
 .div#show_person_profile
-  -form_for @guest,:html=>{:class=>"ajax_form",:submit_button_id=> "profile_submit"} do |g|
+  -form_for @current_guest,:html=>{:class=>"ajax_form",:submit_button_id=> "profile_submit"} do |g|
     .form_line
       .field_45
         = g.text_field :first_name,:class=>"field compulsory_field",:title=>"First Name"

@@ -1,17 +1,17 @@
 .div#show_person_info
   #name
-    = @guest.try(:first_name)
+    = @current_guest.try(:first_name)
     %br
-    = @guest.try(:family_name)
+    = @current_guest.try(:family_name)
   %label Email:
   .value
-    = @guest.try(:email)
+    = @current_guest.try(:email)
   %label Contact number:
   .value
-    = @guest.try(:phone_num)
+    = @current_guest.try(:phone_num)
   %label Registered since:
   .value
-    = @guest.try(:created_at).day.to_s + "-" +@guest.try(:created_at).month.to_s + "-" + @guest.try(:created_at).year.to_s
+    = @current_guest.try(:created_at).day.to_s + "-" +@current_guest.try(:created_at).month.to_s + "-" + @current_guest.try(:created_at).year.to_s
 
 
 
