@@ -1,6 +1,7 @@
 .div#show_person_info
   #name
     = @guest.try(:first_name)
+    %br
     = @guest.try(:family_name)
   %label Email:
   .value
