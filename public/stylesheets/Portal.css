@@ -402,6 +402,7 @@ a.alt_option{
   font-weight: bold;
   color: #005492;
   margin-bottom: 10px;
+  line-height: 20px;
 }
 
 #login_body #person_info #show_person_info .value {
@@ -438,6 +439,7 @@ a.alt_option{
   display: block;
   padding-left: 0px;
   font-weight: normal;
+  line-height: 20px;
 }
 #person_profile {
   -moz-border-radius: 15px 15px 15px 15px;
