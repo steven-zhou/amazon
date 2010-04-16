@@ -217,7 +217,7 @@ $(function() {
   $('.try_again').live('click', function(){
     $("#create_guest input[type='text']").val('').blur();
     $("#fail_message_container").css('display', 'none');
-    $(".feedback_area").hide();
+    $("#feedback_area").hide();
     $('#regenerate_captcha').click();
   });
 });
