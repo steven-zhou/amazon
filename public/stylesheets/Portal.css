@@ -465,6 +465,7 @@ a.alt_option{
   -webkit-border-top-right-radius:10px;
   border-radius: 10px 10px 0px 0px;
   -moz-box-shadow:0 2px 0 #fff;
+  -webkit-box-shadow:0 2px 0 #fff;
   background-color: white;
   background-position:center center;
   float:left;
@@ -479,6 +480,7 @@ a.alt_option{
   -webkit-border-top-right-radius:10px;
   border-radius: 10px 10px 0px 0px;
   -moz-box-shadow:0 2px 0 #ccc;
+  -webkit-box-shadow:0 2px 0 #ccc;
   background-color: white;
   background-position:center center;
   float:left;

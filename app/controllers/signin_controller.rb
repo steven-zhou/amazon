@@ -35,7 +35,7 @@ class SigninController < ApplicationController
           session[:user] = login_account.id
           session[:last_event] = Time.now()
           login_account.update_password = false
-          create_temp_list
+          create_temp_list unless login_account.all_group_person_lists.blank? #if the usre's group do not have list access you can just live in dashbaorad , you can not go to the core
           login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
           #login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
           login_account.online_status = true
