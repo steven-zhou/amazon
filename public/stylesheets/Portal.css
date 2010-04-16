@@ -35,15 +35,14 @@ body {
 
 
 h1 {
-  color:#005592;
+  color:#153f73;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 28px;
+  font-size: 20px;
   font-style: normal;
   font-weight: bold;
   text-transform: normal;
   line-height: 1em;
-  padding-bottom: 0px;
-  margin-bottom: 5px;
+  padding: 6px;
 }
 
 #go_back_link {
@@ -61,6 +60,9 @@ h1 {
   text-decoration: underline;
 }
 
+#feedback_area {
+  display:none;
+}
 
 #signin_container{
 
@@ -104,10 +106,6 @@ h1 {
 }
 #signin_container #signin_form form a img {
   vertical-align: bottom;
-}
-input[type="submit"] {
-  float: right;
-
 }
 
 #register_form{
@@ -162,9 +160,10 @@ input[type="submit"] {
 }
 
 input[type=submit] {
+  float:right;
   background-color: #E3E1E2;
   -moz-border-radius: 10px;
-  padding:9% 18%;
+  padding:6px 12px;
   opacity:0.6; /*Firefox*/
 }
 
@@ -419,15 +418,16 @@ a.alt_option{
   min-height: 30px;
   padding-bottom: 5px;
   width: 100%;
-  margin-left:20px;
-  margin-top:20px;
+  margin-left:28px;
+  margin-top:29px;
 }
 
 
 #show_person_profile{
+  float: left;
   margin-top:29px;
   margin-left:28px;
-
+  width: 100%;
 }
 
 #login_body #person_info label {
@@ -449,11 +449,23 @@ a.alt_option{
 
 #login_body .tab_menu_item {
   -moz-border-radius: 10px 10px 0px 0px;
+  -moz-box-shadow:0 2px 0 #fff;
   background-color: white;
   background-position:center center;
   float:left;
-  margin: 17px 0 0 21px;
   padding: 2px;
+  opacity:0.6;
+  margin: 7px 0 0 5px;
+}
+
+#login_body .tab_menu_item.active{
+  -moz-border-radius: 10px 10px 0px 0px;
+  -moz-box-shadow:0 2px 0 #ccc;
+  background-color: white;
+  background-position:center center;
+  float:left;
+  padding: 2px;
+  opacity:1;
 }
 
 #successful_password_message_container{
@@ -483,8 +495,8 @@ a.alt_option{
 
 #login_fail_message_container{
   background-color:#E68282;
-  width: auto;
-  padding: 6%;
+  width:90%;
+  padding: 19px;
   margin-right: auto;
   margin-bottom: 11px;
   margin-left: auto;
