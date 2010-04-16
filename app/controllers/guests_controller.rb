@@ -18,6 +18,10 @@ class GuestsController < ApplicationController
 
   def index
 
+    if params[:error_message]
+      @error_message = params[:error_message]
+    end
+
   end
 
   #--comment when you click the register button for guest register process
@@ -136,11 +140,18 @@ class GuestsController < ApplicationController
       @guest = Guest.authenticate(params[:user_name],params[:password])
       session[:guest] = @guest.id
       redirect_to :action => 'show'
+      
     rescue
-      flash[:warning] = flash_message(:type => "login_error")
-      puts "there is a error"
-      redirect_to :action => 'index'
+
+#      flash[:warning] = flash_message(:type => "login_error")
+      @error_message = "Username Or Password Is Not Correct. "
+
+      redirect_to :action => 'index', :error_message => @error_message
     end
+
+
+
+
   end
 
   def captcha
