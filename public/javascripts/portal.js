@@ -227,19 +227,23 @@ $(function() {
 $(function(){
 
   $("#change_password").live('click',function(){
+    $(this).hide();
+    $("#feedback_area").attr("id","feedback_area_backup");
+    $("#feedback_area_backup").hide();
+    $('#profile_submit').hide();
+    $('#successful_message_container').hide();
+    $('#fail_message_container').hide();
+    $('#person_change_password').show();
 
-
-   $('#profile_submit').hide();
-   $('#successful_message_container').hide();
-   $('#fail_message_container').hide();
-   $('#person_change_password').show();
-
-      $(".compulsory_field").keyup();
+    $(".compulsory_field").keyup();
 
   });
 
   $('#cancel_change_password').live("click",function(){
+    $("#change_password").show();
 
+    $("#feedback_area_backup").attr("id","feedback_area");
+    
     $('#profile_submit').show();
     $('#person_change_password').hide();
   });
