@@ -2,8 +2,8 @@ class GuestsController < ApplicationController
 
   layout :choose_layout
   include SimpleCaptcha::ControllerHelpers
-  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password,:update, :contact]
-  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password]
+  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password,:update, :contact,:signout]
+  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password,:signout]
 
   def guest_authentication
     unless session[:guest]
@@ -15,11 +15,9 @@ class GuestsController < ApplicationController
   end
 
   def index
-
     if params[:error_message]
       @error_message = params[:error_message]
     end
-
   end
 
   #--comment when you click the register button for guest register process
@@ -230,6 +228,13 @@ class GuestsController < ApplicationController
       format.js
     end
     
+  end
+
+
+  def signout
+ puts "**************"
+    session[:guest] = nil
+    redirect_to :action=>"index"
   end
 
   private
