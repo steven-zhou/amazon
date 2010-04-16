@@ -1,11 +1,9 @@
 class GuestsController < ApplicationController
 
   layout :choose_layout
-  #  layout "portal", :except => :show
-  #  layout "portal_login"
   include SimpleCaptcha::ControllerHelpers
   before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password,:update, :contact]
-  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password,:update]
+  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password]
 
   def guest_authentication
     unless session[:guest]
@@ -72,8 +70,7 @@ class GuestsController < ApplicationController
 
 
   def update
-
-    @guest = Guest.find(params[:id])
+    @guest = @current_guest
     #---comment--Check that the old password was correct
    
 
@@ -111,11 +108,7 @@ class GuestsController < ApplicationController
         else
           @password_error_message = "Password Is Not Saved"
         end
-      end
-
-
-
-     
+      end     
     else
       @password = false
       #update person info
@@ -124,9 +117,7 @@ class GuestsController < ApplicationController
       else
         @error_message = "Error"
       end
-    end
-
-    
+    end    
     respond_to do |format|
       format.js
     end
@@ -135,23 +126,14 @@ class GuestsController < ApplicationController
 
 
   def login
-
     begin
       @guest = Guest.authenticate(params[:user_name],params[:password])
       session[:guest] = @guest.id
-      redirect_to :action => 'show'
-      
+      redirect_to :action => 'show'      
     rescue
-
-#      flash[:warning] = flash_message(:type => "login_error")
       @error_message = "Username Or Password Is Not Correct. "
-
       redirect_to :action => 'index', :error_message => @error_message
     end
-
-
-
-
   end
 
   def captcha
@@ -161,7 +143,6 @@ class GuestsController < ApplicationController
   end
 
   def reset
-
     respond_to do |format|
       format.html
     end
@@ -212,12 +193,14 @@ class GuestsController < ApplicationController
   end
 
   def show
+    @guest = @current_guest
     respond_to do |format|
       format.html
     end
   end
 
   def contact
+    @guest = @current_guest
     respond_to do |format|
       format.html
     end
@@ -231,9 +214,7 @@ class GuestsController < ApplicationController
   end
 
   def retrieve_password
-
     @guest = Guest.find_by_email(params[:email]) rescue @guest = nil
-
     if !simple_captcha_valid? or @guest.nil?
       @error_messsage =  "Please check if your details are correct. <a class='alt_option try_again' style='margin:0;'>Try again</a>"
     else
@@ -242,11 +223,9 @@ class GuestsController < ApplicationController
       if @guest.save
         email = EmailDispatcher.create_send_guest_forgot_password(@guest)
         EmailDispatcher.deliver(email)
-
         @successful_messsage = "Details were sent. Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href='/guests/index'>Close</a>"
       end
-    end
-    
+    end    
     respond_to do |format|
       format.js
     end
