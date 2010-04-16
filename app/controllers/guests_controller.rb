@@ -232,7 +232,7 @@ class GuestsController < ApplicationController
 
 
   def signout
- puts "**************"
+
     session[:guest] = nil
     redirect_to :action=>"index"
   end
