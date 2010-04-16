@@ -1,20 +1,20 @@
 .div#show_person_profile
   -form_for @guest,:html=>{:class=>"ajax_form",:submit_button_id=> "profile_submit"} do |g|
     .form_line
-      .field_40
+      .field_45
         = g.text_field :first_name,:class=>"field compulsory_field",:title=>"First Name"
-      .field_40
+      .field_45
         = g.text_field :family_name,:class=>"field compulsory_field",:title=>"Last Name"
     .form_line
-      .field_40
+      .field_50
         = g.text_field :email,:value=>@guest.try(:email),:class=>"field compulsory_field",:title=>"Email"
       .field_40
         = g.text_field :phone_num,:class=>"field compulsory_field",:title=>"Phone Num"
     .form_line
       .field_60
         = link_to_function "change password" ,:class=>"alt_option",:style=>"float:left",:id=>"change_password"
-      .field_20{:style=>"width:21%"}
-        =submit_tag 'Submit',:id=>"profile_submit",:style=>"float:right;padding:2% 4%;"
+      .field_35
+        =submit_tag 'Submit',:id=>"profile_submit",:style=>"float:right;margin-right:28px;"
     .form_line#feedback_area
-      .div{:id=>"successful_message_container",:class=>"register_feedback",:style=>"display:none;margin-right:125px;padding:2%;"}
-      .div{:id=>"fail_message_container",:class=>"register_feedback",:style=>"display:none;"}
+      .div{:id=>"successful_message_container",:class=>"register_feedback",:style=>"display:none;margin:0 51px 0 0;padding:2%;"}
+      .div{:id=>"fail_message_container",:class=>"register_feedback",:style=>"display:none;margin:0 51px 0 0;padding:2%;"}
