@@ -41,5 +41,8 @@
         padding-top: 3px;
 	height: 1.25em;	/* must specify height for consistent vertical alignment */
 	vertical-align: middle;
+
+        -webkit-baseline-vertical-align: middle;
+
         font-size: 15px;
 }
