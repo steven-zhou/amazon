@@ -57,7 +57,7 @@ $(function() {
   $("#register_guest_account").click(function(){
     $("#login_fail_message_container").hide();
     $("#captcha").addClass("compulsory_field");
-    $("#signin_form").slideUp("slow");
+    $("#signin_form").fadeOut(1);
     $("#register_container").fadeIn();
     return false;
   });
