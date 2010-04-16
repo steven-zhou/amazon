@@ -24,6 +24,8 @@
           <div class="register_feedback" id="login_fail_message_container" ><%=@error_message%></div>
         </div>
       <%end%>
+
+      <br style="clear:both;"/>
       <% end -%>
 
     </div>
@@ -66,9 +68,9 @@
           <div id="sub_width" style="width: 102%;">
             <div id="register_submit" style="width:60%;float:right;">
 
-              <input id="register_button" type="submit" value="Register" disabled="true" style="padding:8px;width:40%;float:right;margin-bottom:15px;"/>
+              <input id="register_button" class="submit_hide_cancel" type="submit" value="Register" disabled="true" style="padding:8px;width:40%;float:right;margin-bottom:15px;"/>
 
-              <a href="/guests/" id="cancel" class="alt_option register_cancel" style="padding-top: 5px;width:20%;float:left;">cancel</a>
+              <a href="/guests/" id="cancel" class="alt_option cancel_disappear register_cancel" style="padding-top: 5px;width:20%;">cancel</a>
             </div>
 
           </div>

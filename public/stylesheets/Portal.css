@@ -52,9 +52,9 @@ h1 {
 }
 
 #go_back_link a{
-  color:  #ABC6CF;
+  color:  #c5d6e0;
   font-family: Arial,Helvetica,sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   display:block;
   padding: 9px 0px;
   text-decoration: underline;
@@ -466,6 +466,7 @@ a.alt_option{
   -webkit-border-top-right-radius:10px;
   border-radius: 10px 10px 0px 0px;
   -moz-box-shadow:0 2px 0 #fff;
+  -webkit-box-shadow:0 2px 0 #fff;
   background-color: white;
   background-position:center center;
   float:left;
@@ -480,6 +481,7 @@ a.alt_option{
   -webkit-border-top-right-radius:10px;
   border-radius: 10px 10px 0px 0px;
   -moz-box-shadow:0 2px 0 #ccc;
+  -webkit-box-shadow:0 2px 0 #ccc;
   background-color: white;
   background-position:center center;
   float:left;

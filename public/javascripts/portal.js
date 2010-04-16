@@ -57,7 +57,7 @@ $(function() {
   $("#register_guest_account").click(function(){
     $("#login_fail_message_container").hide();
     $("#captcha").addClass("compulsory_field");
-    $("#signin_form").fadeOut();
+    $("#signin_form").slideUp("slow");
     $("#register_container").fadeIn();
     return false;
   });
@@ -245,4 +245,16 @@ $(function(){
     $('#profile_submit').show();
     $('#person_change_password').hide();
   });
+});
+
+
+$(function(){
+  $(".submit_hide_cancel").live('click', function(){
+    $(".cancel_disappear").hide();
+
+
+
+
+  })
+
 });
