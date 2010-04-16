@@ -483,8 +483,8 @@ a.alt_option{
 
 #login_fail_message_container{
   background-color:#E68282;
-  width: auto;
-  padding: 6%;
+  width:90%;
+  padding: 19px;
   margin-right: auto;
   margin-bottom: 11px;
   margin-left: auto;
