@@ -56,6 +56,7 @@ $(function() {
 
 $(function() {
   $("#register_guest_account").click(function(){
+    $("#login_fail_message_container").hide();
     $("#captcha").addClass("compulsory_field");
     $("#signin_form").fadeOut();
     $("#register_container").fadeIn();
@@ -216,7 +217,8 @@ $(function() {
 $(function() {
   $('.try_again').live('click', function(){
     $("#create_guest input[type='text']").val('').blur();
-
+    $("#fail_message_container").css('display', 'none');
+    $("#feedback_area").hide();
     $('#regenerate_captcha').click();
   });
 });
@@ -237,6 +239,7 @@ $(function(){
   });
 
   $('#cancel_change_password').live("click",function(){
+
     $('#profile_submit').show();
     $('#person_change_password').hide();
   });
