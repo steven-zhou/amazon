@@ -356,7 +356,8 @@ a.alt_option{
 
 #login_body #signin_logo {
   -moz-border-radius: 0px 0px 15px 15px;
-  -webkit-border-radius:0px 0px 15px 15px;
+  -webkit-border-bottom-right-radius:15px;
+  -webkit-border-bottom-left-radius:15px;
   border-radius: 0px 0px 15px 15px;
   background-color: white;
   background-image:url(/images/systemlogo.png);
