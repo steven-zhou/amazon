@@ -620,6 +620,10 @@ label {
   padding-left: 3px;
 }
 
+input[type=checkbox] {
+  width:auto !important;
+}
+
 #app #main #content .full_container .form_line label {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
@@ -2542,15 +2546,15 @@ div#permission_form .options{
 }
 
 .birthdatepick {
-  width:70% !important;
+  width:75% !important;
 }
 
 .startdatepick {
-  width:70% !important;
+  width:75% !important;
 }
 
 .enddatepick {
-  width:70% !important;
+  width:75% !important;
 }
 
 .beforestartdatepick {
