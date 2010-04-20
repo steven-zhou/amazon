@@ -12,7 +12,9 @@ $('#edit_sorter_list').html('<%= escape_javascript(render(:partial => "queries/q
 $('#query_header_id').val('<%= escape_javascript("#{@query_header.id}") %>');
 $('#current_action_global').val('edit');
 <%- if @query_header.status == false  %>
+  $("#save_button").attr("disabled", "disabled");
   $("#run_button_edit").attr("disabled", "disabled");
 <%- else %>
+  $("#save_button").removeAttr("disabled");
   $("#run_button_edit").removeAttr("disabled");
 <%- end %>

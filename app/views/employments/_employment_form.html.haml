@@ -30,13 +30,13 @@
 
 .form_line
   .field_30
-    =employment.label :staff_reference, "<span class='asterisk'>*</span>Employer Reference NO."
+    =employment.label :staff_reference, "<span class='asterisk'>*</span>Employer Ref. NO."
     =employment.text_field :staff_reference,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:mandantory_field6=>@employment.new_record? ? "employment_workplace_id" : "employment_#{@employment.id}_workplace_id",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit",:mandantory_field7=>@employment.new_record? ? "employment_workplace_reference" : "employment_#{@employment.id}_workplace_reference",:mandantory_field8=>@employment.new_record? ? "employment_union_reference" : "employment_#{@employment.id}_union_reference"
   .field_30
-    =employment.label :workplace_reference, "<span class='asterisk'>*</span>Workplace Reference NO."
+    =employment.label :workplace_reference, "<span class='asterisk'>*</span>Workplace Ref. NO."
     =employment.text_field :workplace_reference,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:mandantory_field6=>@employment.new_record? ? "employment_workplace_id" : "employment_#{@employment.id}_workplace_id",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit",:mandantory_field7=>@employment.new_record? ? "employment_workplace_reference" : "employment_#{@employment.id}_workplace_reference",:mandantory_field8=>@employment.new_record? ? "employment_union_reference" : "employment_#{@employment.id}_union_reference"
   .field_33
-    =employment.label :union_reference, "<span class='asterisk'>*</span>Union Reference NO."
+    =employment.label :union_reference, "<span class='asterisk'>*</span>Union Ref. NO."
     =employment.text_field :union_reference,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:mandantory_field6=>@employment.new_record? ? "employment_workplace_id" : "employment_#{@employment.id}_workplace_id",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit",:mandantory_field7=>@employment.new_record? ? "employment_workplace_reference" : "employment_#{@employment.id}_workplace_reference",:mandantory_field8=>@employment.new_record? ? "employment_union_reference" : "employment_#{@employment.id}_union_reference"
 
 .form_line
@@ -192,7 +192,7 @@
           %span{:class=>"viewname", :id=>@employment.new_record? ? "suspender_container_0" : "suspender_container_#{@employment.id}"} &nbsp;
 
     .form_line
-      .field_25
+      .field_27
         =employment.label :suspension_reason, "Suspension Reason"
         =employment.text_field :suspension_reason, :disabled=>@employment.status == false
       .field_70
@@ -231,7 +231,7 @@
           %span{:class=>"viewname", :id=>@employment.new_record? ? "terminator_container_0" : "terminator_container_#{@employment.id}"} &nbsp;
 
     .form_line
-      .field_25
+      .field_27
         =employment.label :termination_reason, "Termination Reason"
         =employment.text_field :termination_reason, :disabled=>@employment.status == false
       .field_70

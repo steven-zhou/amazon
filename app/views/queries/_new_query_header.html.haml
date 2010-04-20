@@ -1,5 +1,5 @@
 .container{:style => "background-image:none;"}
-  -form_for @query_header,:url => query_header_path(@query_header), :html => {:class => 'ajax_form'} do |f|
+  -form_for @query_header,:url => query_header_path(@query_header), :html => {:class => 'ajax_form', :submit_button_id => "submit_button"} do |f|
     .form_line
       = f.label :name, "<span class='asterisk'>*</span>Name"
       = f.text_field :name, :value => "", :class=>"mandantory_field", :mandantory_field1=>"query_header_name",:submit_button_id=>"submit_button", :name => "query_header[name]"
