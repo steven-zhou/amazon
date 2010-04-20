@@ -2538,7 +2538,7 @@ div#permission_form .options{
 
 /*datepicker*/
 .datepick {
-  width:70% !important;
+  width:75% !important;
 }
 
 .birthdatepick {
@@ -2554,15 +2554,15 @@ div#permission_form .options{
 }
 
 .beforestartdatepick {
-  width:70% !important;
+  width:75% !important;
 }
 
 .role_startdatepick {
-  width:70% !important;
+  width:75% !important;
 }
 
 .role_enddatepick {
-  width:70% !important;
+  width:75% !important;
 }
 
 
