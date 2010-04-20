@@ -56,7 +56,7 @@
 .form_line
   .field_25
     = form.label :issue_date, 'Issue Date'
-    = form.text_field :issue_date, :class=>"datepick"
+    = form.text_field :issue_date, :class=>"datepick", :value => @masterdoc.issue_date.to_s
   .field_25
     = form.label :issue_organisation, 'Issue by Org'
     = form.text_field :issue_organisation
@@ -76,11 +76,11 @@
     -if @masterdoc.new_record?
       = form.collection_select(:issue_country_id, Country.all, :id, :short_name, {:include_blank => true,:selected=> ClientSetup.try(:first).try(:home_country_id)})
     -else
-      = form.collection_select(:issue_country_id, Country.all, :id, :short_name)
+      = form.collection_select(:issue_country_id, Country.all, :id, :short_name, {:include_blank => true,:selected=> ClientSetup.try(:first).try(:home_country_id)})
 .form_line
   .field_25
     = form.label :expiry_date, 'Expiry Date'
-    = form.text_field :expiry_date, :class=>"datepick"
+    = form.text_field :expiry_date, :class=>"datepick", :value => @masterdoc.expiry_date.to_s
   .field_25
     = form.label :action_taken, 'Action'
     = form.text_field :action_taken

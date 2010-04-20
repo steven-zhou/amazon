@@ -19,6 +19,6 @@
       = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get edit_address edit_option', :id => 'address_edit_button' , :address_id => address.id, :field => "address", :title=>"Edit"
       = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete delete_address',:id => 'address_delete_button', :address_id => address.id, :field => "address",:error_message_field => address.address_type.name + " Address", :title=>"Remove"
     %br.clear
-  %div{:style => "float:right;"}
+  %div{:style => "float:right;text-align:right;"}
     = format_address(address)
 
