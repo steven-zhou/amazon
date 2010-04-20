@@ -5,7 +5,7 @@
       %div
         .title
           %h2{:class=>("red" if person_keyword.keyword_type.to_be_removed == true)}= person_keyword.keyword_type.name unless (person_keyword.blank? || person_keyword.keyword_type.nil?)
-      %div{:style => "float:right;"}
+      %div{:style => "float:right;text-align:right;"}
         = format_keyword(person_keyword)
 -else
   .no_record

@@ -3703,39 +3703,6 @@ $(function(){
   });
 
 });
-/*Import Outport*/
-
-
-/* Message Template Grid*/
-//$(function(){
-//    $('table#show_message_templates_grid tbody tr').live('click',function(){
-//        if($('#message_template_mode').attr('mode')=="show"){
-//            $('table#show_message_templates_grid tbody tr.trSelected').removeClass('trSelected');
-//            $(this).addClass('trSelected');
-//        }else{
-//            $(this).removeClass('trSelected');
-//        }
-//    });
-//
-//    $('table#show_message_templates_grid tbody tr').live('dblclick',function(){
-//        if($('#message_template_mode').attr('mode')=="show"){
-//            $.ajax({
-//                type: 'GET',
-//                url: "/communication/edit_message_template/"+$(this).attr('id').substring(3),
-//                dataType: "script"
-//            });
-//        }
-//    });
-//
-//    $('table#show_message_templates_grid tbody tr').live('mouseover',function(){
-//        if($('#message_template_mode').attr('mode')=="show"){
-//            $(this).css('cursor',"pointer");
-//        }else{
-//            $(this).css('cursor',"");
-//        }
-//    });
-//});
-
 
 /*For mail variable use*/
 $(function(){
@@ -3770,55 +3737,6 @@ $(function(){
 
   });
 });
-
-//mail_merge_insert_name = function(this_form){
-//    var current_form = this_form.closest('form').attr('id');
-//    var table = $("#"+current_form).find(".select_table_word").val();
-//    var field = $("#"+current_form).find(".select_field_word").val();
-//    var data_type = $("#"+current_form).find(".data_type").val();
-//    if (table == "people"){
-//        if(data_type == "Integer FK"){
-//
-//            var value = "<%=@"+table+"."+field+".try(:name)"+"%>";
-//
-//
-//        }else{
-//
-//            var value = "<%=@"+table+"."+field+"%>";
-//
-//        }
-//
-//    }else{
-//
-//         if(data_type == "Integer FK"){
-//
-//          if(field == "country"){
-//
-//                var value = "<%=@people."+table+".first.try(:"+field+")"+".try(:short_name)"+"%>";
-//
-//
-//          }else{
-//
-//               var value = "<%=@people."+table+".first.try(:"+field+")"+".try(:name)"+"%>";
-//
-//          }
-//
-//
-//        }else{
-//
-//            var value = "<%=@people."+table+".first.try(:"+field+")"+"%>";
-//
-//        }
-//
-//    }
-//
-//
-//    //var value = $("#select_word").val();
-//
-//
-//    window.tinyMCE.execCommand('mceInsertContent', false, value);
-//};
-
 
 $(function() {
   $(".password").jpassword({
@@ -4071,3 +3989,31 @@ $(function(){
 });
 
 
+$(function(){
+  insertPO = function(trigger, target){
+    if($('option:selected', trigger).text()=="Postal"){
+      if(target.val().indexOf("PO BOX ")==-1){
+        target.val('PO BOX '+target.val());
+      }
+    }else{
+      if(target.val().indexOf("PO BOX ")!=-1){
+        target.val(target.val().replace("PO BOX ", ""));
+      }
+    }
+  };
+
+  $('#person_addresses_attributes_0_address_type_id').live('change', function(){
+    target = $('#person_addresses_attributes_0_street_name');
+    insertPO($(this), target);
+  });
+
+  $('#address_address_type_id').live('change', function(){
+    target = $('#address_street_name');
+    insertPO($(this), target);
+  });
+
+  $('#edit_address_type_id').live('change', function(){
+    target = $('#address_street_name_edit');
+    insertPO($(this), target);
+  });
+});

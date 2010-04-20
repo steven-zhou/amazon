@@ -196,17 +196,16 @@ $(function(){
 
   $(".compulsory_field").live('keyup', function(e){
     var current_form = $('#'+$(this).closest('form').attr('id'));
-
-    if ($.trim($(this).val())!="" && e.which !=13)
-    {
-      compulsory_check($(this));
+    if(e.which!=13){
+      if ($.trim($(this).val())!="")
+      {
+        compulsory_check($(this));
+      }
+      else
+      {
+        $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+      }
     }
-    else
-    {
-      $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
-    }
-
-
   });
 
   $(".compulsory_field").live('change', function(){

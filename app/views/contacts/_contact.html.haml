@@ -54,15 +54,15 @@
         -if contact.contactable_type == "Person"
           -if(contact.priority_number==1)
             -if(!contact.contactable.instant_messagings.second.nil?)
-              = link_to image_tag('down_arrow.png'),move_down_instant_messaging_priority_instant_messaging_path(contact), :class => 'get',:id => 'instant_messagings_down_button', :instant_messaging_id => contact.id, :title=>"Move Down"
+              = link_to image_tag('down_arrow.png'),move_down_instant_messaging_priority_instant_messaging_path(Contact.find(801)), :class => 'get',:id => 'instant_messagings_down_button', :instant_messaging_id => contact.id, :title=>"Move Down"
           - else
             = link_to image_tag('up_arrow.png'),move_up_instant_messaging_priority_instant_messaging_path(contact), :class => 'get',:id => 'instant_messaging_up_button', :instant_messaging_id => contact.id, :title=>"Move Up"
         -if contact.contactable_type == "Organisation"
           -if(contact.priority_number==1)
             -if(!contact.contactable.instant_messagings.second.nil?)
-              = link_to image_tag('down_arrow.png'),move_organisation_down_instant_messaging_priority_instant_messaging_path(contact), :class => 'get',:id => 'instant_messaging_down_button', :instant_messaging_id => contact.id, :title=>"Move Down"
+              = link_to image_tag('down_arrow.png'), move_organisation_down_instant_messaging_priority_instant_messaging_path(InstantMessaging.find(contact.id)), :class => 'get',:id => 'instant_messaging_down_button', :instant_messaging_id => contact.id, :title=>"Move Down"
           - else
-            = link_to image_tag('up_arrow.png'),move_organisation_up_instant_messaging_priority_instant_messaging_path(contact),:class => 'get',:id => 'instant_messaging_up_button', :instant_messaging_id => contact.id, :title=>"Move Up"
+            = link_to image_tag('up_arrow.png'), move_organisation_up_instant_messaging_priority_instant_messaging_path(contact),:class => 'get',:id => 'instant_messaging_up_button', :instant_messaging_id => contact.id, :title=>"Move Up"
 
         = link_to image_tag('edit_icon.png'), edit_instant_messaging_path(contact), :class => 'get edit_instant_messaging edit_option', :field => "contact", :id => 'instant_messaging_edit_button', :instant_messaging_id => contact.id, :title=>"Edit"
         = link_to image_tag('delete_icon.png'), instant_messaging_path(contact), :class => 'delete delete_instant_messaging delete_option', :field => "contact", :id => 'instant_messaging_delete_button', :instant_messaging_id => contact.id,:error_message_field => contact.contact_meta_type.name+ " IM Contact", :title=>"Remove"
@@ -77,6 +77,5 @@
       -elsif contact.type == "Email"
         %a{:href => "mailto:#{contact.value}", :class => "alt_link"}
           = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
-
-    %br
-    = contact.remarks
+      -elsif contact.type == "InstantMessaging"
+        = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip

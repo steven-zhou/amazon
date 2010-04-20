@@ -2065,16 +2065,16 @@ $(function(){
 
 $(function(){
   $(".mandantory_field").live('keyup',function(e){
-
-    if ($.trim($(this).val())!="" && e.which !=13)
-    {
-      mandantory_check($(this));
+    if(e.which != 13){
+      if ($.trim($(this).val())!="")
+      {
+        mandantory_check($(this));
+      }
+      else
+      {
+        $('#'+$(this).attr('submit_button_id')).attr('disabled', true);
+      }
     }
-    else
-    {
-      $('#'+$(this).attr('submit_button_id')).attr('disabled', true);
-    }
-      
   });
 });
 
@@ -2150,17 +2150,16 @@ $(function(){
 
   $(".compulsory_field").live('keyup', function(e){
     var current_form = $('#'+$(this).closest('form').attr('id'));
-
-    if ($.trim($(this).val())!="" && e.which!=13)
-    {
-      compulsory_check($(this));
+    if(e.which!=13){
+      if ($.trim($(this).val())!="")
+      {
+        compulsory_check($(this));
+      }
+      else
+      {
+        $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+      }
     }
-    else
-    {
-      $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
-    }
-
-
   });
 
   $(".compulsory_field").live('change', function(){
@@ -3784,7 +3783,7 @@ $(function(){
     $("#"+$(this).attr("field")).html("<div class='spinner'></div>");
     return false;
   });
-})
+});
 
 /*For Organisation relationship*/
 $(function(){
@@ -3811,23 +3810,42 @@ $(function(){
 });
 
 
-//$(function(){
-//
-//$('#register_guest_account').live('click',function(){
-//
-//  $.ajax({
-//    type: "GET",
-//    url: "/guests/register.js",
-//    dataType: "script"
-//  });
-//
-//
-//})
-//
-//});
-
 $(function(){
   $('.password').pstrength();
+});
 
+//type check for photo files uploading
+$(function(){
+  testFileType = function(fileName, fileTypes){
+    if(fileName){
+      dots = fileName.split('.');
+      fileType = '.'+dots[dots.length-1];
+      if(fileTypes.join('.').indexOf(fileType) == -1){
+        $('#error_message_text').html("Invalid File. Please Only Upload Files In Types: \n\n" + (fileTypes.join('.')));
+        $('#error_message_image').css("display","");
+        $('#error_message').dialog({
+          modal: true,
+          resizable: false,
+          draggable: true,
+          height: 'auto',
+          width: 'auto',
+          buttons: {
+            "OK": function(){
+              $(this).dialog('destroy');
+              return true;
+            }
+          }
+        });
+        $('#error_message').dialog('option', 'title', 'ERROR');
+        $('#error_message').parent().find("a").css("display","none");
+        $("#error_message").parent().css('background-color','#D1DDE6');
+        $("#error_message").css('background-color','#D1DDE6');
+        $('#error_message').dialog('open');
+      }
+    }
+  }
 
+  $('#image_image_file').live('change', function(){
+    testFileType($(this).val(), ['gif','jpg','png','jpeg']);
+  });
 });

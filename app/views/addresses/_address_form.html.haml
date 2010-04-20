@@ -38,7 +38,7 @@
     = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>@address.new_record? ? "address_town" : "address_#{@address.id}_town",:update_field2 =>@address.new_record? ? "address_state" : "address_#{@address.id}_state" ,:update_field3 => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code",:update_field4 => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id", :title=>"Postcode"
   .field_40
     = address.label :state, 'State/Province'
-    = address.text_field :state , :id => @address.new_record? ? "address_state" : "address_#{@address.id}_state",  :class => "state_value"
+    = address.text_field :state , :id => @address.new_record? ? "address_state" : "address_#{@address.id}_state",  :class => "state_value", :style=> "text-transform:uppercase;"
 .form_line
   .field_45
     = address.label :postal_code, 'Postal Code'
