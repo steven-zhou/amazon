@@ -965,7 +965,7 @@ div.container div.header_container .options, div.header_container .options {
 }
 
 div#show_lists div.title {
-  width: 85% !important;
+  width: 84% !important;
 }
 
 div#show_lists div.container {
@@ -985,7 +985,7 @@ div#show_lists div.container_inactive {
   background-image:url(/images/container_black_bg.png);
   float: left;
   -moz-border-radius: 10px;
-  min-height: 10px;
+  min-height: 50px;
   font-family:Arial, Helvetica, sans-serif;
 }
 

@@ -52,7 +52,7 @@
             = p.text_field :registered_number
         .form_line
           .field_34
-            = p.label :registered_date, 'registered_date'
+            = p.label :registered_date, 'Registered Date'
             = p.text_field :registered_date, :class=>"datepick", :style => "width:82% !important"
           .field_30
             = p.label :registered_country_id, 'Country of Incorporation'
@@ -89,10 +89,10 @@
             = p.text_field :industrial_code, :value=>@organisation.industrial_code
         .form_line
           .field_34
-            = p.label :number_of_full_time_employees,'Full Time Employees number'
+            = p.label :number_of_full_time_employees,'Full Time Employees'
             = p.text_field :number_of_full_time_employees, :value=>@organisation.number_of_full_time_employees
           .field_34
-            = p.label :number_of_part_time_employees, 'Part Time Employees number'
+            = p.label :number_of_part_time_employees, 'Part Time Employees'
             = p.text_field :number_of_part_time_employees, :value=>@organisation.number_of_part_time_employees
         .form_line
           .field_34
@@ -149,7 +149,7 @@
               = phone.label :value, "value"
               = phone.text_field :value
             .field_15
-              = phone.label :post_value, "Pos value"
+              = phone.label :post_value, "Pos Value"
               = phone.text_field :post_value
           %p.submit
             = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_phone"
