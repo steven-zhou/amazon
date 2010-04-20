@@ -2268,7 +2268,7 @@ $(function(){
     {
       display: 'First Name',
       name : 'field_1',
-      width : 180,
+      width : 100,
       sortable : true,
       align: 'left'
     },
@@ -2276,7 +2276,7 @@ $(function(){
     {
       display: 'Family Name',
       name : 'field_2',
-      width : 180,
+      width : 100,
       sortable : true,
       align: 'left'
     },
@@ -2334,7 +2334,6 @@ $(function(){
     sortname: "grid_object_id",
     sortorder: "asc",
     usepager: true,
-    title: 'People Search Result',
     useRp: true,
     rp: 20,
     showTableToggleBtn: false,
@@ -2903,7 +2902,7 @@ $(function(){
     {
       display: 'Phone',
       name : 'field_4',
-      width : 180,
+      width : 120,
       sortable : true,
       align: 'left'
     },
@@ -2945,7 +2944,6 @@ $(function(){
     sortname: "grid_object_id",
     sortorder: "asc",
     usepager: true,
-    title: 'Organisation Search Result',
     useRp: true,
     rp: 20,
     showTableToggleBtn: false,
@@ -3188,8 +3186,7 @@ $(function(){
 $(function(){
   $("#save_button").live('click', function(){
     if($(this).attr("action")=="new"){
-      $('#save_form').toggle('blind');
-      $('#save_form').dialog( {
+      $('#save_form').show().dialog( {
         modal: true,
         resizable: true,
         draggable: true
@@ -3200,6 +3197,8 @@ $(function(){
       $("#save_form").css('background-color','#D1DDE6');
     }
     else{
+      $('#run_button_edit').attr('disabled',true);
+      $(this).attr('disabled',true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
       $('#edit_query_header').doAjaxSubmit();
     }
   });
@@ -3208,6 +3207,8 @@ $(function(){
 
 $(function(){
   $("#run_button").live('click', function(){
+    $('#save_button').attr('disabled',true);
+    $(this).attr('disabled',true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     var temp = "";
     temp += 'id=' + $("#query_header_id").val();
     if($("#query_top_number").attr("checked")==true){
@@ -3227,6 +3228,8 @@ $(function(){
 
 $(function(){
   $("#run_button_edit").live('click', function(){
+    $('#save_button').attr('disabled',true);
+    $(this).attr('disabled',true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     var temp = "";
     temp += 'id=' + $("#query_header_id").val();
     if($("#query_top_number").attr("checked")==true){
@@ -3604,7 +3607,6 @@ $(function(){
   $("#compile_button").live('click', function(){
     $(this).attr("disabled", true);
     $(this).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
-
     var temp = "";
     temp += "login_account_id=" + $("#login_account_id").val();
     temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
@@ -3662,7 +3664,6 @@ $(function(){
 /* Import and Export */
 $(function(){
   $('.export_button').live('click',function(){
-
     var source_id = ""
     var file_name = ""
     var source = $(this).attr("source");
