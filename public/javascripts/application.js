@@ -1325,7 +1325,7 @@ $(function(){
 
   });
 
-    $("#content input[type='text']").live('keydown', function(){
+  $("#content input[type='text']").live('keydown', function(){
     $(this).attr("spellcheck",true);
     left_content = $("#content").find("#left_content");
     right_content = $("#content").find("#right_content");
@@ -1356,7 +1356,7 @@ $(function(){
     }
   });
 
-    $("#content").find('textarea').live('keydown', function(){
+  $("#content").find('textarea').live('keydown', function(){
 
     left_content = $("#content").find("#left_content");
     right_content = $("#content").find("#right_content");
@@ -1383,7 +1383,7 @@ $(function(){
   });
 
 
-   $("#content #left_content").find("input[type='text']").live('keydown', function(){
+  $("#content #left_content").find("input[type='text']").live('keydown', function(){
     $('#check_left_input_change').val("true");
   });
 
@@ -1399,7 +1399,7 @@ $(function(){
 
   });
 
-    $("#content #right_content").find("input[type='text']").live('keydown', function(){
+  $("#content #right_content").find("input[type='text']").live('keydown', function(){
 
 
     right_tab = $("#right_content").find("#tabs");
@@ -3573,27 +3573,27 @@ $(".select_ban_submit").live('keyup', function(){
 
 
 
-post_code_auto = function(link){
-  // link = this---this input field
-
-  var current_form = $('#'+ link.closest('form').attr('id'));
-  var suburb = current_form.find('.suburb_value').val();
-  var state = current_form.find('.state_value').val();
-  var postcode =current_form.find('.postcode_auto').val();
-  if (suburb != ""&& state != ""){
-
-    $.ajax({
-      type: "GET",
-      url: "/postcodes/lookup_postcode.js",
-      data: 'state='+state+'&suburb='+suburb,
-      dataType: "script"
-    });
-
-  }else{
-
-}
-
-};
+//post_code_auto = function(link){
+//  // link = this---this input field
+//
+//  var current_form = $('#'+ link.closest('form').attr('id'));
+//  var suburb = current_form.find('.suburb_value').val();
+//  var state = current_form.find('.state_value').val();
+//  var postcode =current_form.find('.postcode_auto').val();
+//  if (suburb != ""&& state != ""){
+//
+//    $.ajax({
+//      type: "GET",
+//      url: "/postcodes/lookup_postcode.js",
+//      data: 'state='+state+'&suburb='+suburb,
+//      dataType: "script"
+//    });
+//
+//  }else{
+//
+//}
+//
+//};
 
 
 
@@ -3852,6 +3852,15 @@ address_helper_zipcode = function(){
 
 };
 
+$(function(){
+  $(".state_value").typeWatch( {
+    callback: address_helper_zipcode
+  } );
+  $(".suburb_value").typeWatch( {
+    callback: address_helper_zipcode
+  } );
+});
+
 
 //type check for photo files uploading
 $(function(){
@@ -3889,3 +3898,24 @@ $(function(){
   });
 });
 
+//post_code_auto = function(link){
+//  // link = this---this input field
+//
+//  var current_form = $('#'+ link.closest('form').attr('id'));
+//  var suburb = current_form.find('.suburb_value').val();
+//  var state = current_form.find('.state_value').val();
+//  var postcode =current_form.find('.postcode_auto').val();
+//  if (suburb != ""&& state != ""){
+//
+//    $.ajax({
+//      type: "GET",
+//      url: "/postcodes/lookup_postcode.js",
+//      data: 'state='+state+'&suburb='+suburb,
+//      dataType: "script"
+//    });
+//
+//  }else{
+//
+//}
+//
+//};

@@ -6,18 +6,18 @@
   url: '/grids/show_organisation_list_grid',
   dataType: 'json',
   colModel : [
-  {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-  {display: 'Full Name', name : 'field_1', width : 140, sortable : true, align: 'left'},
-  {display: 'Short Name', name : 'field_2', width : 80, sortable : true, align: 'left'},
-  {display: 'Phone', name : 'field_4', width : 100, sortable : true, align: 'left'},
-  {display: 'Email', name : 'field_5', width : 140, sortable : true, align: 'left'}
+  {display: 'ID', name : 'id', width : 40, sortable : true, align: 'left'},
+  {display: 'Full Name', name : 'full_name', width : 140, sortable : true, align: 'left'},
+  {display: 'Short Name', name : 'short_name', width : 80, sortable : true, align: 'left'},
+  {display: 'Phone', name : 'primary_phone_num', width : 100, sortable : true, align: 'left'},
+  {display: 'Email', name : 'primary_email_address', width : 140, sortable : true, align: 'left'}
 
   ],
   searchitems : [
-  {display: 'Full Name', name : 'field_1'},
-  {display: 'Short Name', name : 'field_2'},
-  {display: 'Phone', name : 'field_4'},
-  {display: 'Email', name : 'field_5'}
+  {display: 'Full Name', name : 'full_name'},
+  {display: 'Short Name', name : 'short_name'},
+  {display: 'Phone', name : 'primary_phone_num'},
+  {display: 'Email', name : 'primary_email_address'}
 
   ],
   sortname: "id",

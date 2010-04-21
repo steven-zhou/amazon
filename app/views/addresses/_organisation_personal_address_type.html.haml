@@ -1,9 +1,10 @@
--form_for([@organisation,address], :url => "/organisations/#{@organisation.id}/addresses", :html => {:style => "display:none", :class => 'ajax_form'}) do |a|
+-form_for([@organisation,address], :url => "/organisations/#{@organisation.id}/addresses", :html => {:style => "display:none", :class => 'ajax_form', :submit_button_id => 'address_submit_button'}) do |a|
   -# The options to edit or add an address
+  -default_address_type = @current_user.default_value.try(:default_address_type_id)
   .form_line{:style => "float:none;"}
     .field_25
       = a.label :address_type_id, "<span class='asterisk'>*</span>Type"
-      = a.collection_select :address_type_id, AddressType.active_address_type - @organisation.personal_address_types, :id, :name
+      = a.collection_select :address_type_id, AddressType.active_address_type - @organisation.personal_address_types, :id, :name, {:include_blank => true, :selected => default_address_type}, {:class => "compulsory_field"}
     .field_40
       = a.label :building_name, 'Building Name'
       = a.text_field :building_name
@@ -16,18 +17,20 @@
       = a.text_field :street_number
     .field_45
       = a.label :street_name, "<span class='asterisk'>*</span>Street Name"
-      = a.text_field :street_name,:class=>"mandantory_field",:mandantory_field1=>"address_street_name",:submit_button_id=>"address_submit_button"
+      = a.text_field :street_name,:class=>"compulsory_field"
   .form_line
     .field_40{:style => "margin-right: 5px;"}
       = a.label :town, 'Suburb'
-      = a.text_field :town ,:id => "address_town" ,:style => "width:99%;", :class => "suburb_value"
+      = a.text_field :town ,:id => "address_town" ,:style => "width:99%;", :class => "suburb_value", :field=>"suburb"
+    .post_spinner{:field=>"suburb",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
 
     .field_5
       = a.label :postal_code, '&nbsp'
       = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 => "address_town",:update_field2 => "address_state",:update_field3 => "address_postal_code",:update_field4 => "address_country_id", :title=>"Postcode"
     .field_40
       = a.label :state, 'State/Province'
-      = a.text_field :state , :id => "address_state", :class => "state_value"
+      = a.text_field :state , :id => "address_state", :class => "state_value", :field=>"state"
+    .post_spinner{:field=>"state",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
   .form_line
     .field_45
       = a.label :postal_code, 'Postal Code'

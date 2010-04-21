@@ -22,11 +22,11 @@ class EmailsController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Email with ID #{@email.id}.")
     if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@email.contactable_id)
-      @person.primary_email_address = @person.emails.find_by_priority_number(1).value
+      @person.primary_email_address = @person.emails.find_by_priority_number(1).try(:value)
       @person.save
     else
       @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
-      @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).value
+      @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).try(:value)
       @organisation.save
     end
     @email_new = Email.new

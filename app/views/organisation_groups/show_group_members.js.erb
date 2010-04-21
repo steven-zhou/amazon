@@ -16,7 +16,6 @@ $('#show_other_group_organisations_grid').flexigrid({
         sortname: "grid_object_id",
         sortorder: "asc",
         usepager: true,
-        title: 'Show other group members',
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,
@@ -29,8 +28,10 @@ $('#show_group_members').dialog({
   modal: true,
   resizable: true,
   draggable: true,
-  height: 600,
-  width: 800
+  height: 'auto',
+  width: 600
 });
-
+$('#show_group_members').dialog('option','title','Other Group Members');
+$('#show_group_members').parent().css('background-color','#D1DDE6');
+$('#show_group_members').css('background-color','#D1DDE6');
 $('#show_group_members').dialog('open');

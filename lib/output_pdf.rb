@@ -805,8 +805,8 @@ module OutputPdf
               when "email" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
               when "website" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
               when "id" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
-              when "full_name " then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
-              when "trading_as" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
+              when "full_name" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 80
+              when "trading_as" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 70
               end
 
 

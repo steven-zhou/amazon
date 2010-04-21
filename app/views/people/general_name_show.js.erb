@@ -4,6 +4,7 @@
   $("#<%=escape_javascript("#{@update_field}")%>").html("Invalid ID").fadeOut(3000);
 
   $("#<%=escape_javascript("#{@input_field}")%>").val("");
+  $('#new_extension_submit_button').attr('disabled', 'true');
 
 <% else %>
 

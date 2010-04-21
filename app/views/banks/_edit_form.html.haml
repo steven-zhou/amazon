@@ -62,7 +62,7 @@
           = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_update_address_line_3", :update_field2 =>"bank_update_state", :update_field3 => "bank_update_postcode", :update_field4 => "bank_update_country_id", :title=>"Postcode" if @bank_to_update.status == true
         .field_17
           = f.label :state, 'State'
-          = f.text_field :state, :disabled => @bank_to_update.status == false,:id => "bank_update_state",  :class => "state_value", :field=>"state"
+          = f.text_field :state, :disabled => @bank_to_update.status == false,:id => "bank_update_state",  :class => "state_value uppercase", :field=>"state"
         .post_spinner{:field=>"state",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
       .form_line
         .field_36
@@ -74,7 +74,7 @@
         .post_spinner{:field=>"postcode",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
         .field_17
           = f.label :country, 'Country'
-          = f.collection_select :country_id, Country.all, :id, :short_name,  {:include_blank => true}, {:disabled => @bank_to_update.status == false, :id => "bank_update_country_id",:class => "country_value"}
+          = f.collection_select :country_id, Country.all, :id, :short_name,  {:include_blank => true}, {:disabled => @bank_to_update.status == false, :id => "bank_update_country_id",:class => "country_value uppercase"}
     .full_container
       %h2 Contact Person
       .form_line

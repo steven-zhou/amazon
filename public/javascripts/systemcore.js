@@ -130,14 +130,14 @@ $(function(){
 /* MasterDoc */
 $(function(){
   $(".find_master_doc_meta_type_field").live('change', function(){
-    $.ajax({
-      type: "GET",
-      url:
-      "/people/master_doc_meta_type_finder.js",
-      data:
-      'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
-      dataType: "script"
-    });
+      $.ajax({
+        type: "GET",
+        url:
+        "/people/master_doc_meta_type_finder.js",
+        data:
+        'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+        dataType: "script"
+      });
   });
 });
 
@@ -379,75 +379,21 @@ $(function(){
 /*Contact form add button form to default phone form*/
 $(function(){
   $(".clear_form_to_phone").live("click", function(){
-    $("#select_contact_type").val("Phone").change();
-
-    if($("#phone_contact_meta_type_id").val() == null)
-    {
-      $("#phone_pre_value").attr('readonly','readonly');
-      $("#phone_value").attr('readonly','readonly');
-      $("#phone_post_value").attr('readonly','readonly');
-      $("#phone_remarks").attr('readonly','readonly');
-      $("#contact_phone_submit").attr('disabled','disabled');
-
-    }
-
-    if($("#email_contact_meta_type_id").val() == null)
-    {
-      $("#email_remarks").attr('readonly','readonly');
-      $("#email_value").attr('readonly','readonly');
-      $("#submit_email_field").attr('readonly','readonly')
-    }
-
-    if($("#website_contact_meta_type_id").val() == null)
-    {
-      $("#website_value").attr('readonly','readonly');
-      $("#website_remarks").attr('readonly','readonly');
-      $("#submit_website_field").attr('readonly','readonly')
-    }
-
-    if($("#instant_messaging_contact_meta_type_id").val() == null)
-    {
-      $("#instant_messaging_value").attr('readonly','readonly');
-      $("#instant_messaging_remarks").attr('readonly','readonly');
-      $("#submit_instant_messaging_field").attr('readonly','readonly')
-    }
-
-
-
-  });
-
-
-  $("#select_contact_type").ready(function(){
-    $('form.active').removeClass('active');
-    $("form."+$('#select_contact_type option:selected').val()).addClass('active');
-
-    $('.mandantory_field').keyup();
+    $("#select_contact_type").val('').change();
   });
 
   $("#select_contact_type").live('change',function(){
     $('form.active').removeClass('active');
-    $("form."+$('#select_contact_type option:selected').val()).addClass('active');
-
-    $('.mandantory_field').keyup();
+    if($("#select_contact_type").val()!=""){
+      $("form."+$('#select_contact_type option:selected').val()).addClass('active').get(0).reset();
+      $("form."+$('#select_contact_type option:selected').val()+" input:submit").attr('disabled', true);
+    }    
   });
 });
 
 $(function(){
   $(".clear_form_to_address").live("click", function(){
-
-    if($("#address_address_type_id").val() == null)
-    {
-      $("#address_building_name").attr('readonly','readonly');
-      $("#address_suite_unit").attr('readonly','readonly');
-      $("#address_street_number").attr('readonly','readonly');
-      $("#address_street_name").attr('readonly','readonly');
-      $("#address_town").attr('readonly','readonly');
-      $("#address_state").attr('readonly','readonly');
-      $("#address_postal_code").attr('readonly','readonly');
-      $("#address_country_id").attr('readonly','readonly');
-      $("#address_submit_button").attr('disabled','disabled');
-
-    }
+    $("#address_address_type_id").val('').change();
   });
 });
 
@@ -761,13 +707,6 @@ $(function(){
   });
 });
 
-
-//make the dropdown select of MasterDoc in Organization active, when open New Pannel
-$(function(){
-  $('#add_new_master_doc #add_masterdoc').live('click', function(){
-    $(".find_master_doc_meta_type_field").change();
-  });
-});
 
 /*Public*/
 
@@ -1474,7 +1413,6 @@ $(".person_master_doc_toggle_button").live('click', function(){
   $('.person_master_doc_close').css("display","");
   $(this).css("display","none");
   $('#master_doc_hidden_tab').attr('mode','new');
-  $(".find_master_doc_meta_type_field").change();
 });
 
 $(".person_master_doc_close").live('click',function(){
@@ -3605,8 +3543,7 @@ $(function(){
 
 $(function(){
   $("#compile_button").live('click', function(){
-    $(this).attr("disabled", true);
-    $(this).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
+    $(this).attr("disabled", true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     var temp = "";
     temp += "login_account_id=" + $("#login_account_id").val();
     temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
@@ -3627,6 +3564,7 @@ $(function(){
 
 $(function(){
   $("#org_compile_button").live('click', function(){
+    $(this).attr("disabled", true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     var temp = "";
     temp += "login_account_id=" + $("#login_account_id").val();
     temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
@@ -3635,7 +3573,6 @@ $(function(){
     }else{
       temp += "&top=percent&top_percent=" + $("#top_value").val();
     }
-
     $.ajax({
       type: "POST",
       url: "/compile_lists/org_compile.js",
@@ -3663,6 +3600,21 @@ $(function(){
 
 /* Import and Export */
 $(function(){
+  check_source = function(el){
+    if(el.val()==""){
+      $('.check_runtime_export_button').attr('disabled', true);
+    }else{
+      $('.check_runtime_export_button').removeAttr('disabled');
+    }
+  };
+  $('#source_id').live('change', function(){
+    check_source($(this));
+  });
+
+  $('#org_source_id').live('change', function(){
+    check_source($(this));
+  });
+  $('.check_runtime_export_button')
   $('.export_button').live('click',function(){
     var source_id = ""
     var file_name = ""
@@ -3681,6 +3633,36 @@ $(function(){
       window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
     }
 
+  });
+
+  $('.check_runtime_export_button').live('click',function(){
+    var source_id = ""
+    var file_name = ""
+    var source = $(this).attr("source");
+    if (source == 'person'){
+      source_id = $('#source_id').val();
+      file_name = $("#file_name").val();
+    }else{
+      source_id = $('#org_source_id').val();
+      file_name = $("#org_file_name").val();
+    }
+
+    if (source_id != "")
+    { 
+      var format = $(this).attr("value").toLowerCase();
+      if (source_id.indexOf('query')!=-1){
+        $('.check_runtime_export_button').attr("disabled", true);
+        $(this).after('<div id="spinner" style="height: 24px;float:right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 30px; margin-right: 10px;"></div>');
+        $.ajax({
+          type: "GET",
+          url: "/data_managers/check_runtime.js",
+          data:'export_format='+format+'&source='+source+'&source_id='+source_id+'&file_name='+file_name,
+          dataType: "script"
+        });
+      }else{
+        window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
+      }      
+    }
   });
 });
 

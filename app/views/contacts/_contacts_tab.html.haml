@@ -1,23 +1,23 @@
 #add_new_contact.header_container
   .options
-    = link_to_function image_tag('close_icon.png'), :class => "person_contact_close ", :toggle_id_name => "new_contact", :style => "display:none;", :title=>"Close"
+    = link_to_function image_tag('close_icon.png'), :class => "person_contact_close", :toggle_id_name => "new_contact", :style => "display:none;", :title=>"Close"
   .title
-    = link_to_function image_tag('add_icon.png'), :id=>"add_contact ", :class=> "person_contact_toggle_button add_icon clear_form_to_phone", :toggle_id_name => "new_contact"  if (!person.nil? && !person.new_record?)
-    &nbsp
+    = link_to_function image_tag('add_icon.png'), :id=>"add_contact", :class=> "person_contact_toggle_button add_icon clear_form_to_phone", :toggle_id_name => "new_contact"  if (!person.nil? && !person.new_record?)
+    &nbsp;
   %h1 New Contact
   %input{:id => "contact_hidden_tab", :mode => "show", :style => "display:none"}
   %input{:id => "contact_input_change_or_not", :style => "display:none", :value => "false"}
-  =# Initially hidden new address form
+
   %div#new_contact{:style=>"display:none"}
     %p
       .form_line
         .field_20
           %label <span class='asterisk'>*</span>MetaType
           %select#select_contact_type
-            = for cmt in ContactMetaMetaType.find(:all,:conditions=>["status = true and to_be_removed = false"])
+            %option
+            -for cmt in ContactMetaMetaType.find(:all, :conditions => ["status = true and to_be_removed = false"])
               %option{:value => "add_#{cmt.name.downcase}"}
                 = cmt.name
-      %br{ :style=>"clear: both;"}
 
     #phone_type
       = render :partial => '/phones/personal_phone_type', :locals => { :phone => @phone }
@@ -26,7 +26,7 @@
       = render :partial => "/emails/personal_email_type", :locals => {:email => @email}
 
     #website_type
-      = render :partial => '/websites/personal_website_type', :locals => { :website => @website }
+      = render :partial => '/websites/personal_website_type', :locals => {:website => @website }
 
     #im_type
       = render :partial => '/instant_messagings/personal_instant_messaging_type', :locals => {:instant_messaging => @instant_messaging }
@@ -34,7 +34,6 @@
 
 
 #contacts
-  =# Render the person's contacts
   -if !@person.phones.blank?
     .container
       %h1 Phone
@@ -55,6 +54,3 @@
       %h1 IM
       #contact_im
         = render :partial => '/contacts/contact', :collection => @person.instant_messagings
-
-
-
