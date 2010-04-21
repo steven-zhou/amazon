@@ -3,7 +3,7 @@
 .form_line
   .field_25
     = email.label :contact_meta_type_id, 'Type'
-    = email.collection_select :contact_meta_type_id, @email_types, :id, :name, {:selected => default_email}
+    = email.collection_select :contact_meta_type_id, @email_types, :id, :name, {:include_blank => true, :selected => default_email}
   .field_70
     = email.label :value, "Email"
     = email.text_field :value,:readonly => @email_types.blank? ? true :false
