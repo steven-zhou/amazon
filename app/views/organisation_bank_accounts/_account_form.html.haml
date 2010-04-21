@@ -20,20 +20,16 @@
         %span{:class=>"viewname", :id=>@bank_accounts.new_record? ? "bank_bsb_container_0" : "bank_container_bsb_#{@bank_accounts.id}"} &nbsp;
       -else
         %span{:class=>"viewname", :id=>@bank_accounts.new_record? ? "bank_bsb_container_0" : "bank_container_bsb_#{@bank_accounts.id}"} #{@bank_accounts.bank.branch_number}
+  .field_25
+    = account.label :person_account_type, "<span class='asterisk'>*</span>Account Type"
+    = account.collection_select(:account_type_id, AccountType.active_account_type, :id, :name,{:include_blank => (true if AccountType.active_account_type.blank?)},{:class => "mandantory_dropdown_list" ,:mandantory_field1=> @bank_accounts.new_record? ? "organisation_bank_account_bank_id" : "organisation_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "organisation_bank_account_account_number" : "organisation_bank_account_#{@bank_accounts.id}_account_number",:mandantory_field3=>@bank_accounts.new_record? ? "organisation_bank_account_account_type_id" : "organisation_bank_account_#{@bank_accounts.id}_account_type_id",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "organisation_account_edit_submit",:disabled => (true if !@bank_accounts.status and !@bank_accounts.new_record?)})
   .field_40
     = account.label :person_account_number, "<span class='asterisk'>*</span>Account number"
     = account.text_field :account_number ,:class => "mandantory_field",:mandantory_field1=> @bank_accounts.new_record? ? "organisation_bank_account_bank_id" : "organisation_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "organisation_bank_account_account_number" : "organisation_bank_account_#{@bank_accounts.id}_account_number",:mandantory_field3=>@bank_accounts.new_record? ? "organisation_bank_account_account_type_id" : "organisation_bank_account_#{@bank_accounts.id}_account_type_id",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "organisation_account_edit_submit", :disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
 .form_line
-  .field_25
-    = account.label :person_account_type, "<span class='asterisk'>*</span>Account Type"
-    = account.collection_select(:account_type_id, AccountType.active_account_type, :id, :name,{:include_blank => (true if AccountType.active_account_type.blank?)},{:class => "mandantory_dropdown_list" ,:mandantory_field1=> @bank_accounts.new_record? ? "organisation_bank_account_bank_id" : "organisation_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "organisation_bank_account_account_number" : "organisation_bank_account_#{@bank_accounts.id}_account_number",:mandantory_field3=>@bank_accounts.new_record? ? "organisation_bank_account_account_type_id" : "organisation_bank_account_#{@bank_accounts.id}_account_type_id",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "organisation_account_edit_submit",:disabled => (true if !@bank_accounts.status and !@bank_accounts.new_record?)})
-  -#.field_30
-    = account.label :person_account_purpose_id, "Purpose"
-    = account.collection_select(:account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name,{},{:disabled => (true if !@bank_accounts.status and !@bank_accounts.new_record?)})
   .field_15
     = account.label :person_account_status, "Active"
     = account.check_box :status,:checked => (true if @bank_accounts.status or @bank_accounts.new_record?)
-.form_line
   .field_60
     = account.label :remarks, 'Remarks'
     = account.text_field :remarks,:disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)

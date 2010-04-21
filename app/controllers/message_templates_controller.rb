@@ -195,7 +195,7 @@ class MessageTemplatesController < ApplicationController
     now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
     pdf_options = "--page-size A4 --header-center MemberZone --header-right 'Page [page] of [toPage]' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
     system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{@flag}-#{template_name}-#{time_stamp}.pdf #{pdf_options}; rm #{file_dir}/*.html"
-    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{@flag}-#{template_name}-#{time_stamp}.pdf' target='_blank'>#{@flag}-#{template_name}-#{time_stamp}.pdf</a>"
+#    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{@flag}-#{template_name}-#{time_stamp}.pdf' target='_blank'>#{@flag}-#{template_name}-#{time_stamp}.pdf</a>"
     
     #for create record in the database mail-logs
     @entities.each do |entity|
@@ -205,9 +205,11 @@ class MessageTemplatesController < ApplicationController
       @mail_log.save
 
     end
+    @pdf_name = "/#{file_name}/#{@flag}-#{template_name}-#{time_stamp}.pdf"
     respond_to do |format|
-      format.js
+      format.js    
     end
+
   end
 
 

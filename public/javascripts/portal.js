@@ -57,7 +57,7 @@ $(function() {
   $("#register_guest_account").click(function(){
     $("#login_fail_message_container").hide();
     $("#captcha").addClass("compulsory_field");
-    $("#signin_form").slideUp("slow");
+    $("#signin_form").fadeOut(1);
     $("#register_container").fadeIn();
     return false;
   });
@@ -103,18 +103,17 @@ $(function(){
 
   compulsory_check($('#username'));
 
-  $(".compulsory_field").live('keyup', function(e){
-
-   
+  $(".compulsory_field").live('keyup', function(e){   
     var current_form = $('#'+$(this).closest('form').attr('id'));
-
-    if ($.trim($(this).val())!="" && e.which !=13)
-    {
-      compulsory_check($(this));
-    }
-    else
-    {
-      $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+    if(e.which !=13){
+      if ($.trim($(this).val())!="")
+      {
+        compulsory_check($(this));
+      }
+      else
+      {
+        $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+      }
     }
   });
 

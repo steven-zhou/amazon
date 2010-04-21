@@ -130,7 +130,7 @@ class QueryHeadersController < ApplicationController
 
   def copy_runtime
     @query_header_old = QueryHeader.find(params[:id].to_i)
-    @query_header_new = QueryHeader.new
+    @query_header_new = @query_header_old.class.new
     @query_header_new.name = QueryHeader.random_name
     @query_header_new.group = "temp"
     @query_header_new.status = true
@@ -188,17 +188,6 @@ class QueryHeadersController < ApplicationController
     if @query_header.query_selections.empty?
       #------------------------------follow is new code for sep person and org
       @query_result_columns = @query_header.person_query_header? ? person_columns_default_create(@entity) : organisation_columns_default_create(@entity)
-
-      #      @query_result_columns << "First Name"
-      #      @query_result_columns << "Family Name"
-      #      @people.each do |person|
-      #        @qrg = QueryResultGrid.new
-      #        @qrg.login_account_id = session[:user]
-      #        @qrg.grid_object_id = person.id
-      #        @qrg.field_1 = person.first_name
-      #        @qrg.field_2 = person.family_name
-      #        @qrg.save
-      #      end
     else
       @query_header.query_selections.each do |i|
         @query_result_columns << i.field_name
@@ -220,7 +209,7 @@ class QueryHeadersController < ApplicationController
                   @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
                 end
               else
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym))
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).to_s)
               end
             else
               if i.data_type == "Integer FK"

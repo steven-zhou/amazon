@@ -50,7 +50,9 @@ class CompileListsController < ApplicationController
       person_ids = person_ids.uniq if (@allow_duplication=="false")
 
       if(value>0)
+
         if(top == "number")
+          value = person_ids.size if value > person_ids.size #if the input value more than the list size
           person_ids = person_ids[0, value]
         else
           person_ids = person_ids[0, value*person_ids.size/100]

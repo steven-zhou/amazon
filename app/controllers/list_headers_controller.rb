@@ -184,7 +184,7 @@ class ListHeadersController < ApplicationController
       flash.now[:error]= "The List Name Already Exists. This Field Must be Unique, Please Try Again."
     end
     @entity = @list_header.person_list? ? "person" : "organisation"
-    @lists = @list_header.person_list? ? @current_user.all_person_lists : @current_user.all_organisation_lists
+    @lists = @list_header.person_list? ? @current_user.all_person_lists - [PrimaryList.first] : @current_user.all_organisation_lists - [OrganisationPrimaryList.first]
     respond_to do |format|
       format.js
     end

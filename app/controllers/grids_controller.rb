@@ -3083,9 +3083,12 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]]
+        :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]],
+        :include => ["note_type"]
       )
-      count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]]
+      count = Note.count(:all,
+        :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]],
+        :include => ["note_type"]
       )
     end
 
@@ -3095,8 +3098,13 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]])
-      count = Note.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]])
+        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]],
+        :include => ["note_type"]
+      )
+      count = Note.count(:all,
+        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]],
+        :include => ["note_type"]
+      )
     end
 
     # Construct a hash from the ActiveRecord result
@@ -3105,8 +3113,8 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @notes.collect{|u| {:id => u.id,
         :cell=>[u.id,
+          u.note_type.nil? ? "" : (u.note_type.to_be_removed? ? "<span class='red'>"+u.note_type.name+"</span>" : u.note_type.name),
           u.label,
-          u.short_description,
           u.body_text,
           u.active? ? "Active" : "Inactive"]}}
     # Convert the hash to a json object

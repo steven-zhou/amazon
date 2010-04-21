@@ -8,7 +8,7 @@
   %br.clear
 .form_line
   .field_33
-    = p.label :registered_date, 'Registered_Date'
+    = p.label :registered_date, 'Registered Date'
     - if (@organisation.class.to_s == "ClientOrganisation")
       = p.text_field :registered_date, :value=>@organisation.registered_date.to_s, :style => "width:82% !important"
     - else

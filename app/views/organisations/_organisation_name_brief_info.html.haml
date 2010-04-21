@@ -18,7 +18,7 @@
 .form_line{:style=>"width: 200px; margin-top: 2px;"}
   .field_80
     = label_tag 'onrecord_since', 'On Record Since', :style=>"font-size:12px;display:inline;"
-    = link_to "overview", organisation_treeview_organisations_path(:id => @organisation), :class=> "get",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;"
+    = (link_to "overview", organisation_treeview_organisations_path(:id => @organisation), :class=> "get",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;") unless @organisation.level.nil?
    
   %div.display_field_bg{:style=>"margin-left: 4px;"}
     =@organisation.onrecord_since.to_s

@@ -2,8 +2,8 @@
 .toggle_options{:field => "extra"}
   .title
     %h1
-  .options
-    = link_to image_tag('edit_icon.png'), edit_extra_path(extra), :class => 'get edit_option', :field => "extra", :title=>"Edit"
+  .options{:style => "display:none;"}
+    = link_to image_tag('edit_icon.png'), edit_extra_path(extra), :class => 'get edit_option ', :field => "extra", :title=>"Edit"
   %br{ :style=>"clear: both;"}
 
   - i = 1

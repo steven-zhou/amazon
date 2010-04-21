@@ -227,11 +227,11 @@ class CommunicationController < ApplicationController
     if @type == "person"
       @entity_list_headers = @current_user.all_person_lists
       @entity_query_headers = PersonQueryHeader.saved_queries
-      @message_templates = PersonEmailTemplate.active_record
+      @message_templates = PersonEmailTemplate.find(:all, :conditions => ["template_category_id = ?", TemplateCategory.active.try(:first).try(:id)])
     else
       @entity_list_headers = @current_user.all_organisation_lists
       @entity_query_headers = OrganisationQueryHeader.saved_queries
-      @message_templates = OrganisationEmailTemplate.active_record
+      @message_templates = OrganisationEmailTemplate.find(:all, :conditions => ["template_category_id = ?", TemplateCategory.active.try(:first).try(:id)])
     end
     #    @message_templates = EmailTemplate.active_record
     @message_template = EmailTemplate.new

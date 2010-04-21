@@ -69,7 +69,7 @@ h1 {
 
   background-color:#FFF;
 
-  width: 405px;
+  width: 385px;
   /*  margin-top: 10%;*/
   margin-right: auto;
   margin-bottom: 0.5%;
@@ -83,7 +83,7 @@ h1 {
 
 
   height: 227px;
-
+padding:0 7%
 
 }
 
@@ -91,7 +91,7 @@ h1 {
   background-image:url(/images/systemlogo.png);
   background-repeat:no-repeat;
   background-position:center center;
-  width: 405px;
+  width: 100%;
   height: 178px;
   float:left;
 
@@ -118,6 +118,7 @@ h1 {
   -moz-border-radius: 15px;
   -webkit-border-radius:15px;
   border-radius: 15px;
+  padding:0 7%
 }
 
 #register_form form a {
