@@ -130,7 +130,7 @@ class QueryHeadersController < ApplicationController
 
   def copy_runtime
     @query_header_old = QueryHeader.find(params[:id].to_i)
-    @query_header_new = QueryHeader.new
+    @query_header_new = @query_header_old.class.new
     @query_header_new.name = QueryHeader.random_name
     @query_header_new.group = "temp"
     @query_header_new.status = true

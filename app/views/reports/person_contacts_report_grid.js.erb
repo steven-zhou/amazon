@@ -1,6 +1,6 @@
 $('#report_grid_form').html('<%= escape_javascript(render(:partial => "/reports/person_report_grid")) %>');
 $("#report_details").css("display", "none");
-$("#report_grid_form_container").css("display", "");
+$("#report_grid_form_container").show();
 $("#report_grid_form1").flexigrid(
 {
 url: '/grids/show_person_contacts_report_grid',
@@ -34,4 +34,5 @@ showTableToggleBtn: false,
 width: 'auto',
 height: 'auto'
 });
-
+$("#report_submit_button").removeAttr('disabled');
+$('#spinner').remove();

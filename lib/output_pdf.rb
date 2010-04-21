@@ -656,19 +656,19 @@ module OutputPdf
             if (OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0].include?("FK"))
               data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = (person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]).nil?) ? "" : "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]).name}"
             else
-         tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]) { |col| col.heading = "#{OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0]}"}
-         case OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]
-        when "address" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "phone" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 80
-        when "email" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "website" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "id" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 40
-        when "first_name" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 70
-        when "family_name" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width =80
-        end
+              tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]) { |col| col.heading = "#{OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0]}"}
+              case OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]
+              when "address" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "phone" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 80
+              when "email" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "website" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "id" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 40
+              when "first_name" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 70
+              when "family_name" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width =80
+              end
 
 
-        #        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[1]
+              #        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[1]
 
 
 
@@ -798,16 +798,16 @@ module OutputPdf
               data_row[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = (organisation.__send__(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]).nil?) ? "" : "#{organisation.__send__(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]).name}"
             else
 
- tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]) { |col| col.heading = "#{OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].keys[0]}"}
-         case OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]
-        when "address" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "phone" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 80
-        when "email" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "website" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "id" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
-        when "full_name " then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 70
-        when "trading_as" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width =80
-        end
+              tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]) { |col| col.heading = "#{OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].keys[0]}"}
+              case OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]
+              when "address" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "phone" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 80
+              when "email" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "website" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "id" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
+              when "full_name " then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
+              when "trading_as" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
+              end
 
 
               case OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]

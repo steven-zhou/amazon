@@ -42,31 +42,6 @@ class ReceiptsController < ApplicationController
       @date_valid = false
       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
-
-
-    #
-    #    if params[:start_deposit_date]
-    #      r_conditions << "deposits.business_date >= ?"
-    #      r_values << params[:start_deposit_date].to_date
-    #    end
-    #    if params[:end_deposit_date]
-    #      r_conditions << "deposits.business_date <= ?"
-    #      r_values << params[:end_deposit_date].to_date
-    #    end
-    #    if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
-    #      conditions << "receipt_account_id = ?"
-    #      values << params[:receipt_account_id]
-    #    end
-    #    if (params[:campaign_id] && params[:campaign_id].to_i!= 0)
-    #      conditions << "campaign_id = ?"
-    #      values << params[:campaign_id]
-    #    end
-    #    if (params[:source_id] && params[:source_id].to_i!= 0)
-    #      conditions << "source_id = ?"
-    #      values << params[:source_id]
-    #    end
-
-
     query_conditions << ("receipts.entity_type=#{session[:entity_type]}")
     query_conditions << ("receipts.entity_id=#{session[:entity_id]}")
     

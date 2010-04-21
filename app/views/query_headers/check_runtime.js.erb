@@ -5,4 +5,10 @@
   draggable: true
   });
   $("#runtime_form").dialog('option', 'title', 'Runtime Parameter(s)');
+  $("#runtime_form").parent().css('background-color','#D1DDE6');
+  $("#runtime_form").css('background-color','#D1DDE6');
   $("#runtime_form").dialog('open');
+  $('#run_button').removeAttr('disabled');
+  $('#run_button_edit').removeAttr('disabled');
+  $('#save_button').removeAttr('disabled');
+  $('#spinner').remove();
