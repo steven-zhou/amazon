@@ -9,10 +9,7 @@
           }
       });
     });
-    $(function(){
-     $(".state_value").typeWatch( {callback: address_helper_zipcode} );
-      $(".suburb_value").typeWatch( {callback: address_helper_zipcode} );
-    });
+ 
 
 - form_for :bank, @bank, :url => { :action => "create" }, :html => {:class => 'ajax_form', :id => "add_bank_form"}  do |f|
   .full_container
