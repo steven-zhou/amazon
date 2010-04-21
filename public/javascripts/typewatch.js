@@ -15,7 +15,7 @@
 	jQuery.fn.typeWatch = function(o){
 		// Options
 		var options = jQuery.extend({
-			wait : 750,
+			wait : 1450,    // 750 default
 			callback : function() { },
 			highlight : true,
 			captureEnter : true,
