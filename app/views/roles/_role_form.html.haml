@@ -1,11 +1,11 @@
--form_for @role, :html => {:class => 'ajax_form role_main_form'} do |role|
+-form_for @role, :html => {:class => 'ajax_form role_main_form',:id=>"role_new",:submit_button_id => "role_new_submit"} do |role|
   .form_line{:style => "float:none;"}
     .field_20
       = role.label :role_type_id, "<span class='asterisk'>*</span>Role Type"
-      = collection_select :role,:role_type_id, RoleType.active_role_type, :id, :name, {}, {:class => "mandantory_dropdown_list",:mandantory_field1=>"role_name",:mandantory_field2=>"role_role_type_id",:submit_button_id=>"role_new_submit"}
+      = collection_select(:role,:role_type_id, RoleType.active_role_type, :id, :name, {:include_blank=>true}, {:class => "compulsory_field"})
     .field_20
       = role.label :name, "<span class='asterisk'>*</span>Role Name"
-      = role.text_field :name,:class=>'mandantory_field',:mandantory_field1=>"role_name",:mandantory_field2=>"role_role_type_id",:submit_button_id=>"role_new_submit"
+      = role.text_field :name,:class=>'compulsory_field'
     .field_20
       = role.label :remarks, 'Remark'
       = role.text_field :remarks
@@ -15,4 +15,4 @@
 
     .field_15
       %label &nbsp
-      = submit_tag 'Submit', :style => 'display:inline;float:right;',:id=>"role_new_submit",:disabled=>true
+      = submit_tag 'Submit',:id=>"role_new_submit",:disabled=>true, :style => 'display:inline;float:right;'

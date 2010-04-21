@@ -1584,13 +1584,21 @@ $(function(){
 });
 $(function(){
   $('.show_list_description').live('change', function(){
-    $.ajax({
-      type: "GET",
-      url: "/group_lists" + "/show_list_des.js",
-      data: "list_id=" + $(this).val(),
-      dataType:"script"
-    });
 
+    if($(this).val()!="")
+    {
+      $("#group_list_submit").attr("disabled",false);
+      $.ajax({
+        type: "GET",
+        url: "/group_lists" + "/show_list_des.js",
+        data: "list_id=" + $(this).val(),
+        dataType:"script"
+      });
+    }
+    else
+    {
+      $("#group_list_submit").attr("disabled",true);
+    }
 
   });
 });
@@ -1599,14 +1607,22 @@ $(function(){
 
 $(function(){
   $('.show_user_list_description').live('change', function(){
-    $.ajax({
-      type: "GET",
-      url: "/user_lists" + "/show_list_des.js",
-      data: "list_id=" + $(this).val(),
-      dataType:"script"
 
-    });
+    if ($(this).val()!="")
+    {
+      $("#user_list_submit").attr('disabled',false);
+      $.ajax({
+        type: "GET",
+        url: "/user_lists" + "/show_list_des.js",
+        data: "list_id=" + $(this).val(),
+        dataType:"script"
 
+      });
+    }
+    else
+    {
+      $("#user_list_submit").attr('disabled',true);
+    }
   });
 
 
@@ -2800,7 +2816,7 @@ email_checking=function(target){
       //      $("#error_message").css('background-color','#D1DDE6');
       //      $('#error_message').dialog('open');
     
-     $("#email_spinner").css('display', 'none');
+      $("#email_spinner").css('display', 'none');
       $(".user_email_new").css('background-color', 'pink');
       $("#user_account_new_submit").attr("disabled",true);
 
@@ -2812,9 +2828,8 @@ email_checking=function(target){
  
     }
   }else{
-     $("#email_spinner").css('display', 'none');
+    $("#email_spinner").css('display', 'none');
     $(".user_email_new").css('background-color', 'pink');
-
 
   }
 };

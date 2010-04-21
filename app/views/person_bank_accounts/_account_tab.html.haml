@@ -9,7 +9,7 @@
   %input.hidden{:id => "person_account_mode", :mode => "show"}
   %input{:id => "account_input_change_or_not", :style => "display:none", :value => "false",:class=>"person_input_change_class"}
   .div{:style=>"display:none", :id => "new_account",:name => "new_account"}
-    -form_for([@person, @bank_accounts],:html => {:class => ' ajax_form'}) do |account|
+    -form_for([@person, @bank_accounts],:html => {:class => ' ajax_form',:submit_button_id=>"account_new_submit"}) do |account|
       = render :partial => '/person_bank_accounts/account_form', :locals => {:account => account}
       = submit_tag 'Submit' ,:id=>"account_new_submit" ,:disabled=>true
     %br.clear

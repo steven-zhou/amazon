@@ -30,11 +30,12 @@
             %option{:value => "query_#{r.id}"} #{r.name}
       .field_25
         %label <span class='asterisk'>*</span>Template Category
-        = collection_select :message_template, :template_category_id, TemplateCategory.active, :id, :name, {}, {:class => "select_ajax_call clear_select", :method => "GET", :url => "/message_templates/find_templates", :update_field => "message_template_id", :type_class => "#{@entity_type}_email_template"}
+        = collection_select :message_template, :template_category_id, TemplateCategory.active, :id, :name, {:include_blank=>true}, {:class => "select_ajax_call clear_select compulsory_field", :method => "GET", :url => "/message_templates/find_templates", :update_field => "message_template_id", :type_class => "#{@entity_type}_email_template"}
 
       .field_25
         = f.label :subject, "<span class='asterisk'>*</span>Template"
         %select{:id => "message_template_id", :name => "message_template_id", :class => 'select_ban_submit' }
+          %option
           - @message_templates.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
     .form_line

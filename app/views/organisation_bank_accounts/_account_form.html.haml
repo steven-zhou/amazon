@@ -2,7 +2,7 @@
   .field_25
     = account.label :account_id, "<span class='asterisk'>*</span>Bank ID"
     -#= account.collection_select(:bank_id, Bank.find(:all,:conditions=>["status = true"]), :id, :full_name)
-    = account.text_field :bank_id,:class=>"find_bank_field mandantory_field",:account_id=> @bank_accounts.new_record? ? 0 : @bank_accounts.id,:mandantory_field1=> @bank_accounts.new_record? ? "organisation_bank_account_bank_id" : "organisation_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "organisation_bank_account_account_number" : "organisation_bank_account_#{@bank_accounts.id}_account_number",:mandantory_field3=>@bank_accounts.new_record? ? "organisation_bank_account_account_type_id" : "organisation_bank_account_#{@bank_accounts.id}_account_type_id",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "organisation_account_edit_submit", :disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
+    = account.text_field :bank_id,:class=>"find_bank_field compulsory_field",:account_id=> @bank_accounts.new_record? ? 0 : @bank_accounts.id, :disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
   .field_5
     %label &nbsp;                                                
     = link_to_function image_tag("Icons/System/search.png"), :class => "bank_lookup", :update_field => @bank_accounts.new_record? ? "organisation_bank_account_bank_id":"organisation_bank_account_#{@bank_accounts.id}_bank_id" , :title=>"Search", :disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
@@ -22,10 +22,10 @@
         %span{:class=>"viewname", :id=>@bank_accounts.new_record? ? "bank_bsb_container_0" : "bank_container_bsb_#{@bank_accounts.id}"} #{@bank_accounts.bank.branch_number}
   .field_25
     = account.label :person_account_type, "<span class='asterisk'>*</span>Account Type"
-    = account.collection_select(:account_type_id, AccountType.active_account_type, :id, :name,{:include_blank => (true if AccountType.active_account_type.blank?)},{:class => "mandantory_dropdown_list" ,:mandantory_field1=> @bank_accounts.new_record? ? "organisation_bank_account_bank_id" : "organisation_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "organisation_bank_account_account_number" : "organisation_bank_account_#{@bank_accounts.id}_account_number",:mandantory_field3=>@bank_accounts.new_record? ? "organisation_bank_account_account_type_id" : "organisation_bank_account_#{@bank_accounts.id}_account_type_id",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "organisation_account_edit_submit",:disabled => (true if !@bank_accounts.status and !@bank_accounts.new_record?)})
+    = account.collection_select(:account_type_id, AccountType.active_account_type, :id, :name,{:include_blank => true},{:class => "compulsory_field",:disabled => (true if !@bank_accounts.status and !@bank_accounts.new_record?)})
   .field_40
     = account.label :person_account_number, "<span class='asterisk'>*</span>Account number"
-    = account.text_field :account_number ,:class => "mandantory_field",:mandantory_field1=> @bank_accounts.new_record? ? "organisation_bank_account_bank_id" : "organisation_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "organisation_bank_account_account_number" : "organisation_bank_account_#{@bank_accounts.id}_account_number",:mandantory_field3=>@bank_accounts.new_record? ? "organisation_bank_account_account_type_id" : "organisation_bank_account_#{@bank_accounts.id}_account_type_id",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "organisation_account_edit_submit", :disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
+    = account.text_field :account_number ,:class => "compulsory_field", :disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
 .form_line
   .field_15
     = account.label :person_account_status, "Active"

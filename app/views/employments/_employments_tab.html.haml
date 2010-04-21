@@ -9,7 +9,7 @@
   %input{:type => "text", :id => "employment_hidden_tab", :mode => "show", :style => "display:none"}
   %input{:id => "employment_input_change_or_not", :style => "display:none", :value => "false"}
   -# Initially hidden new employment form
-  -form_for([@person,@employment], :html => {:style => "display:none", :class => 'ajax_form'}) do |employment|
+  -form_for([@person,@employment], :html => {:style => "display:none", :class => 'ajax_form',:submit_button_id=>"employment_new_submit"}) do |employment|
     = render :partial => '/employments/employment_form', :locals => { :employment => employment }
     = submit_tag 'Submit',:id=>"employment_new_submit" ,:disabled=>true
 
