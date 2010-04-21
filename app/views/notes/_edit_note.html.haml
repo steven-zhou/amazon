@@ -1,4 +1,4 @@
--form_for @note, :html =>{:class => "ajax_form"} do |note|
+-form_for @note, :html =>{:class => "ajax_form", :submit_button_id=>"note_edit_submit"} do |note|
   = render :partial => 'notes/edit_note_form', :locals => { :note => note }
   =submit_tag 'Submit',:id=>"note_edit_submit"
 

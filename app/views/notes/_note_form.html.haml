@@ -20,14 +20,14 @@
 
     });
 
--form_for @note,:url=>{:controller =>"notes",:action => "create",:entity_id=>( @person.nil? ?  @organisation.id : @person.id), :type =>( @person.nil? ?  "Organisation" : "Person")}, :html => {:class => 'ajax_form add_note'} do |note|
+-form_for @note,:url=>{:controller =>"notes",:action => "create",:entity_id=>( @person.nil? ?  @organisation.id : @person.id), :type =>( @person.nil? ?  "Organisation" : "Person")}, :html => {:class => 'ajax_form add_note',:submit_button_id=>"note_new_submit"} do |note|
   .form_line{:style => "float:none;"}
     .field_20
       = note.label :note_type_id, "<span class='asterisk'>*</span>Type"
-      = note.collection_select :note_type_id, NoteType.active_note_type, :id, :name, {},{}
+      = note.collection_select :note_type_id, NoteType.active_note_type, :id, :name, {:include_blank => true},{:class=>"compulsory_field"}
     .field_40
       = note.label :label, "<span class='asterisk'>*</span>Label"
-      = note.text_field :label,:id =>"note_new_label",:class=>"mandantory_field",:mandantory_field1=>"note_new_label",:submit_button_id=>"note_new_submit"
+      = note.text_field :label,:id =>"note_new_label",:class=>"compulsory_field"
     .field_5
       = note.label :active, 'Active'
       = note.check_box :active,:checked=> true

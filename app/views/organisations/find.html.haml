@@ -181,7 +181,9 @@
           .form_line
             .field_30
               = address.label :town, 'Suburb/Town'
-              = address.text_field :town, :class => "suburb_value"
+              = address.text_field :town, :class => "suburb_value", :field=>"suburb"
+            .post_spinner{:field=>"suburb",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
+
             .field_33
               = address.label :district, 'District'
               = address.text_field :district
@@ -191,7 +193,8 @@
           .form_line
             .field_30
               = address.label :state, 'State/Province'
-              = address.text_field :state,  :class => "state_value"
+              = address.text_field :state,  :class => "state_value", :field=>"state"
+            .post_spinner{:field=>"state",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
             .field_33
               = address.label :postal_code, 'Postal Code'
               = address.text_field :postal_code, :class => "postcode_auto"
