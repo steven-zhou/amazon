@@ -9,6 +9,10 @@
           }
       });
     });
+    $(function(){
+     $(".state_value").typeWatch( {callback: address_helper_zipcode} );
+      $(".suburb_value").typeWatch( {callback: address_helper_zipcode} );
+    });
 .tab_corner
   .tab_looking_left
   .tab_looking_icon
@@ -52,22 +56,25 @@
           = f.text_field :address_line_1, :disabled => @bank_to_update.status == false
         .field_20
           = f.label :address_line_3, 'Suburb/Town'
-          = f.text_field :address_line_3, :disabled => @bank_to_update.status == false, :class => "suburb_value", :id => "bank_update_address_line_3"
+          = f.text_field :address_line_3, :disabled => @bank_to_update.status == false, :class => "suburb_value", :id => "bank_update_address_line_3", :class => "suburb_value", :field=>"suburb"
+        .post_spinner{:field=>"suburb",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
         .field_2
           = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_update_address_line_3", :update_field2 =>"bank_update_state", :update_field3 => "bank_update_postcode", :update_field4 => "bank_update_country_id", :title=>"Postcode" if @bank_to_update.status == true
         .field_17
           = f.label :state, 'State'
-          = f.text_field :state, :disabled => @bank_to_update.status == false,  :class => "state_value", :id => "bank_update_state"
+          = f.text_field :state, :disabled => @bank_to_update.status == false,:id => "bank_update_state",  :class => "state_value", :field=>"state"
+        .post_spinner{:field=>"state",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
       .form_line
         .field_36
           = f.label :address_line_2, 'Address Line 2'
           = f.text_field :address_line_2, :disabled => @bank_to_update.status == false
         .field_23
           = f.label :postcode, 'Postcode'
-          = f.text_field :postcode, :disabled => @bank_to_update.status == false, :class => "postcode_auto", :id => "bank_update_postcode"
+          = f.text_field :postcode, :disabled => @bank_to_update.status == false, :id => "bank_update_postcode", :class => "postcode_auto", :field=>"postcode"
+        .post_spinner{:field=>"postcode",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
         .field_17
           = f.label :country, 'Country'
-          = f.collection_select :country_id, Country.all, :id, :short_name,  {:include_blank => true}, {:disabled => @bank_to_update.status == false, :id => "bank_update_country_id"}
+          = f.collection_select :country_id, Country.all, :id, :short_name,  {:include_blank => true}, {:disabled => @bank_to_update.status == false, :id => "bank_update_country_id",:class => "country_value"}
     .full_container
       %h2 Contact Person
       .form_line

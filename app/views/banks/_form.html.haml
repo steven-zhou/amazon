@@ -9,6 +9,10 @@
           }
       });
     });
+    $(function(){
+     $(".state_value").typeWatch( {callback: address_helper_zipcode} );
+      $(".suburb_value").typeWatch( {callback: address_helper_zipcode} );
+    });
 
 - form_for :bank, @bank, :url => { :action => "create" }, :html => {:class => 'ajax_form', :id => "add_bank_form"}  do |f|
   .full_container
@@ -26,7 +30,7 @@
       .field_20
         = f.label :short_name, "<span class='asterisk'>*</span>Branch Number"
         = f.text_field :branch_number,:id => "new_bank_branch_number",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
-    .form_line     
+    .form_line
       .field_36
         = f.label :website, 'Website'
         = f.text_field :website
@@ -39,22 +43,25 @@
         = f.text_field :address_line_1
       .field_20
         = f.label :address_line_3, 'Suburb/Town'
-        = f.text_field :address_line_3, :class => "suburb_value"
+        = f.text_field :address_line_3, :class => "suburb_value", :field=>"suburb"
+      .post_spinner{:field=>"suburb",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
       .field_2
         = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_address_line_3", :update_field2 =>"bank_state", :update_field3 => "bank_postcode", :update_field4 => "bank_country_id", :title=>"Postcode"
       .field_17
         = f.label :state, 'State'
-        = f.text_field :state,  :class => "state_value"
+        = f.text_field :state,  :class => "state_value", :field=>"state"
+      .post_spinner{:field=>"state",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
     .form_line
       .field_36
         = f.label :address_line_2, 'Address Line 2'
         = f.text_field :address_line_2
       .field_23
         = f.label :postcode, 'Postcode'
-        = f.text_field :postcode, :class => "postcode_auto"
+        = f.text_field :postcode, :class => "postcode_auto", :field=>"postcode"
+      .post_spinner{:field=>"postcode",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
       .field_17
         = f.label :country, 'Country'
-        = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true,:selected=>ClientSetup.try(:first).try(:home_country_id)}
+        = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true,:selected=>ClientSetup.try(:first).try(:home_country_id)},{:class => "country_value"}
   .full_container
     %h2 Contact Person
     .form_line{:style => "float:none;"}

@@ -2643,7 +2643,8 @@ $(function(){
         data:'organisation_id='+$(this).val()+'&update_field='+$(this).attr('update_field')+'&input_field='+$(this).attr('input_field'),
         dataType: "script"
       });
-    }else{
+    }
+    else{
       $("#"+$(this).attr('update_field')).val("");
     }
   });
@@ -3489,7 +3490,8 @@ select_ban_submit_check = function(link){
     if ($('#'+select_ban_submits[i].id).val()=='0'||$('#'+select_ban_submits[i].id).val()== null||$.trim($('#'+select_ban_submits[i].id).val())== ""){
       disable = true;
       break;
-    }else{
+    }
+    else{
          
       disable = false;
       
@@ -3543,25 +3545,25 @@ post_code_auto = function(link){
 
 
 
-$(function(){
-
-  //    $('.state_value').blur(function(){
-  $('.state_value').live('change',function(){
-    post_code_auto($(this));
-
-  });
-
-});
-
-$(function(){
-
-  //    $('.suburb_value').blur(function(){
-  $('.suburb_value').live('change',function(){
-    post_code_auto($(this));
-
-  });
-
-});
+//$(function(){
+//
+//  //    $('.state_value').blur(function(){
+//  $('.state_value').live('change',function(){
+//    post_code_auto($(this));
+//
+//  });
+//
+//});
+//
+//$(function(){
+//
+//  //    $('.suburb_value').blur(function(){
+//  $('.suburb_value').live('change',function(){
+//    post_code_auto($(this));
+//
+//  });
+//
+//});
 
 
 
@@ -3787,5 +3789,29 @@ $(function(){
 $(function(){
   $('.password').pstrength();
 
-
 });
+
+
+
+address_helper_zipcode = function(){
+  link = $(this.el)
+  var current_form = $('#'+ link.closest('form').attr('id'));
+  var suburb = current_form.find('.suburb_value').val();
+  var state = current_form.find('.state_value').val();
+  var country = current_form.find('.country_value').val();
+  var postcode =current_form.find('.postcode_auto').val();
+  if (suburb != ""&& state != ""){
+    $('.post_spinner[field='+ link.attr('field')+']').show();
+    $.ajax({
+      type: "GET",
+      url: "/postcodes/lookup_postcode.js",
+      data: 'state='+state+'&suburb='+suburb+'&country='+country,
+      dataType: "script"
+    });
+
+  }else{
+
+}
+
+};
+

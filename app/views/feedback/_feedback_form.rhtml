@@ -15,11 +15,11 @@
    <div class="display_field_bg"><%= Date.today().strftime('%a %d %b %Y') %></div>
    </div>
    <div class="form_line">
-   <label>Subject:</label>
+   <label><span class='asterisk'>*</span>Subject:</label>
    <div class="field_100"><%= text_field_tag :feedback_item_subject, nil, :size => "30" %></div>
    </div>
     <div class="form_line">
-   <label>Message:</label>
+   <label><span class='asterisk'>*</span>Message:</label>
    <div class="field_100"><%= text_area_tag :feedback_item_content, nil, :cols => "29", :rows => "10",:class =>"mceNoEditor" %></div>
    </div>
      <div>

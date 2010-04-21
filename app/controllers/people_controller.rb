@@ -476,9 +476,29 @@ class PeopleController < ApplicationController
     @primary_email = @person.primary_email.value unless @person.primary_email.blank?
     #@person_login_account = @person.login_accounts rescue @person_login_account = LoginAccount.new
     respond_to do |format|
-      format.js()
+      format.js
     end
 
+  end
+
+  def login_id_finder2
+    @person = Person.find(params[:person_id]) rescue @person = Person.new
+    puts"---debug-@person- #{@person.to_yaml}-----"
+    @person = Person.new if @person.nil?  #handle the situation when @person return nil
+    puts"---debug-@perso2- #{@person.to_yaml}-----"
+    @person_valid = @person.new_record? ? false : true
+    puts"---debug-@person_valid- #{@person_valid.to_yaml}-----"
+    if @person_valid == true
+      @person_unique_valid = @person.login_accounts.blank? ? true : false
+    end
+    puts"---debug-@person_unique_valid- #{@person_unique_valid.to_yaml}-----"
+    @validation = @person_valid && @person_unique_valid
+    puts"---debug-@validation- #{@validation.to_yaml}-----"
+    @primary_email = @person.try(:primary_email).try(:value) if @validation == true
+    puts"---debug-- #{@primary_email.to_yaml}-----"
+    respond_to do |format|
+      format.js
+    end
   end
 
   def show_list

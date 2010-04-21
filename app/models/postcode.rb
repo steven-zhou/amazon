@@ -20,8 +20,8 @@ class Postcode < ActiveRecord::Base
     @post_code = Postcode.find(:all, :conditions => ["suburb ILIKE ? ", "%#{suburb}%"])
   end
 
-  def self.lookup_postcode(suburb, state)
-    Postcode.find(:first, :conditions => ["suburb ILIKE ? AND state ILIKE ?", "%#{suburb}%", "%#{state}%"])
+  def self.lookup_postcode(suburb, state, country_id=14)
+    Postcode.find(:first, :conditions => ["suburb ILIKE ? AND state ILIKE ? AND country_id=?", "%#{suburb}%", "%#{state}%", country_id])
   end
 
   after_save :update_parent_when_retrieve

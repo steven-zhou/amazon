@@ -40,7 +40,7 @@ class SystemUser < LoginAccount
   attr_accessor :update_password
 
 
-  default_scope :order => "id ASC"
+  default_scope :order => "login_accounts.id ASC"
 
 
   def user_update?

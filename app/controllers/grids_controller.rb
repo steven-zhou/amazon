@@ -3410,25 +3410,52 @@ class GridsController < ApplicationController
 
     #No search terms provided
     if(query == "%%")
-      @roles = Role.find(
-        :all,
-        #        :conditions => ["role_type_id = ?", role_type_id],
-        :order => sortname + ' ' + sortorder,
-        :limit => rp,
-        :offset => start
-      )
-      #      count = Role.count(:all, :conditions => ["role_type_id = ?", role_type_id])
-      count = Role.count(:all)
+      if params[:role_type_id]
+        role_type_id =  params[:role_type_id]
+
+        @roles = Role.find(
+          :all,
+          :conditions => ["role_type_id = ?", role_type_id],
+          :order => sortname + ' ' + sortorder,
+          :limit => rp,
+          :offset => start
+        )
+        count = Role.count(:all, :conditions => ["role_type_id = ?", role_type_id])
+        
+      else
+
+        @roles = Role.find(
+          :all,
+          #        :conditions => ["role_type_id = ?", role_type_id],
+          :order => sortname + ' ' + sortorder,
+          :limit => rp,
+          :offset => start
+        )
+        #      count = Role.count(:all, :conditions => ["role_type_id = ?", role_type_id])
+        count = Role.count(:all)
+      end
     end
 
     if(query != "%%")
-      @roles = Role.find(:all,
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start,
-        :conditions=>[qtype +" ilike ?", query],
-        :include=>["role_type"])
-      count = Role.count(:all, :conditions=>[qtype +" ilike ?", query],:include=>["role_type"])
+      if params[:role_type_id]
+        role_type_id =  params[:role_type_id]
+        @roles = Role.find(:all,
+          :order => sortname+' '+sortorder,
+          :limit =>rp,
+          :offset =>start,
+          :conditions=>[qtype +" ilike ?", query],
+          :include=>["role_type"])
+        count = Role.count(:all, :conditions=>[qtype +" ilike ? AND role_type_id = ? ", query, role_type_id],:include=>["role_type"])
+
+      else
+        @roles = Role.find(:all,
+          :order => sortname+' '+sortorder,
+          :limit =>rp,
+          :offset =>start,
+          :conditions=>[qtype +" ilike ?", query],
+          :include=>["role_type"])
+        count = Role.count(:all, :conditions=>[qtype +" ilike ?", query],:include=>["role_type"])
+      end
     end
 
     return_data = Hash.new()
@@ -3624,9 +3651,10 @@ class GridsController < ApplicationController
         :all,
         :order => sortname + ' ' + sortorder,
         :limit => rp,
-        :offset => start
-      ) rescue @systemusers = SystemUser.new
-      count = SystemUser.count(:all)
+        :offset => start,
+        :include => ["person"]
+      ) 
+      count = SystemUser.count(:all,:include => ["person"])
     end
 
     if(query != "%%")
@@ -3635,8 +3663,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? ", query]) rescue @systemusers = SystemUser.new
-      count = SystemUser.count(:all, :conditions=>[qtype +" ilike ? ", query])
+        :include => ["person"],
+        :conditions=>[qtype +" ilike ? ", query])
+      count = SystemUser.count(:all, :conditions=>[qtype +" ilike ? ", query], :include => ["person"])
     end
 
     return_data = Hash.new()
@@ -4453,7 +4482,7 @@ class GridsController < ApplicationController
     return_data[:rows] = @fee_items.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.name,
-          u.description,          
+          u.description,
           u.gl_code,
           u.starting_date.getlocal.to_date.to_s,
           u.ending_date.getlocal.to_date.to_s,

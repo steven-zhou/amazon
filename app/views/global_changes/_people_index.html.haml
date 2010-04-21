@@ -41,13 +41,13 @@
   .form_line
     .field_40
       #input_data_value{:style=>"display:none"}
-        =label :value,:value_id, 'Value'
+        =label :value,:value_id, "<span class='asterisk'>*</span>Value"
         %input{:id=>"global_change_value", :name => "global_change_value",:style=>"width:400px"}
       #select_system_data{:style=>"display:none;"}
         =label :system_data,:system_data_id, 'Select Data'
         %select#system_data_id{:style => "width:200px",:name=>"global_change_value"}
           %option
-    .field_15
+    .field_20{:style=> "margin-left:11px;"}
       %div#global_change_label{:style=>"display:none"}
         %label &nbsp
         %h3 add this value at the :

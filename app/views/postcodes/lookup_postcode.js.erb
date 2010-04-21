@@ -1,3 +1,4 @@
+$('.post_spinner').hide();
 <% if flash[:error].nil? %>
 $('.postcode_auto').val('<%=escape_javascript("#{@postcode_id}")%>');
 $('.country_value').val('<%=escape_javascript("#{@postcode_country_name}")%>');
