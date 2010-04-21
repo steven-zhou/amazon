@@ -264,4 +264,7 @@ class LoginAccount < ActiveRecord::Base
     LoginAccount.count(:all, :conditions => ["online_status=? and type!=?", true, "MemberZone"])
   end
 
+  def self.username_available?(username)
+     LoginAccount.find_by_user_name(username).blank? ? true : false
+  end
 end

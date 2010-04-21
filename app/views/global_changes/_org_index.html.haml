@@ -48,7 +48,7 @@
         %select#org_system_data_id{:style => "width:200px",:name=>"global_change_value"}
           %option
     .field_20
-      %div#org_global_change_label{:style=>"display:none"}
+      %div#org_global_change_label{:style=>"display:none;"}
         %label &nbsp
         %h3 add this value at the :
     .field_20
@@ -57,7 +57,7 @@
 
           .field_10
             %label &nbsp
-            %input{:type =>"checkbox",:id=>"org_add_to_front",:checked => true}
+            %input{:type =>"radio",:id=>"org_add_to_front",:name=>"org_add_to",:checked => true}
 
 
           .field_10
@@ -65,7 +65,7 @@
             %label{:id=>"add_to_front",:style=>"margin-top:3px;"} Front
           .field_10
             %label &nbsp
-            %input{:type =>"checkbox",:id=>"org_add_to_end"}
+            %input{:type =>"radio",:id=>"org_add_to_end",:name=>"org_add_to"}
           .field_10
             %label &nbsp
             %label{:id=>"add_to_end",:style=>"margin-top:3px;"} End

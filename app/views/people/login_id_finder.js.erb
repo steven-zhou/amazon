@@ -1,111 +1,19 @@
-<%y = Array.new%>
-<%y = @person.login_accounts%>
 
-
-<% if @login_account.new_record? %>
-  <% if @person.new_record? %>
-    $('#login_name_container_0').html("Person Does Not Exist on File11");
-    $('#error_message_text').html("Person Does Not Exist on File");
-    $('#error_message_image').css("display","");
-    $('.user_email_new').val('')
-          $('#error_message').dialog( {
-         modal: true,
-      resizable: false,
-      draggable: true,
-      height: 'auto',
-      width: 'auto',
-      buttons: {
-      Ok: function() {
-      $('#login_account_person_id').val("");
-      $('#login_name_container_0').html("");
-      $(this).dialog('close');
-      }
-      }
-      });
-
-      $('#error_message').dialog( 'option', 'title', 'ERROR');
-     $('#error_message').parent().find("a").css("display","none");
-     $("#error_message").parent().css('background-color','#D1DDE6');
-    $("#error_message").css('background-color','#D1DDE6');
-      $('#error_message').dialog('open');
-
-  <%else%>
-    <% if y.blank? %>
-      $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
-      $('.user_email_new').val("<%=escape_javascript("#{@primary_email}")%>")
-        $('#user_group_wrong_login_id').dialog( {
-       modal: true,
-      resizable: false,
-      draggable: true,
-      height: 'auto',
-      width: 'auto',
-      buttons: {
-      Ok: function() {
-      $(this).dialog('close');
-      }
-      }
-      });
-      $('#user_group_wrong_login_id').dialog('open');
-
-    <%else%>
-
-      $('#person_check').dialog( {
-          modal: true,
-      resizable: false,
-      draggable: true,
-      height: 'auto',
-      width: 'auto',
-      buttons: {
-      Ok: function() {
-      $('#login_account_person_id').val("");
-      $('#login_name_container_0').html("");
-      $(this).dialog('close');
-      }
-      }
-      });
-       $('#person_check').dialog( 'option', 'title', 'ERROR');
-     $('#person_check').parent().find("a").css("display","none");
-     $("#person_check").parent().css('background-color','#D1DDE6');
-    $("#person_check").css('background-color','#D1DDE6');
-      $('#person_check').dialog('open');
-
-
-      $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
-      $('.user_email_new').val('')
-    <%end%>
+$("#login_account_spinner").css('display','none');
+ $("#login_name_container_0").show();
+<% if @validation==false %>
+  $("#login_name_container_0").css('display','').val('');
+  $(".check_login").css('background-color', 'pink');
+  $('.user_email_new').val('')
+  <%if @person_valid == false%>
+    $("#login_name_container_0").css('display','').html("Invalid ID").fadeIn(5000);
+  <%elsif @person_unique_valid == false%>
+    $("#login_name_container_0").css('display','').html("This Person Already Have Account").fadeIn(5000);
   <%end%>
 
-<%else%>
+<% else %>
+  $("#login_name_container_0").css('display','').html("<%=escape_javascript("#{@person.name}")%>").fadeIn(5000);;
+  $(".check_login").css('background-color', '');
+  $('.user_email_new').val("<%=escape_javascript("#{@primary_email}")%>")
 
-  <% if @person.new_record? %>
-    $('#login_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("Invalid ID")
-  <%else%>
-    <% if y.blank? %>
-    <%else%>
-
-      $('#person_check').dialog( {
-      modal: true,
-      resizable: true,
-      draggable: true,
-      position: 'top',
-      buttons: {
-      Ok: function() {
-      $(this).dialog('close');
-      }
-      }
-      });
-
-       $('#person_check').dialog( 'option', 'title', 'Error');
-     $('#person_check').parent().find("a").css("display","none");
-     $("#person_check").parent().css('background-color','#D1DDE6');
-    $("#person_check").css('background-color','#D1DDE6');
-      $('#person_check').dialog('open');
-
-
-      $('#login_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("<%=escape_javascript("#{@person.name}")%>")
-    <%end%>
-  <%end%>
-
-<%end%>
-
-
+<% end %>

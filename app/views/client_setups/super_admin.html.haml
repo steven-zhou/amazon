@@ -46,10 +46,10 @@
     .form_line
       .field_20
         =label_tag :super_passowrd, "<span class='asterisk'>*</span>Super Password"
-        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop"}
+        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop compulsory_field"}
       .field_20
         =label_tag :super_passowrd_confirmation, "<span class='asterisk'>*</span>Super Password Confirmation"
-        %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
+        %input{:type => "password", :id => "repeat_password", :name => "repeat_password",:class=>"compulsory_field"}
     .form_line
       = submit_tag "Submit", :disabled => true, :id => "password_submit"
 

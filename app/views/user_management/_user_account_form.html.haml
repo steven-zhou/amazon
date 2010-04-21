@@ -17,29 +17,18 @@
     .field_23{:class => "text_field"}
       = login.label :user_name, "<span class='asterisk'>*</span>User Name"
       = login.text_field :user_name, :class => "check_username_unique compulsory_field",:login_account_id => 0 , :id => "login_account_user_name" , :name => "login_account[user_name]"
-
+    #user_name_spinner{:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -68px !important;"}
     .wrapimage.hidden#yes_username
       = login.label :user_name, '&nbsp'
       = image_tag("yes_icon.png",:title=>"Available")
     .wrapimage.hidden#no_username
       = login.label :user_name, '&nbsp'
       = image_tag("no_icon.png",:title=>"Not Available")
-    -#.field_22
-      %label &nbsp
-      -if @login_account.new_record?
-        %span{:id => "user_name_container_0", :class => "viewname"}
-      -else
-        %span{:id => "user_name_container_#{@login_account.id}"} #{@login_account.user_name}
+
     .field_23
       = login.label :security_email, "<span class='asterisk'>*</span>Email"
       = login.text_field :security_email, :class => "user_email_new compulsory_field",:id => "login_account_security_email" , :name => "login_account[security_email]"
-    -#.field_15
-      = login.label :login_status, 'Status'
-      = login.radio_button :login_status, true, :style => "width:10%", :checked => true, :id => "login_account_login_status" , :name => "login_account[login_status]"
-      %label{:style => "display:inline"} Active
-      &nbsp;&nbsp;&nbsp;
-      = login.radio_button :login_status, false, :style => "width:10%"
-      %label{:style => "display:inline"} Inactive
+    #email_spinner{:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -68px !important;"}
     .field_5
       = login.label :login_status, '&nbsp'
       = login.check_box :login_status, :checked => true, :class => "checkbox_style", :id => "login_account_login_status" , :name => "login_account[login_status]"

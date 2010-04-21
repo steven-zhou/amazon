@@ -1,1 +1,1 @@
-$("#tags_<%= escape_javascript("#{@tag_type.id}")%>").html("<%= escape_javascript(render(:partial => "/tags/tags", :locals => {:tag_type => @tag_type}))%>");
+$("#tags_<%= escape_javascript("#{@tag_type.id}")%>").html("<%= escape_javascript(render(:partial => "/tags/tags", :locals => {:tag_type => @tag_type,:category=>@category}))%>");
