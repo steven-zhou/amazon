@@ -1,0 +1,13 @@
+-form_for :query, :url =>{:controller => "data_managers", :action => "copy_runtime"}, :html => {:class => 'ajax_form'} do |f|
+  %input{:style => "display:none;", :value => @source, :name => "source"}
+  %input{:style => "display:none;", :value => @source_id, :name => "source_id"}
+  %input{:style => "display:none;", :value => @format, :name => "export_format"}
+  %input{:style => "display:none;", :value => @file_name, :name => "file_name"}
+  %input{:style => "display:none;", :value => @id, :name => "id"}
+  -@query_header.query_criterias.each do |i|
+    - if i.value == "?"
+      .form_line
+        %label #{i.table_name}.#{i.field_name} #{i.operator}
+        %input{:name => "#{i.table_name}[#{i.field_name}]", :style => "width:96%;"}
+
+  = submit_tag "Run", :style => "float:right;"

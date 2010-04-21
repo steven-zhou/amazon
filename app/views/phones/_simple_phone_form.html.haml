@@ -3,7 +3,7 @@
 .form_line
   .field_25
     = phone.label :contact_meta_type_id, 'Type'
-    = phone.collection_select :contact_meta_type_id, @phone_types, :id, :name, {:selected => default_phone}
+    = phone.collection_select :contact_meta_type_id, @phone_types, :id, :name, {:include_blank => true, :selected => default_phone}
   .field_15
     = phone.label :pre_value, "Pre Value"
     = phone.text_field :pre_value, :readonly => @phone_types.blank? ? true :false

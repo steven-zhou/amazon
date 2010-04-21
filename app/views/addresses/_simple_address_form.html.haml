@@ -3,7 +3,7 @@
 .form_line
   .field_22
     = address.label :address_type_id, "Type"
-    = address.collection_select :address_type_id, @active_address_types, :id, :name, {:selected => default_address_type}
+    = address.collection_select :address_type_id, @active_address_types, :id, :name, {:include_blank => true, :selected => default_address_type}
   .field_40
     = address.label :building_name, 'Building Name'
     = address.text_field :building_name
@@ -41,4 +41,4 @@
     = address.text_field :postal_code ,:class => "postcode_auto"
   .field_49
     = address.label :country, 'Country'
-    = address.collection_select :country_id, @countries, :id, :short_name, {:include_blank => true,:selected=>ClientSetup.try(:first).try(:home_country_id)}, :class => "uppercase country_value"
+    = address.collection_select :country_id, @countries, :id, :short_name, {:include_blank => true, :selected=>ClientSetup.try(:first).try(:home_country_id)}, :class => "uppercase country_value"
