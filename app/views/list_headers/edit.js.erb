@@ -1,6 +1,4 @@
 $('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
-
-
 $('#edit_list').dialog({
   modal: true,
   resizable: false,
@@ -12,6 +10,8 @@ $('#edit_list').dialog({
   }
 });
 $('#edit_list').dialog('option', 'title', 'Edit List');
+$('#edit_list').parent().css('background-color','#D1DDE6');
+$('#edit_list').css('background-color','#D1DDE6');
 $('#edit_list').dialog('open');
 
 
