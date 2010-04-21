@@ -2375,6 +2375,7 @@ $(function(){
 // Global Change
 $(function(){
   $('.global_change').live('click',function(){
+    $(this).attr('disabled',true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     var data = "";
     if ($(this).attr("source")=="Person")
     {
@@ -2518,7 +2519,7 @@ $(function(){
     if(!($('#global_change_table_name').val()=="" || $('#table_field_id').val()==""))
     {
 
-      if ($(this).val()=="Add")
+      if ($(this).val()=="Add" || $(this).val()=="Insert")
 
       {
         $('#global_change_value').val("");
@@ -2665,7 +2666,7 @@ $(function(){
   $('#org_table_action_id').live('change',function(){
     if(!($('#org_global_change_table_name').val()=="" || $('#org_table_field_id').val()==""))
     {
-      if ($(this).val()=="Add")
+      if ($(this).val()=="Add"||$(this).val()=="Insert")
       {
         $('#org_global_change_value').val("");
 
@@ -2749,7 +2750,7 @@ $(document).ready(function(){
 
 
 
-<<<<<<< HEAD:public/javascripts/admin.js
+
 //user_checking = function(){
 //  link = $(this.el)
 //
@@ -2810,7 +2811,7 @@ check_person_for_new_account = function(target){
   $(document).ready(function(){
       $(".check_login").typeWatch( {callback: check_person_for_new_account} );
     });
-=======
+
 // for nightly process spinner
 
 $(function(){
@@ -2830,4 +2831,3 @@ $(function(){
     });
 
 });
->>>>>>> 1d7e6aa3af0e80a3e692ae72db65e67ddc2b054a:public/javascripts/admin.js
