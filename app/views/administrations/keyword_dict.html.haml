@@ -3,7 +3,7 @@
     %h1 Keywords Dictionary
 #content_full_page
 
-  - form_for Keyword.new, :html => {:class => "ajax_form"} do |p|
+  - form_for Keyword.new, :html => {:class => "ajax_form",:submit_button_id=>"keyword_new_submit"} do |p|
     .left
 
     %input{:id => "keyword_mode", :style => "display:none;", :mode => "show"}
@@ -20,10 +20,10 @@
           .form_line
             .field_20
               = p.label :keyword_type_id, "<span class='asterisk'>*</span>Keyword Type"
-              = p.collection_select(:keyword_type_id, KeywordType.active, :id, :name, {},{:class=>"mandantory_dropdown_list",:mandantory_field1=>"new_receipt_account_name", :mandantory_field2=>"keyword_keyword_type_id", :submit_button_id=>"new_receipt_account_submit"})
+              = p.collection_select(:keyword_type_id, KeywordType.active, :id, :name, {:include_blank=>true},{:class=>"compulsory_field" })
             .field_20
               = p.label :name, "<span class='asterisk'>*</span>Name"
-              = p.text_field :name,:class=>'mandantory_field',:mandantory_field1=>"keyword_name", :mandantory_field2=>"keyword_keyword_type_id",:submit_button_id=>"keyword_new_submit"
+              = p.text_field :name,:class=>'compulsory_field'
             .field_20
               = p.label :description, 'Description'
               = p.text_field :description

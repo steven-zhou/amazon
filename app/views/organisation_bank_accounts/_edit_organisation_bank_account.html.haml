@@ -1,4 +1,4 @@
--form_for @bank_accounts,:index => @bank_accounts.id, :html => {:class => 'ajax_form'} do |account|
+-form_for @bank_accounts,:index => @bank_accounts.id, :html => {:class => 'ajax_form',:submit_button_id=>"organisation_account_edit_submit"} do |account|
   %div
     .header_container
       .title

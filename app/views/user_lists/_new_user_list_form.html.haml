@@ -4,6 +4,7 @@
     .field_30
       = user_list.label :list_header_id, "List"
       %select.show_user_list_description{:des => "user_list_list",:name => "user_list[list_header_id]"}
+        %option
         - @list_headers.each do |list|
           %option{:value => "#{list.id}"}#{list.name}
     .field_25
@@ -14,4 +15,4 @@
       %input{:name => "user_list[user_id]", :value => "#{@login_account.id}"}
     .field_38
       %label &nbsp
-      = submit_tag 'Submit', :style => 'display:inline;float:right;'
+      = submit_tag 'Submit', :style => 'display:inline;float:right;',:id=>"user_list_submit"

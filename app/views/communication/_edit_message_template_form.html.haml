@@ -25,7 +25,7 @@
   .ex_container
     .form_line
       .field_10
-        = f.label :name, "Mail Category"
+        = f.label :name, "<span class='asterisk'>*</span>Mail Category"
         = f.collection_select :template_category_id, TemplateCategory.active_template_category, :id, :name, {},{:name => "message_template[template_category_id]"}
       .field_20
         = f.label :name, "<span class='asterisk'>*</span>Name"

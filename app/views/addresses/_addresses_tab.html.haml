@@ -8,10 +8,9 @@
   %h1 New Address
   %input{:id => "address_hidden_tab", :mode => "show", :style => "display:none"}
   %input{:id => "address_input_change_or_not", :style => "display:none", :value => "false"}
-  =# Initially hidden new address form
+
   #address_check_type
     = render :partial => '/addresses/personal_address_type', :locals => { :address => @address }
 
 #addresses
-  =# Render the person's addresses
   = render :partial => '/addresses/address', :collection => person.addresses

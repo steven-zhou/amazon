@@ -5,6 +5,7 @@
       = group_list.label :list_header_id, "List"
       %select.show_list_description{:des => "group_list_list",:name => "group_list[list_header_id]"}
         - @list_headers.each do |list|
+          %option
           %option{:value => "#{list.id}"}#{list.name}
     .field_25
       %label &nbsp
@@ -14,6 +15,6 @@
       %input{:name => "group_list[tag_id]", :value => "#{@group.id}"}
     .field_38
       %label &nbsp
-      = submit_tag 'Submit', :style => 'display:inline;float:right;'
+      = submit_tag 'Submit', :style => 'display:inline;float:right;',:id=>"group_list_submit",:disabled=>true
 
 

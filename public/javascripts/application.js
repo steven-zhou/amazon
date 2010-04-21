@@ -2141,22 +2141,33 @@ $(function(){
       }
     }
     if (disable){
+//      alert("a");
+//      alert(current_form.attr("id"));
+//          alert(current_form.attr("'submit_button_id"));
       $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
     }else{
+//      alert("b");
+//        alert(current_form.attr("id"));
+//        alert(current_form.attr("'submit_button_id"));
       $('#'+current_form.attr('submit_button_id')).removeAttr('disabled');
     }
     return false;
   };
 
   $(".compulsory_field").live('keyup', function(e){
+
+  
     var current_form = $('#'+$(this).closest('form').attr('id'));
     if(e.which!=13){
       if ($.trim($(this).val())!="")
       {
+
         compulsory_check($(this));
       }
       else
       {
+
+
         $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
       }
     }

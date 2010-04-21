@@ -17,11 +17,11 @@
       = f.text_field :account_number, :class => "edit_client_bank_account_required_field", :id => "edit_client_bank_account_number", :disabled => true
   .form_line
     .field_30
-      = f.label :bank, "Bank"
+      = f.label :bank, "<span class='asterisk'>*</span>Bank"
       = collection_select(:client_bank_account, :bank_id, Bank.find(:all), :id, :display_name, {}, {:disabled => client_bank_account.status == false})
     .field_30
       = f.label :account_purpose_id, "Purpose"
-      = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name, {}, {:disabled => client_bank_account.status == false})
+      = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name, {:include_blank=>true}, {:disabled => client_bank_account.status == false})
   .form_line
     .field_30
       = f.label :remarks, "Remarks"

@@ -9,11 +9,10 @@
   %input{:type => "text", :id => "relationship_hidden_tab", :mode => "show", :style => "display:none"}
   %input{:id => "relationship_input_change_or_not", :style => "display:none", :value => "false"}
 
-  =# Initially hidden new address form
   #relationship_type
     = render :partial => '/relationships/personal_relationship_type', :locals => { :relationship => @relationship }
 
-=# Render the person's addresses 
+-# Render the person's relations
 = render :partial => '/relationships/relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
 
 = render :partial => '/relationships/relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}

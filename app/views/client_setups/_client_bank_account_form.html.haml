@@ -6,10 +6,10 @@
   .form_line
     .field_30
       = f.label :bank, "<span class='asterisk'>*</span>Bank"
-      = collection_select(:client_bank_account, :bank_id, Bank.active_record, :id, :display_name, {}, {:class => "compulsory_field"})
+      = collection_select(:client_bank_account, :bank_id, Bank.active_record, :id, :display_name, {:include_blank=>true}, {:class => "compulsory_field"})
     .field_30
       = f.label :account_purpose_id, "Purpose"
-      = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name)
+      = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name,{:include_blank=>true})
   .form_line
     .field_30
       = f.label :remarks, "Remarks"
