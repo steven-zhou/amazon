@@ -9,9 +9,9 @@
   %input{:id => "master_doc_mode", :mode => "show", :style => "display:none"}
   %input{:id => "master_doc_input_change_or_not", :style => "display:none", :value => "false",:class => "ogranisation_input_change_class"}
   =# Initially hidden new masterdoc form
-  -form_for([@organisation,@masterdoc], :url => "/organisations/#{@organisation.id}/master_docs", :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
+  -form_for([@organisation,@masterdoc], :url => "/organisations/#{@organisation.id}/master_docs", :html => {:style => "display:none", :class => 'ajax_form', :submit_button_id => "master_doc_new_submit"}) do |form|
     = render :partial => '/master_docs/master_doc_form', :locals => { :form => form }
-    = submit_tag 'Submit',:id=>"master_doc_new_subbmit",:disabled=>true
+    = submit_tag 'Submit',:id=>"master_doc_new_submit",:disabled=>true
 #masterdocs
   =# Render the organisation's addresses
   = render :partial => '/master_docs/master_doc', :collection => organisation.master_docs

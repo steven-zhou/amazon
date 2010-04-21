@@ -1,11 +1,12 @@
 .form_line
   .field_20
     = instant_messaging.label :contact_meta_type_id, "<span class='asterisk'>*</span>Type"
-    - empty = Contact.instant_messaging_types - @person.personal_instant_messaging_types
     -if @organisation.nil?
+      - empty = Contact.instant_messaging_types - @person.personal_instant_messaging_types
       = instant_messaging.collection_select :contact_meta_type_id, Contact.instant_messaging_types - @person.personal_instant_messaging_types+ @instant_messaging.instant_messaging_type, :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@instant_messaging.new_record? ? "instant_messaging_value" : "instant_messaging_value_edit",:mandantory_field2=>"edit_instant_messaging_contact_meta_type_id",:submit_button_id=>"submit_instant_messaging_field_edit",:id=>"edit_instant_messaging_contact_meta_type_id"}
     -else
-      = instant_messaging.collection_select :contact_meta_type_id, Contact.instant_messaging_types - @organisation.personal_instant_messaging_types + @instant_messaging.instant_messaging_type, :id, :name,{},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@instant_messaging.new_record? ? "instant_messaging_value" : "instant_messaging_value_edit",:mandantory_field2=>"edit_instant_messaging_contact_meta_type_id",:submit_button_id=>"submit_instant_messaging_field_edit"}
+      - empty = Contact.instant_messaging_types - @organisation.personal_instant_messaging_types
+      = instant_messaging.collection_select :contact_meta_type_id, Contact.instant_messaging_types - @organisation.personal_instant_messaging_types + @instant_messaging.instant_messaging_type, :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@instant_messaging.new_record? ? "instant_messaging_value" : "instant_messaging_value_edit",:mandantory_field2=>"edit_instant_messaging_contact_meta_type_id",:submit_button_id=>"submit_instant_messaging_field_edit"}
   .field_75
     = instant_messaging.label :value, "<span class='asterisk'>*</span>Value"
     = instant_messaging.text_field :value, :id => @instant_messaging.new_record? ? "instant_messaging_value" : "instant_messaging_value_edit",:class=>'mandantory_field', :mandantory_field1=>@instant_messaging.new_record? ? "instant_messaging_value" : "instant_messaging_value_edit",:mandantory_field2=>"edit_instant_messaging_contact_meta_type_id",:submit_button_id=>"submit_instant_messaging_field_edit"
@@ -13,4 +14,3 @@
   .field_100
     = instant_messaging.label :remarks, "Remarks"
     = instant_messaging.text_field :remarks
-

@@ -3,7 +3,7 @@
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Meta Type"
     -if @masterdoc.new_record?
-      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true and to_be_removed = false"]), :id, :name, {}, {:class => "find_master_doc_meta_type_field "})
+      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true and to_be_removed = false"]), :id, :name, {:include_blank => true}, {:class => "find_master_doc_meta_type_field"})
     -else
       = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true and to_be_removed = false"]), :id, :name, {:selected => @masterdocmetametatype.id }, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
   .field_25
@@ -19,17 +19,17 @@
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Master Doc"
     -if @masterdoc.new_record?
-      %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]",:class =>"mandantory_dropdown_list",:mandantory_field1=>"master_doc_master_doc_type_id",:mandantory_field2=>"master_doc_doc_number",:submit_button_id=>"master_doc_new_subbmit"}
+      %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]",:class =>"compulsory_field"}
         %option
     -else
-      %select{:id => "master_doc_master_doc_type_id_#{@masterdoc.id}", :name => "master_doc[#{@masterdoc.id}][master_doc_type_id]",:class =>"mandantory_dropdown_list",:mandantory_field1=>"master_doc_master_doc_type_id_#{@masterdoc.id}",:mandantory_field2=>"master_doc_#{@masterdoc.id}_doc_number",:submit_button_id=>"master_doc_edit_submit"}
+      %select{:id => "master_doc_master_doc_type_id_#{@masterdoc.id}", :name => "master_doc[#{@masterdoc.id}][master_doc_type_id]",:class =>"compulsory_field"}
         -for type in @MasterDocTypeArray
           %option{:value => type.id, :selected => (true if type.id == @masterdoctype.id)}
             = type.name
 .form_line
   .field_25
     = form.label :doc_number, "<span class='asterisk'>*</span>Doc Number"
-    = form.text_field :doc_number,:class => " mandantory_field",:mandantory_field1=>@masterdoc.new_record? ? "master_doc_master_doc_type_id" : "master_doc_master_doc_type_id_#{@masterdoc.id}",:mandantory_field2=>@masterdoc.new_record? ? "master_doc_doc_number":"master_doc_#{@masterdoc.id}_doc_number",:submit_button_id=>@masterdoc.new_record? ? "master_doc_new_subbmit" : "master_doc_edit_submit"
+    = form.text_field :doc_number,:class => "compulsory_field"
   .field_25
     = form.label :doc_reference, 'Doc Reference'
     = form.text_field :doc_reference
@@ -74,9 +74,9 @@
   .field_25
     = form.label :issue_country, 'Issue Country'
     -if @masterdoc.new_record?
-      = form.collection_select(:issue_country_id, Country.all, :id, :short_name, {:include_blank => true,:selected=> ClientSetup.try(:first).try(:home_country_id)})
+      = form.collection_select(:issue_country_id, Country.all, :id, :short_name, {:include_blank => true, :selected=> ClientSetup.try(:first).try(:home_country_id)})
     -else
-      = form.collection_select(:issue_country_id, Country.all, :id, :short_name, {:include_blank => true,:selected=> ClientSetup.try(:first).try(:home_country_id)})
+      = form.collection_select(:issue_country_id, Country.all, :id, :short_name, {:include_blank => true, :selected=> ClientSetup.try(:first).try(:home_country_id)})
 .form_line
   .field_25
     = form.label :expiry_date, 'Expiry Date'
