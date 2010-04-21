@@ -1,6 +1,6 @@
 puts "destroy receipt account ..."
 ReceiptAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
-  if TransactionAllocation.find_by_receipt_account_id(i.id).nil?
+  if DepositDetail.find_by_receipt_account_id(i.id).nil?
     i.destroy
   else
     i.to_be_removed = false
@@ -10,7 +10,7 @@ end
 
 puts "destroy campaign ..."
 Campaign.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
-  if TransactionAllocation.find_by_campaign_id(i.id).nil?
+  if DepositDetail.find_by_campaign_id(i.id).nil?
     i.destroy
   else
     i.to_be_removed = false
@@ -20,7 +20,7 @@ end
 
 puts "destroy source ..."
 Source.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
-  if TransactionAllocation.find_by_source_id(i.id).nil?
+  if DepositDetail.find_by_source_id(i.id).nil?
     i.destroy
   else
     i.to_be_removed = false
@@ -30,7 +30,7 @@ end
 
 puts "destroy client bank account ..."
 ClientBankAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
-  if TransactionHeader.find_by_bank_account_id(i.id).nil?
+  if Deposit.find_by_bank_account_id(i.id).nil?
     i.destroy
   else
     i.to_be_removed = false

@@ -2,7 +2,8 @@
   %h1 Nightly Process
 
   %p
-
+  
   %p{:style => "text_align:centre;"}
-    = submit_tag "Nightly Process", :class => "ajax_call", :method => "GET", :url => "nightly_processes/run", :id => "run_nightly_process"
+    .div{:class=>"spinner",:style=>"display:none",:id=>"nightly_process_spinner"}
+    = submit_tag "Nightly Process", :id => "run_nightly_process"
   %p#output

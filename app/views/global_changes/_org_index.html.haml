@@ -1,5 +1,5 @@
 
-%h1 Change Parameters
+%h2 Change Parameters
 
 .form_line
   .field_20
@@ -42,12 +42,12 @@
     .field_40
       #org_input_data_value{:style=>"display:none"}
         =label :value,:value_id, 'Value'
-        %input{:id=>"org_global_change_value", :name => "global_change_value",:style=>"width:400px"}
+        %input{:id=>"org_global_change_value", :name => "global_change_value"}
       #org_select_system_data{:style=>"display:none;"}
         =label :system_data,:system_data_id, 'Select Data'
         %select#org_system_data_id{:style => "width:200px",:name=>"global_change_value"}
           %option
-    .field_15
+    .field_20
       %div#org_global_change_label{:style=>"display:none"}
         %label &nbsp
         %h3 add this value at the :

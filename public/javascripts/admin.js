@@ -2763,3 +2763,22 @@ $(document).ready(function(){
 
 
 
+// for nightly process spinner
+
+$(function(){
+
+
+    $('#run_nightly_process').live('click',function(){
+    {
+      $(this).attr('disabled',true);
+      $('#nightly_process_spinner').show();
+              $.ajax({
+            type: "GET",
+            url: "nightly_processes/run",
+            dataType: "script"
+        });
+
+    }
+    });
+
+});
