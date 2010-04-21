@@ -20,6 +20,65 @@ class DataManagersController < ApplicationController
     end
   end
 
+  def check_runtime
+    @format = params[:export_format]
+    @source = params[:source]
+    @source_id = params[:source_id]
+    @file_name = params[:file_name]
+    @id = @source_id.delete("query_")
+    #check runtime for query only
+    @query_header = QueryHeader.find(@id.to_i)
+
+    @runtime = false
+    @query_header.query_criterias.each do |i|
+      if i.value == "?"
+        @runtime = true
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def copy_runtime
+    @format = params[:export_format]
+    @source = params[:source]
+    @source_id = params[:source_id]
+    @file_name = params[:file_name]
+      
+    @query_header_old = QueryHeader.find(params[:id].to_i)
+    @query_header_new = @query_header_old.class.new
+    @query_header_new.name = QueryHeader.random_name
+    @query_header_new.group = "temp"
+    @query_header_new.status = true
+    @query_header_new.save
+    @query_header_old.query_criterias.each do |i|
+      @query_criteria = QueryCriteria.new(i.attributes)
+      if @query_criteria.value == "?"
+        @query_criteria.value = params[@query_criteria.table_name.to_sym][@query_criteria.field_name.to_sym]
+      end
+      @query_criteria.query_header_id = @query_header_new.id
+      @query_criteria.save
+    end
+
+    @query_header_old.query_selections.each do |i|
+      @query_selection = QuerySelection.new(i.attributes)
+      @query_selection.query_header_id = @query_header_new.id
+      @query_selection.save
+    end
+
+    @query_header_old.query_sorters.each do |i|
+      @query_sorter = QuerySorter.new(i.attributes)
+      @query_sorter.query_header_id = @query_header_new.id
+      @query_sorter.save
+    end
+    
+    #use new query header (copyed one) to export
+    @source_id = "query_#{@query_header_new.id}"
+    render 'check_runtime.js'
+  end
+
   def export
     @source_id = String.new
     @source_type = String.new

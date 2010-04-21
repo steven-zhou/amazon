@@ -60,11 +60,15 @@ class OrganisationRelationshipsController < ApplicationController
       @organisation.level=nil
       @organisation.family_id = nil
       @organisation.save
+
     else
+
       @related_organisation = OrganisationRelationship.find_by_related_organisation_id(params[:id])
       @level = @organisation.level
       @next_level = (@level.to_i)+1
+
     end
+    @organisation = Organisation.find(@related_organisation.source_organisation_id)
     @related_organisation.destroy unless @related_organisation.nil?
     #    OrganisationRelationship.delete_all_relationship(params[:id])
 

@@ -107,14 +107,13 @@ class QueryHeadersController < ApplicationController
       render "show_sql_statement.js"
 
     else
-      runtime_params = Array.new
+      @runtime = false
       @query_header.query_criterias.each do |i|
         if i.value == "?"
-          runtime_params << {"#{i.table_name}" => "#{i.field_name}"}
+          @runtime = true
         end
       end
-
-      @runtime = runtime_params.empty? ? false : true
+      
       if @runtime
         #ask for runtime param(s)
         @top = params[:top]

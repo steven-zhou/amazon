@@ -43,14 +43,14 @@
       #input_data_value{:style=>"display:none"}
 
         =label :value,:value_id, "<span class='asterisk'>*</span>Value"
-        %input{:id=>"global_change_value", :name => "global_change_value",:style=>"width:400px"}
+        %input{:id=>"global_change_value", :name => "global_change_value"}
 
       #select_system_data{:style=>"display:none;"}
         =label :system_data,:system_data_id, 'Select Data'
         %select#system_data_id{:style => "width:200px",:name=>"global_change_value"}
           %option
 
-    .field_20{:style=> "margin-left:11px;"}
+    .field_20
       %div#global_change_label{:style=>"display:none"}
         %label &nbsp
         %h3 add this value at the :
@@ -60,7 +60,7 @@
 
           .field_10
             %label &nbsp
-            %input{:type =>"checkbox",:id=>"add_to_front",:checked => true}
+            %input{:type =>"radio",:id=>"add_to_front",:name=>"add_to",:checked => true,:value=>"front"}
 
 
           .field_10
@@ -68,7 +68,7 @@
             %label{:id=>"add_to_front",:style=>"margin-top:3px;"} Front
           .field_10
             %label &nbsp
-            %input{:type =>"radio",:id=>"add_to_end"}
+            %input{:type =>"radio",:id=>"add_to_end",:name=>"add_to",:value=>"end"}
           .field_10
             %label &nbsp
             %label{:id=>"add_to_end",:style=>"margin-top:3px;"} End

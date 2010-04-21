@@ -5,7 +5,7 @@
       .form_line.field_select_line
         %label Lists
         %input{:style => "display:none", :id => "login_account_id", :value => session[:user]}
-        %select#compiler_options.field_select{:multiple => true, :size => "20"}
+        %select#compiler_options.field_select{:multiple => true, :size => "20", :style => "height:324px !important;"}
           - lists.each do |i|
             %option{:value => "#{i.id}", :id => "list_header_#{i.id}"} #{i.name}
         %br.clear

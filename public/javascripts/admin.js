@@ -2291,6 +2291,7 @@ $(function(){
 // Global Change
 $(function(){
   $('.global_change').live('click',function(){
+    $(this).attr('disabled',true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     var data = "";
     if ($(this).attr("source")=="Person")
     {
@@ -2434,7 +2435,7 @@ $(function(){
     if(!($('#global_change_table_name').val()=="" || $('#table_field_id').val()==""))
     {
 
-      if ($(this).val()=="Add")
+      if ($(this).val()=="Add" || $(this).val()=="Insert")
 
       {
         $('#global_change_value').val("");
@@ -2581,7 +2582,7 @@ $(function(){
   $('#org_table_action_id').live('change',function(){
     if(!($('#org_global_change_table_name').val()=="" || $('#org_table_field_id').val()==""))
     {
-      if ($(this).val()=="Add")
+      if ($(this).val()=="Add"||$(this).val()=="Insert")
       {
         $('#org_global_change_value').val("");
 
@@ -2666,6 +2667,46 @@ $(document).ready(function(){
 
 
 
+
+//user_checking = function(){
+//  link = $(this.el)
+//
+//  if(link.val()!= ""){
+//    $('.login_account_spinner').show();
+//    $.ajax({
+//      type: "GET",
+//      url: "/people/login_id_finder.js",
+//      data: 'person_id='+link.val()+'&login_account_id='+link.attr('login_account_id'),
+//      dataType:"script"
+//    });
+//  }else{
+//    $("#login_name_container_"+link.attr('login_account_id')).html("");
+//    $('#error_message_text').html("Please type Person ID");
+//    $('#error_message_image').css("display","");
+//    $('#error_message').dialog({
+//      modal: true,
+//      resizable: false,
+//      draggable: true,
+//      height: 'auto',
+//      width: 'auto',
+//      buttons: {
+//        "OK":function(){
+//
+//          $(this).dialog('destroy');
+//          return false;
+//
+//        }
+//      }
+//    });
+//    $('#error_message').dialog('option', 'title', 'ERROR');
+//
+//    $('#error_message').parent().find("a").css("display","none");
+//    $("#error_message").parent().css('background-color','#D1DDE6');
+//    $("#error_message").css('background-color','#D1DDE6');
+//
+//    $('#error_message').dialog('open');
+
+
 check_person_for_new_account = function(target){
   link = $(this.el)
 
@@ -2682,11 +2723,13 @@ check_person_for_new_account = function(target){
 }
 };
 
+
 $(document).ready(function(){
   $(".check_login").typeWatch( {
     callback: check_person_for_new_account
   } );
 });
+
 
 // for nightly process spinner
 
@@ -2772,6 +2815,7 @@ email_checking=function(target){
      $("#email_spinner").css('display', 'none');
     $(".user_email_new").css('background-color', 'pink');
 
+
   }
 };
 
@@ -2781,3 +2825,4 @@ $(document).ready(function(){
     callback:  email_checking
   } );
 });
+

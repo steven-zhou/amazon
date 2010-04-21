@@ -3605,8 +3605,7 @@ $(function(){
 
 $(function(){
   $("#compile_button").live('click', function(){
-    $(this).attr("disabled", true);
-    $(this).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
+    $(this).attr("disabled", true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     var temp = "";
     temp += "login_account_id=" + $("#login_account_id").val();
     temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
@@ -3627,6 +3626,7 @@ $(function(){
 
 $(function(){
   $("#org_compile_button").live('click', function(){
+    $(this).attr("disabled", true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     var temp = "";
     temp += "login_account_id=" + $("#login_account_id").val();
     temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
@@ -3635,7 +3635,6 @@ $(function(){
     }else{
       temp += "&top=percent&top_percent=" + $("#top_value").val();
     }
-
     $.ajax({
       type: "POST",
       url: "/compile_lists/org_compile.js",
@@ -3663,6 +3662,21 @@ $(function(){
 
 /* Import and Export */
 $(function(){
+  check_source = function(el){
+    if(el.val()==""){
+      $('.check_runtime_export_button').attr('disabled', true);
+    }else{
+      $('.check_runtime_export_button').removeAttr('disabled');
+    }
+  };
+  $('#source_id').live('change', function(){
+    check_source($(this));
+  });
+
+  $('#org_source_id').live('change', function(){
+    check_source($(this));
+  });
+$('.check_runtime_export_button')
   $('.export_button').live('click',function(){
     var source_id = ""
     var file_name = ""
@@ -3681,6 +3695,36 @@ $(function(){
       window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
     }
 
+  });
+
+  $('.check_runtime_export_button').live('click',function(){
+    var source_id = ""
+    var file_name = ""
+    var source = $(this).attr("source");
+    if (source == 'person'){
+      source_id = $('#source_id').val();
+      file_name = $("#file_name").val();
+    }else{
+      source_id = $('#org_source_id').val();
+      file_name = $("#org_file_name").val();
+    }
+
+    if (source_id != "")
+    { 
+      var format = $(this).attr("value").toLowerCase();
+      if (source_id.indexOf('query')!=-1){
+        $('.check_runtime_export_button').attr("disabled", true);
+        $(this).after('<div id="spinner" style="height: 24px;float:right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 30px; margin-right: 10px;"></div>');
+        $.ajax({
+          type: "GET",
+          url: "/data_managers/check_runtime.js",
+          data:'export_format='+format+'&source='+source+'&source_id='+source_id+'&file_name='+file_name,
+          dataType: "script"
+        });
+      }else{
+        window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
+      }      
+    }
   });
 });
 

@@ -130,7 +130,7 @@ ActionController::Routing::Routes.draw do |map|
                                   
   
  
-  map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get, :page_initial => :get}
+  map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get, :page_initial => :get, :check_runtime => :get, :copy_runtime => :get}
   map.resources :user_lists, :collection => {:show_list_des => :get}
   map.resources :dashboards, :collection => {:check_password => :get, :update_password => :post, :save_dashboard => :get}
   map.resources :system_news, :member => {:switch => :get}, :collection => {:pre_three => :get, :next_three => :get}

@@ -13,6 +13,8 @@ $('#result_div').dialog({
   width: 1100
   });
   $('#result_div').dialog('option', 'title', 'Query Results');
+  $('#result_div').parent().css('background-color','#D1DDE6');
+  $('#result_div').css('background-color','#D1DDE6');
   $('#result_div').dialog('open');
 
   $("#query_result_grid").flexigrid({
@@ -53,5 +55,5 @@ $('#result_div').dialog({
 <%- else %>
   $("#save_button").removeAttr("disabled");
   $("#run_button").removeAttr("disabled");
-  $("#run_button_edit").attr("disabled", "disabled");
+  $("#run_button_edit").removeAttr("disabled");
 <%- end %>

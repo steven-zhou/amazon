@@ -4,17 +4,17 @@
   #lol
   %br.clear
 
-- form_for @client_setup do |f|
+- form_for @client_setup,:html => {:submit_button_id => "password_submit"} do |f|
   %input{:name => "member_zone", :style => "display:none;"}
   .full_container
     %h1 Login Details
     .form_line
       .field_20
         =label_tag :super_password , "<span class='asterisk'>*</span>Super Password"
-        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop"}
+        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop compulsory_field"}
       .field_20
         =label_tag :super_password_confirmation , "<span class='asterisk'>*</span>Super Password Confirmation"
-        %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
+        %input{:type => "password", :id => "repeat_password", :name => "repeat_password",:class=>"compulsory_field"}
       .field_20{:style => "float:right;"}
         %label &nbsp;
         = submit_tag "Submit", :disabled => true, :id => "password_submit"
