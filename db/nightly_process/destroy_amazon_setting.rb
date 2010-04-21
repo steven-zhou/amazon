@@ -274,7 +274,7 @@ end
 
 puts "destroy received via ..."
 ReceivedVia.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
-  unless TransactionHeader.find_by_received_via_id(i.id).nil?
+  unless Deposit.find_by_received_via_id(i.id).nil?
     i.to_be_removed = false
     i.save
   else

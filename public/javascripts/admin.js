@@ -2749,6 +2749,7 @@ $(document).ready(function(){
 
 
 
+<<<<<<< HEAD:public/javascripts/admin.js
 //user_checking = function(){
 //  link = $(this.el)
 //
@@ -2809,3 +2810,24 @@ check_person_for_new_account = function(target){
   $(document).ready(function(){
       $(".check_login").typeWatch( {callback: check_person_for_new_account} );
     });
+=======
+// for nightly process spinner
+
+$(function(){
+
+
+    $('#run_nightly_process').live('click',function(){
+    {
+      $(this).attr('disabled',true);
+      $('#nightly_process_spinner').show();
+              $.ajax({
+            type: "GET",
+            url: "nightly_processes/run",
+            dataType: "script"
+        });
+
+    }
+    });
+
+});
+>>>>>>> 1d7e6aa3af0e80a3e692ae72db65e67ddc2b054a:public/javascripts/admin.js

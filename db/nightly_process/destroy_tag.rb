@@ -60,7 +60,7 @@ end
 
 puts "destroy receipt meta type ..."
 ReceiptMetaType.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
-  if TransactionHeader.find_by_receipt_type_id(i.id).nil?
+  if Deposit.find_by_receipt_type_id(i.id).nil?
     i.destroy
   else
     i.to_be_removed = false
