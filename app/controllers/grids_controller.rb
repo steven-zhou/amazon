@@ -1328,12 +1328,12 @@ class GridsController < ApplicationController
       @rp = rp
       @sortname = sortname
       @qtype = qtype
-      puts"-page---debug----#{@entities.first.class.to_s.to_yaml}"
-      puts"-page---debug----#{@page.to_yaml}"
-      puts"-rp---debug----#{@rp.to_yaml}"
-      puts"-@sortname---debug----#{@sortname.to_yaml}"
-      puts"-@qtype---debug----#{@qtype.to_yaml}"
-      puts"-@query---debug----#{@query.to_yaml}"
+#      puts"-page---debug----#{@entities.first.class.to_s.to_yaml}"
+#      puts"-page---debug----#{@page.to_yaml}"
+#      puts"-rp---debug----#{@rp.to_yaml}"
+#      puts"-@sortname---debug----#{@sortname.to_yaml}"
+#      puts"-@qtype---debug----#{@qtype.to_yaml}"
+#      puts"-@query---debug----#{@query.to_yaml}"
       
       render '/organisations/show_album.js'
 
