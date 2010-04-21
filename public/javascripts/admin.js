@@ -610,157 +610,73 @@ $(function(){
   });
 });
 
-$(function(){
-  $(".check_login_id").blur(function(){
-    if($(this).val()!= ""){
-      $.ajax({
-        type: "GET",
-        url: "/people/login_id_finder.js",
-        data: 'person_id='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
-        dataType:"script"
-      });
-    }else{
-      $("#login_name_container_"+$(this).attr('login_account_id')).html("");
-      $('#error_message_text').html("Please type Person ID");
-      $('#error_message_image').css("display","");
-      $('#error_message').dialog({
-        modal: true,
-        resizable: false,
-        draggable: true,
-        height: 'auto',
-        width: 'auto',
-        buttons: {
-          "OK":function(){
-
-            $(this).dialog('destroy');
-            return false;
-
-          }
-        }
-      });
-      $('#error_message').dialog('option', 'title', 'ERROR');
-
-      $('#error_message').parent().find("a").css("display","none");
-      $("#error_message").parent().css('background-color','#D1DDE6');
-      $("#error_message").css('background-color','#D1DDE6');
-
-      $('#error_message').dialog('open');
-
-    }
-  });
-});
-
-
+//$(function(){
+//  $(".check_login_id").blur(function(){
+//    if($(this).val()!= ""){
+//      $.ajax({
+//        type: "GET",
+//        url: "/people/login_id_finder.js",
+//        data: 'person_id='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
+//        dataType:"script"
+//      });
+//    }else{
+//      $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+//      $('#error_message_text').html("Please type Person ID");
+//      $('#error_message_image').css("display","");
+//      $('#error_message').dialog({
+//        modal: true,
+//        resizable: false,
+//        draggable: true,
+//        height: 'auto',
+//        width: 'auto',
+//        buttons: {
+//          "OK":function(){
+//
+//            $(this).dialog('destroy');
+//            return false;
+//
+//          }
+//        }
+//      });
+//      $('#error_message').dialog('option', 'title', 'ERROR');
+//
+//      $('#error_message').parent().find("a").css("display","none");
+//      $("#error_message").parent().css('background-color','#D1DDE6');
+//      $("#error_message").css('background-color','#D1DDE6');
+//
+//      $('#error_message').dialog('open');
+//
+//    }
+//  });
+//});
 
 
-$(function(){
-
-  $(".check_username_unique").blur(function(){
-
-    //        if ($('#login_account_user_name').val().length < 6 ||$('#login_account_user_name').val().length > 30 )
-    //     {
-    //         return false;
-    //     }
-
-    //     else
-    //         {
-    $.ajax({
-      type: "GET",
-      url: "/login_accounts/user_name_unique.js",
-      data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
-      dataType:"script"
-    });
-
-  //         }
-
-
-
-
-  });
-
-  $('#login_account_user_name').live("focus", function(){
-    $(this).qtip(
-    {
-      content: 'username must between 6~20<br>username can\'t the same as password',
-      style: 'dark'
-    }
-    );
-  });
-});
-
-$(function(){
-  $(".user_email_new").blur(function(){
-    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($(this).val());
-    if($(this).val()!=""){
-      if((!_valid)){
-
-        $('#error_message_text').html("Invalid Email Address ");
-        $('#error_message_image').css("display","");
-        $('#error_message').dialog({
-          modal: true,
-          resizable: false,
-          draggable: true,
-          height: 'auto',
-          width: 'auto',
-          buttons: {
-            "OK": function(){
-              $('#login_account_security_email').val("");
-              $(this).dialog('destroy');
-              return true;
-            }
-          }
-        });
-        $('#error_message').dialog('option', 'title', 'Error');
-        $('#error_message').parent().find("a").css("display","none");
-        $("#error_message").parent().css('background-color','#D1DDE6');
-        $("#error_message").css('background-color','#D1DDE6');
-        $('#error_message').dialog('open');
+//
+//
+//$(function(){
+//
+//  $(".check_username_unique").blur(function(){
+//
+//    $.ajax({
+//      type: "GET",
+//      url: "/login_accounts/user_name_unique.js",
+//      data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
+//      dataType:"script"
+//    });
+//
+//  });
+//
+//  $('#login_account_user_name').live("focus", function(){
+//    $(this).qtip(
+//    {
+//      content: 'username must between 6~20<br>username can\'t the same as password',
+//      style: 'dark'
+//    }
+//    );
+//  });
+//});
 
 
-
-        //
-        //                $('#invalid_email').dialog( {
-        //                    modal: true,
-        //                    resizable: true,
-        //                    draggable: true,
-        //                    buttons: {
-        //
-        //                        OK: function(){
-        //
-        //                            $(this).dialog('close');
-        //                        }
-        //                    }
-        //                });
-        //                $('#invalid_email').dialog('open');
-        $('.user_email_new').focus();
-        return false;
-      }
-    }else{
-
-      $('#error_message_text').html("Invalid Email Address ");
-      $('#error_message_image').css("display","");
-      $('#error_message').dialog({
-        modal: true,
-        resizable: false,
-        draggable: true,
-        height: 'auto',
-        width: 'auto',
-        buttons: {
-          "OK": function(){
-            $(this).dialog('destroy');
-            return true;
-          }
-        }
-      });
-      $('#error_message').dialog('option', 'title', 'Error');
-      $('#error_message').parent().find("a").css("display","none");
-      $("#error_message").parent().css('background-color','#D1DDE6');
-      $("#error_message").css('background-color','#D1DDE6');
-      $('#error_message').dialog('open');
-
-    }
-  });
-});
 
 $(function() {
   $(".password").jpassword({
@@ -2749,48 +2665,7 @@ $(document).ready(function(){
 
 
 
-<<<<<<< HEAD:public/javascripts/admin.js
-//user_checking = function(){
-//  link = $(this.el)
-//
-//  if(link.val()!= ""){
-//    $('.login_account_spinner').show();
-//    $.ajax({
-//      type: "GET",
-//      url: "/people/login_id_finder.js",
-//      data: 'person_id='+link.val()+'&login_account_id='+link.attr('login_account_id'),
-//      dataType:"script"
-//    });
-//  }else{
-//    $("#login_name_container_"+link.attr('login_account_id')).html("");
-//    $('#error_message_text').html("Please type Person ID");
-//    $('#error_message_image').css("display","");
-//    $('#error_message').dialog({
-//      modal: true,
-//      resizable: false,
-//      draggable: true,
-//      height: 'auto',
-//      width: 'auto',
-//      buttons: {
-//        "OK":function(){
-//
-//          $(this).dialog('destroy');
-//          return false;
-//
-//        }
-//      }
-//    });
-//    $('#error_message').dialog('option', 'title', 'ERROR');
-//
-//    $('#error_message').parent().find("a").css("display","none");
-//    $("#error_message").parent().css('background-color','#D1DDE6');
-//    $("#error_message").css('background-color','#D1DDE6');
-//
-//    $('#error_message').dialog('open');
 
-//  }
-//  return false
-//};
 check_person_for_new_account = function(target){
   link = $(this.el)
 
@@ -2798,36 +2673,111 @@ check_person_for_new_account = function(target){
     $("#login_account_spinner").show();
     $.ajax({
       type: "GET",
-      url: "/people/login_id_finder2.js",
+      url: "/people/login_id_finder.js",
       data: 'person_id='+target+'&login_account_id='+link.attr('login_account_id'),
       dataType:"script"
     });
   }else{
 
-  }
+}
 };
 
-  $(document).ready(function(){
-      $(".check_login").typeWatch( {callback: check_person_for_new_account} );
-    });
-=======
+$(document).ready(function(){
+  $(".check_login").typeWatch( {
+    callback: check_person_for_new_account
+  } );
+});
+
 // for nightly process spinner
 
 $(function(){
-
-
-    $('#run_nightly_process').live('click',function(){
-    {
-      $(this).attr('disabled',true);
-      $('#nightly_process_spinner').show();
-              $.ajax({
-            type: "GET",
-            url: "nightly_processes/run",
-            dataType: "script"
-        });
-
-    }
+  $('#run_nightly_process').live('click',function(){
+  {
+    $(this).attr('disabled',true);
+    $('#nightly_process_spinner').show();
+    $.ajax({
+      type: "GET",
+      url: "nightly_processes/run",
+      dataType: "script"
     });
-
+  }
+  });
 });
->>>>>>> 1d7e6aa3af0e80a3e692ae72db65e67ddc2b054a:public/javascripts/admin.js
+
+//change user account user name function
+username_checking=function(target){
+  link = $(this.el)
+  if(link.val()!= ""){
+    $("#user_name_spinner").show();
+    $.ajax({
+      type: "GET",
+      url: "/login_accounts/user_name_unique.js",
+      data: 'user_name='+target+'&login_account_id='+link.attr('login_account_id')+'&length='+link.val().length,
+      dataType:"script"
+    });
+  }else{
+}
+};
+
+$(document).ready(function(){
+  $(".check_username_unique").typeWatch( {
+    callback: username_checking
+  } );
+});
+
+
+
+email_checking=function(target){
+  link = $(this.el)
+  $("#email_spinner").css('display', '');
+  _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test(target);
+  if(target!=""){
+  
+    if(_valid == false){
+
+      //      $('#error_message_text').html("Invalid Email Address ");
+      //      $('#error_message_image').css("display","");
+      //      $('#error_message').dialog({
+      //        modal: true,
+      //        resizable: false,
+      //        draggable: true,
+      //        height: 'auto',
+      //        width: 'auto',
+      //        buttons: {
+      //          "OK": function(){
+      //            $('#login_account_security_email').val("");
+      //            $(this).dialog('destroy');
+      //            return true;
+      //          }
+      //        }
+      //      });
+      //      $('#error_message').dialog('option', 'title', 'Error');
+      //      $('#error_message').parent().find("a").css("display","none");
+      //      $("#error_message").parent().css('background-color','#D1DDE6');
+      //      $("#error_message").css('background-color','#D1DDE6');
+      //      $('#error_message').dialog('open');
+    
+     $("#email_spinner").css('display', 'none');
+      $(".user_email_new").css('background-color', 'pink');
+      $("#user_account_new_submit").attr("disabled",true);
+
+   
+    }else {
+
+      $("#email_spinner").css('display', 'none');
+      $(".user_email_new").css('background-color', '');
+ 
+    }
+  }else{
+     $("#email_spinner").css('display', 'none');
+    $(".user_email_new").css('background-color', 'pink');
+
+  }
+};
+
+$(document).ready(function(){
+  $(".user_email_new").typeWatch( {
+   
+    callback:  email_checking
+  } );
+});

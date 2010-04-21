@@ -1,65 +1,96 @@
+$("#user_name_spinner").css('display','none');
+<%if @error_flag_unique %>
+  $(".check_username_unique").css('background-color', 'pink');
+  $('#flash_message').dialog('destroy');
+  $('#user_name_container_0').html("UserName already taken");
+  $('#no_username').show();
+  $('#yes_username').hide();
+  $("#flash_message_text").html("");
+  $("#flash_message_text").html("The Username already taken");
+  $("#flash_message").dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
 
-  <%if @error_flag_unique %>
-   $('#flash_message').dialog('destroy');
-    $('#user_name_container_0').html("UserName already taken");
-    $('#no_username').show();
-    $('#yes_username').hide();
-    $("#flash_message_text").html("");
-    $("#flash_message_text").html("The Username is Invalid");
-    $("#flash_message").dialog( {
-      modal: true,
-      resizable: false,
-      draggable: true,
-      height: 'auto',
-      width: 600,
+  buttons: {
 
-    buttons: {
+  OK: function(){
 
-    OK: function(){
- 
-    $(this).dialog('destroy');
-    }
-    }
-    });
-     $('#flash_message').dialog( 'option', 'title', 'Error');
-     $('#flash_message').parent().find("a").css("display","none");
-     $("#flash_message").parent().css('background-color','#D1DDE6');
-    $("#flash_message").css('background-color','#D1DDE6');
-    $('#flash_message').dialog('open');
-  <%elsif @error_flag_length %>
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<%elsif @error_flag_length %>
+  $(".check_username_unique").css('background-color', 'pink');
+  $('#flash_message').dialog('destroy');
+  $('#user_name_container_0').html("UserName not taken");
+  $('#no_username').show();
+  $('#yes_username').hide();
+  $("#flash_message_text").html("");
+  $("#flash_message_text").html("The Username Length should between 6 ~ 30");
+  $("#flash_message").dialog( {
 
-   $('#flash_message').dialog('destroy');
-    $('#user_name_container_0').html("UserName not taken");
-    $('#no_username').show();
-    $('#yes_username').hide();
-      $("#flash_message_text").html("");
-    $("#flash_message_text").html("The Username is Invalid");
-    $("#flash_message").dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons: {
 
-      modal: true,
-      resizable: false,
-      draggable: true,
-      height: 'auto',
-      width: 600,
-    buttons: {
+  OK: function(){
 
-    OK: function(){
-   $('#login_account_user_name').val("");
-    $(this).dialog('destroy');
-    }
-    }
-    });
-       $('#flash_message').dialog( 'option', 'title', 'Error');
-     $('#flash_message').parent().find("a").css("display","none");
-     $("#flash_message").parent().css('background-color','#D1DDE6');
-    $("#flash_message").css('background-color','#D1DDE6');
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
 
-    $('#flash_message').dialog('open');
-  <%else%>
-    $('#user_name_container_0').html("Username not taken")
-    $('#no_username').hide();
-    $('#yes_username').show();
+  $('#flash_message').dialog('open');
 
+<%elsif @error_format %>
+  $(".check_username_unique").css('background-color', 'pink');
+  $('#flash_message').dialog('destroy');
+  $('#user_name_container_0').html("UserName Format Is Wrong");
+  $('#no_username').show();
+  $('#yes_username').hide();
+  $("#flash_message_text").html("");
+  $("#flash_message_text").html("UserName Format Is Wrong");
+  $("#flash_message").dialog( {
 
-  <%end%>
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons: {
+
+  OK: function(){
+
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+
+  $('#flash_message').dialog('open');
+<%else%>
+  $('#user_name_container_0').html("Username not taken")
+  $('#no_username').hide();
+  $('#yes_username').show();
+  $(".check_username_unique").css('background-color', '');
+
+<%end%>
 
