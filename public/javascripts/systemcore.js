@@ -4000,3 +4000,14 @@ $(function(){
     insertPO($(this), target);
   });
 });
+
+
+$("#message_template_template_category_id").live("change",function(){
+
+  if ($(this).val()=="")
+    {
+      $('#message_template_id').html("").change();
+
+    }
+
+});
