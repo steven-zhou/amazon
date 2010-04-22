@@ -1072,7 +1072,6 @@ $(function(){
 
 $(function(){
   $("#feedback").live("click", function(){
-
     $('#feedback_form').dialog( {
       modal: true,
       resizable: false,
@@ -1082,12 +1081,12 @@ $(function(){
     }
     );
     $("#feedback_form").dialog("option","title","Feedback Form");
+    $("#feedback_form").parent().css('background-color','#D1DDE6');
+    $("#feedback_form").css('background-color','#D1DDE6');
     $("#feedback_form").dialog("open");
     $("#feedback_item_subject").val("");
     $("#feedback_item_content").val("");
     $('#feedback_form_submit_button').attr('disabled', true);
-
-
   });
 
 
