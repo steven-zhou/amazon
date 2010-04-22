@@ -1878,7 +1878,10 @@ $(function(){
 
 /*CSS tab switch system*/
 $(".tab_switch_button").live('click', function(){
+  // for organisation structure
+  var active_org_structure = $('.nav_item.active');
   $('#content .active').removeClass("active");
+  active_org_structure.addClass("active");
   $('#org_rel .active').removeClass("active");
   $(this).addClass("active");
   $(this).parent().addClass("active");

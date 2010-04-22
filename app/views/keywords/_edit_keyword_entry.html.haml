@@ -12,15 +12,15 @@
         = link_to_function image_tag('/images/Icons/System/close.png'), :field => "keyword", :id => "close_edit_keyword_entry", :style => "float:right;", :title=>"Close", :class => "close_edit"
       .tab_looking_right
   .container
-    - form_for @keyword, :url => {:controller => "keywords", :action => "update", :id => @keyword.id, :type => KeywordType.find(@keyword.keyword_type_id).id},:html => {:class => "ajax_form"} do |p|
+    - form_for @keyword, :url => {:controller => "keywords", :action => "update", :id => @keyword.id, :type => KeywordType.find(@keyword.keyword_type_id).id},:html => {:class => "ajax_form",:submit_button_id=>"keyword_edit_submit"} do |p|
       .form_line
         =#= link_to_function image_tag('close_icon.png'), :field => "system_data", :id => "close_edit_keyword_entry", :style => "float:right;", :title=>"Close"
         .field_20
           = p.label :keyword_type_id, "<span class='asterisk'>*</span>Keyword Type"
-          = p.collection_select(:keyword_type_id, KeywordType.active, :id, :name, {},{:class=>"mandantory_dropdown_list",:mandantory_field1=>"keyword_edit_name", :mandantory_field2=>"keyword_keyword_type_id", :submit_button_id=>"keyword_edit_submit"})
+          = p.collection_select(:keyword_type_id, KeywordType.active, :id, :name, {},{:class=>"compulsory_field",:id=>"edit_keyword_type"})
         .field_20
           = p.label :name, "<span class='asterisk'>*</span>Name"
-          = p.text_field :name,:class=>'mandantory_field',:id=>"keyword_edit_name",:mandantory_field1=>"keyword_edit_name", :mandantory_field2=>"keyword_keyword_type_id",:submit_button_id=>"keyword_edit_submit", :disabled => ("disabled" if !@keyword.status)
+          = p.text_field :name,:class=>'compulsory_field',:id=>"keyword_edit_name", :disabled => ("disabled" if !@keyword.status)
         .field_20
           = p.label :description, 'Description'
           = p.text_field :description, {:disabled => ("disabled" if !@keyword.status)}

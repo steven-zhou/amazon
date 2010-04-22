@@ -7,6 +7,7 @@
 - form_for @client_setup do |f|
   .full_container
     %h1 Security Parameters
+    %input{:style => "display:none;", :name => "parameters"}
     .form_line
       .field_24
         = f.label :number_of_login_attempts, "Number of Login Attempts"
