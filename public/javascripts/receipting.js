@@ -40,8 +40,6 @@ $(function() {
   });
 });
 
-/* Campaign Source Grid*/
-
 
 /* Receipt Account Grid*/
 

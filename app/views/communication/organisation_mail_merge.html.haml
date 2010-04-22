@@ -8,14 +8,14 @@
 
   .tab_menu_switch_left.left{:field =>"review_page"}
   .container_menu_icon.left{:align => 'center'}
-    = link_to "Person Mail" , person_mail_merge_communication_path()
+    = link_to "Person" , person_mail_merge_communication_path()
   .tab_menu_switch_right.left{:field =>"review_page"}
 
 
 
   .tab_menu_switch_left.active_menu.left{:field =>"finalize_page"}
   .container_menu_icon.active_menu.left{:align => 'center'}
-    = link_to "Organisation Mail", organisation_mail_merge_communication_path()
+    = link_to "Organisation", organisation_mail_merge_communication_path()
   .tab_menu_switch_right.active_menu.left{:field =>"finalize_page"}
 
 
@@ -32,8 +32,8 @@
 
     .tab_switch_left.left{:field => "template_manager"}
     .container_icon.left{:align => "center"}
-      = link_to_function "<h1>Template Manager</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/message_templates/page_initial", :method => "GET", :render_page => "/message_templates/mail_template_tab", :field => "template_manager", :type => "organisation"
-      = link_to_function "<h1>Template Manager</h1>", :class=>"tab_switch_with_page_initial", :field => "template_manager"
+      = link_to_function "<h1>Template Maintenance</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/message_templates/page_initial", :method => "GET", :render_page => "/message_templates/mail_template_tab", :field => "template_manager", :type => "organisation"
+      = link_to_function "<h1>Template Maintenance</h1>", :class=>"tab_switch_with_page_initial", :field => "template_manager"
     .tab_switch_right.left{:field => "template_manager"}
 
     .tab_switch_left.left{:field => "mail_log"}

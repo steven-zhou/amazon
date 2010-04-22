@@ -209,9 +209,9 @@ class TagTypesController < ApplicationController
     @payment_method_type = PaymentMethodMetaType.find(params[:param1])
     @payment_methods = PaymentMethodType.find(:all, :conditions => ['tag_type_id = ? ', params[:param1]])
     @action = params[:type] #new or edit
-    @options = ""
+    @options = "<option></option>"
     @payment_methods.each do |i|
-      @options += '<option value=' + i.id.to_s + '>' + i.name
+      @options << '<option value=' + i.id.to_s + '>' + i.name
     end
     @cheque_detail = ChequeDetail.new
     @credit_card_detail = CreditCardDetail.new

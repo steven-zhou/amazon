@@ -6,7 +6,7 @@
         .field_20
           %h2 Select Filter
         .field_50
-          %select{:id => "select_filter",:style => "width:200px"}
+          %select{:id => "select_filter",:style => "width:200px", :disabled => true}
             %option
             %option{:value=>"ID Range"} ID Range
             %option{:value=>"Receipt Range"} Receipt Range
@@ -19,7 +19,7 @@
             %option{:value=>"Letter"} Letter
     %label &nbsp
     %div#visible_select_fileter
-    = button_to_function "Filter", :class => "fake_submit_button", :form_id => "transaction_filter_form", :id => "filter_submit_button", :style => "float:right;"
+    = button_to_function "Filter", :class => "fake_submit_button", :disabled => true, :form_id => "transaction_filter_form", :id => "filter_submit_button", :style => "float:right;"
 
 
   .full_container#hidden_select_filter{:style=>"display:none;"}

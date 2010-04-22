@@ -246,4 +246,16 @@ class ReceiptingAdminController < ApplicationController
       format.html
     end
   end
+
+  def show_sources
+    @campaign = Campaign.find(params[:param1].to_i)
+    @sources = @campaign.sources.find(:all, :conditions => ["status = true and to_be_removed = false"])
+    @option = "<option></option>"
+    @sources.each do |i|
+      @option << "<option value=#{i.id}>#{i.name}</option>"
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 end

@@ -2,7 +2,7 @@
   .form_line
     .field_20
       = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
-      = f.collection_select :receipt_account_id, ReceiptAccount.active, :id, :name, {:class=>"compulsory_field"}
+      = f.collection_select :receipt_account_id, ReceiptAccount.active, :id, :name, {:include_blank => true}, {:class=>"compulsory_field"}
       %input{:name=>"receipt_allocation[entity_receipt_id]",:value=>"#{@entity_receipt.id}",:class =>"hidden"}
     .field_15
       = f.label :field_5, "<span class='asterisk'>*</span>Amount ($)"
@@ -10,11 +10,12 @@
 
     .field_20
       = f.label :field_2, "Campaign"
-      = f.collection_select :campaign_id, Campaign.active_campaign, :id, :name, {:include_blank => true}
+      = f.collection_select :campaign_id, Campaign.active_campaign, :id, :name, {:include_blank => true}, {:class => "select_ajax_call", :update_field => "source_id", :method => "GET", :url => "/receipting_admin/show_sources"}
 
     .field_20
       = f.label :field_3, "Source"
-      = f.collection_select :source_id, Source.active_source, :id, :name, {:include_blank => true}
+      %select#source_id
+        %option
 
     .field_15
       = f.label :field_4, "Letter"

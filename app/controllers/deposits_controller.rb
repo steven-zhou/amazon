@@ -394,7 +394,6 @@ class DepositsController < ApplicationController
     @accounts = Array.new
     @cash_deposits = Array.new
     @cheque_deposits = Array.new
-puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
     # for bank run audit sheet or credit cards receipt
     if params[:BRAS] || params[:CCR]
       @master_deposits = Array.new
@@ -461,13 +460,13 @@ puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
               if allocation.receipt_account.name == receipt_account.name
                 if receipt.deposit.payment_method_meta_type.name == "Cash"
                   @receipt_account_cash[bank_account.id] = [] if @receipt_account_cash[bank_account.id].nil?
-                  @receipt_account_cash[bank_account.id][receipt_account.id] += receipt.amount rescue @receipt_account_cash[bank_account.id][receipt_account.id] = receipt.amount
+                  @receipt_account_cash[bank_account.id][receipt_account.id] += allocation.amount rescue @receipt_account_cash[bank_account.id][receipt_account.id] = allocation.amount
                 elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
                   @receipt_account_cheque[bank_account.id] = [] if @receipt_account_cheque[bank_account.id].nil?
-                  @receipt_account_cheque[bank_account.id][receipt_account.id] += receipt.amount rescue @receipt_account_cheque[bank_account.id][receipt_account.id] = receipt.amount
+                  @receipt_account_cheque[bank_account.id][receipt_account.id] += allocation.amount rescue @receipt_account_cheque[bank_account.id][receipt_account.id] = allocation.amount
                 elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
                   @receipt_account_cards[bank_account.id] = [] if @receipt_account_cards[bank_account.id].nil?
-                  @receipt_account_cards[bank_account.id][receipt_account.id] += receipt.amount rescue @receipt_account_cards[bank_account.id][receipt_account.id] = receipt.amount
+                  @receipt_account_cards[bank_account.id][receipt_account.id] += allocation.amount rescue @receipt_account_cards[bank_account.id][receipt_account.id] = allocation.amount
                 end
 
               end
@@ -539,17 +538,13 @@ puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
       @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet",:locals=>{:account=>account})
       @bank_deposit_sheet_footer = render_to_string(:partial => "deposits/bank_deposit_sheet_footer",:locals=>{:account=>account})
      
-      @space = -50
+      @space = -40
       generate_html_and_pdf(@bank_deposit_sheet_header,@bank_deposit_sheet, report_name, file_prefix, file_dir, @space)
 
-      
       message_array[0] = ["<p>BankDepositSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[0].nil?
       i += 1
       message_array[0] << "<p style='margin-left:25%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if i > 1
-     
-    
-
-
+       
 
       #prepare bank run audit sheet
       if params[:BRAS]
@@ -560,7 +555,7 @@ puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
         @space = -40
         generate_html_and_pdf(@bank_run_audit_sheet_header,@bank_run_audit_sheet, report_name, file_prefix, file_dir, @space)
         # flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
-        message_array[1] = ["<p style='margin-top:5%;'>BankRunAuditSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[1].nil?
+        message_array[1] = ["<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[1].nil?
         message_array[1] << "<p style='margin-left:27%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
   
@@ -572,16 +567,14 @@ puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
         @bank_run_campaign_summary_header = render_to_string(:partial => "deposits/bank_run_campaign_summary_header",:locals=>{:account=>account})
         generate_html_and_pdf(@bank_run_campaign_summary_header,@bank_run_campaign_summary, report_name, file_prefix, file_dir, @space)
         #flash[:confirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
-        message_array[2] = ["<p style='margin-top:5%;'>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[2].nil?
+        message_array[2] = ["<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[2].nil?
         message_array[2] << "<p style='margin-left:38%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
 
       #prepare credit card receipt
-      if params[:CCR]
-
-    
+      if params[:CCR]    
         @credit_card_receipt = ""
-        @space = -100
+        @space = -98
         @footer_space = -30
         if !@master_deposits.empty?
           report_name = "#{@run_id}-#{account.id}-MasterCreditCardReceipt"
@@ -590,8 +583,8 @@ puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
           @credit_card_receipt_footer = render_to_string(:partial => "deposits/credit_card_receipt_footer",:locals=>{:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
           generate_html_and_pdf( @credit_card_receipt_header,@credit_card_receipt, report_name, file_prefix, file_dir, @space,@credit_card_receipt_footer,@footer_space)
           #flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
-          message_array[3] = ["<p style='margin-top:5%;'>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[3].nil?
-          message_array[3] << "<p style='margin-left:30%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
+          message_array[3] = ["<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[3].nil?
+          message_array[3] << "<p style='margin-left:25%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
         end
 
         if !@visa_deposits.empty?
@@ -601,8 +594,8 @@ puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
           generate_html_and_pdf( @credit_card_receipt_header,@credit_card_receipt, report_name, file_prefix, file_dir, @space)
 
           #flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
-          message_array[4] = ["<p style='margin-top:5%;'>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[4].nil?
-          message_array[4] << "<p style='margin-left:30%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
+          message_array[4] = ["<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[4].nil?
+          message_array[4] << "<p style='margin-left:25%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
         end
 
       end
@@ -616,7 +609,7 @@ puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
         @receipt_account_summary_header = render_to_string(:partial => "deposits/receipt_account_summary_header",:locals=>{:account=>account})
         generate_html_and_pdf( @receipt_account_summary_header,@receipt_account_summary, report_name, file_prefix, file_dir, @space)
         #flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
-        message_array[5] = ["<p style='margin-top:5%;'>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[5].nil?
+        message_array[5] = ["<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[5].nil?
         message_array[5] << "<p style='margin-left:33%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
     
@@ -628,8 +621,8 @@ puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
         @receipt_type_summary_header = render_to_string(:partial => "deposits/receipt_type_summary_header",:locals=>{:account=>account})
         generate_html_and_pdf( @receipt_type_summary_header,@receipt_type_summary, report_name, file_prefix, file_dir, @space)
         #flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a><p>"
-        message_array[6] = ["<p style='margin-top:5%;'>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[6].nil?
-        message_array[6] << "<p style='margin-left:29%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
+        message_array[6] = ["<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[6].nil?
+        message_array[6] << "<p style='margin-left:29.3%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
     
     end
