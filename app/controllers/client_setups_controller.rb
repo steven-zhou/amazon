@@ -483,6 +483,8 @@ class ClientSetupsController < ApplicationController
   end
 
   def create_client_bank_account
+    #to delete all the blank space 
+    params[:client_bank_account][:account_number] = params[:client_bank_account][:account_number].strip
     @client_bank_account = ClientBankAccount.new(params[:client_bank_account])
     @client_bank_account.to_be_removed = false
     if @client_bank_account.save
@@ -504,6 +506,7 @@ class ClientSetupsController < ApplicationController
 
   def update_client_bank_account
     @client_bank_account = ClientBankAccount.find(params[:id])
+
     if @client_bank_account.update_attributes(params[:client_bank_account])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new client bank account with ID #{@client_bank_account.id}.")
     else

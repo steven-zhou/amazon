@@ -1,6 +1,7 @@
 $('.nav_item').removeClass('active');
 <%if @level != 0 or !@organisation.nil?%>
-$('#nav_level_<%= escape_javascript(@level.to_s)%> .name').html('<%= escape_javascript("#{@organisation.id} - #{@organisation.full_name}")%>');
+
+$('#nav_level_<%= escape_javascript(@level.to_s)%> .name').html('<%= escape_javascript("#{@organisation.id} - #{truncate(@organisation.full_name,16)}")%>');
 $('#nav_level_<%= escape_javascript(@level.to_s)%> .reset').html('<%= escape_javascript(@reset) %>');
 $('#nav_level_<%= escape_javascript(@next_level.to_s)%> .label').html('<%= escape_javascript(@next_level_label) %>');
 $('#nav_level_<%= escape_javascript(@level.to_s)%>').addClass('active');
