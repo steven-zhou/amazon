@@ -32,7 +32,6 @@ $(function() {
 
    $("#report_submit_button").live('click',function(){
         $(this).attr('disabled',true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
-        $('#report_grid_form_container').hide();
         $.ajax({
             type: 'GET',
             url: "/reports/person_contacts_report_grid.js",
@@ -40,10 +39,6 @@ $(function() {
             dataType: "script"
              });
 
-    });
-
-    $("#organisation_report_submit_button").live('click',function(){
-      $('#organisation_report_grid_form_container').hide();
     });
 
     $("#organisation_report_list").live('change', function(){
