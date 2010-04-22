@@ -2772,6 +2772,7 @@ $(function(){
       });
     }else{
 
+
       $('#add_new_'+ $(this).attr('field')).html('');
 
       if($(this).attr('field')=="postcode"){

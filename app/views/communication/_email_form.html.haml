@@ -34,9 +34,9 @@
 
       .field_25
         = f.label :subject, "<span class='asterisk'>*</span>Template"
-        %select{:id => "message_template_id", :name => "message_template_id", :class => 'select_ban_submit' }
+        %select{:id => "message_template_id", :name => "message_template_id", :class => 'select_ban_submit compulsory_field' }
           %option
-          - @message_templates.each do |r|
+          -# @message_templates.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
     .form_line
       .field_30{:style => "float:right;"}
