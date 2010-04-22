@@ -2942,8 +2942,9 @@ input.error_flag{
 }
 
 #org_structure_nav .name {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
+  padding-top:8px;
 }
 #org_structure_nav .reset {
   float: right;

@@ -128,7 +128,7 @@ class ListHeadersController < ApplicationController
         end
       end
     end
-    @lists = @list_header.person_list? ? @current_user.all_person_lists : @current_user.all_organisation_lists
+    @lists = @list_header.person_list? ? @current_user.all_person_lists - [PrimaryList.first] : @current_user.all_organisation_lists - [OrganisationPrimaryList.first]
     respond_to do |format|
       format.js
     end

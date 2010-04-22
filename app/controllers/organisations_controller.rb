@@ -347,9 +347,11 @@ class OrganisationsController < ApplicationController
 
   def check_duplication
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+    puts"--@organisational_duplication_formula--debug---#{@organisational_duplication_formula.to_yaml}----"
     duplication_value = ""
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
+       
         if i.is_foreign_key
           unless i.field_name.camelize.constantize.find(params[i.field_name.to_sym]).nil?
             duplication_value << i.field_name.camelize.constantize.find(params[i.field_name.to_sym]).name[0, i.number_of_charecter]

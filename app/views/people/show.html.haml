@@ -50,7 +50,7 @@
       .container
         %h1 Primary Address
         -unless @primary_address.nil?
-          .container
+          .container{:style => "text-align:right;"}
             = format_address(@primary_address)
 
 
@@ -86,7 +86,7 @@
       .container
         %h1 Employment
         - unless @primary_employment.nil?
-          .container
+          .container{:style => "text-align:right;"}
             = format_employment(@primary_employment)
 
 
