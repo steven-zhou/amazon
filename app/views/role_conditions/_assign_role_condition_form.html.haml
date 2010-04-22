@@ -2,7 +2,7 @@
 -form_for @role_condition, :html => {:class => 'ajax_form role_condition_main_form'} do |rc|
   .form_line{:style => "float:none;"}
     .field_20
-      = label_tag :master_doc_meta_meta_type_id, "<span class='asterisk'>*</span>Meta_Type"
+      = label_tag :master_doc_meta_meta_type_id, "<span class='asterisk'>*</span>Meta Type"
       = collection_select :master_doc_meta_meta_type, :id, MasterDocMetaMetaType.active_record, :id, :name, { :include_blank => true }, {:class => "find_master_doc_meta_type_field_for_role_condition",:disabled=>@role.role_status == false}
     .field_15{:style => "display:none"}
       = rc.text_field :role_id, {:name => "role_id", :id => "role_id_of_role_condition"}

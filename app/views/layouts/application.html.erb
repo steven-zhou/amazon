@@ -10,8 +10,6 @@
         width:500px !important;
       }
     </style>
-
-
     <script language="JavaScript" type="text/javascript">
       function noBack(){window.history.forward()}
       noBack();
@@ -19,19 +17,9 @@
       window.onpageshow=function(evt){if(evt.persisted)noBack()}
       window.onunload=function(){void(0)}
     </script>
-
-
     <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword","jquery.lightbox-0.5", :cache => "common"%>
-
     <%= yield_authenticity_token %>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("jquery","1.3.2");
-      google.load("jqueryui","1.7.1");
-    </script>
-
-
-    <%= javascript_include_tag  "typewatch.js",
+    <%= javascript_include_tag  "jquery.js", "jquery-ui-1.7.1.custom.min.js", "typewatch.js",
       "flexigrid.js",
       "/javascripts/tiny_mce/tiny_mce.js",
       "jquery-tinymce.js",
@@ -42,7 +30,6 @@
       "jquery.pstrength-min.1.2.js",
       "jquery.lightbox-0.5",
       "jquery.jpassword.js"%>
-
     <%- if session[:module] == "dashboard" %>
       <%= stylesheet_link_tag "portlets" %>
       <%= javascript_include_tag  "config.js","interface.js"%>
@@ -64,7 +51,6 @@
       <%= stylesheet_link_tag "checkbox" %>
       <%= javascript_include_tag  "membership.js","iphone-style-checkboxes.js"%>
     <%- end%>
-
   </head>
 
   <body>

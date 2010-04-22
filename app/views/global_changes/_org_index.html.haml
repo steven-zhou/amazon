@@ -25,7 +25,7 @@
   .field_20
     #select_field
       .form_line
-        =label :table_field,:table_field_id, '<span class="asterisk">*</span>Field'
+        %label{:id=>"org_table_field"} <span class='asterisk'>*</span>Field
         %select#org_table_field_id{:style => "width:200px",:name=>"table_field",:class=>"table_field",:source=>"Organisation",:disabled=>true}
           %option
   .field_20

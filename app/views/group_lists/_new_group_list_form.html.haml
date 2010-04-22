@@ -4,8 +4,8 @@
     .field_30
       = group_list.label :list_header_id, "List"
       %select.show_list_description{:des => "group_list_list",:name => "group_list[list_header_id]"}
+        %option
         - @list_headers.each do |list|
-          %option
           %option{:value => "#{list.id}"}#{list.name}
     .field_25
       %label &nbsp

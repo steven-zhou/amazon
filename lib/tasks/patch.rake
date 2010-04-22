@@ -9,7 +9,7 @@ namespace :db do
     #    "add_table_meta_meta_type",
     #    "add_membership_status",
     #    "add_person_mail_template",
-    #    "modify_client_setups_level",
+        "modify_client_setups_level",
     #    "add_family_id",
     #    "add_primary_phone_and_email",
     #    "reset_login_attempts",

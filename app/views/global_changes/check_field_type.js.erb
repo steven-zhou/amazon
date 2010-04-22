@@ -26,6 +26,7 @@ $("#org_system_data_id").change('');
 
 
 
+
 <%else%>
 
 
@@ -118,3 +119,10 @@ $('#select_system_data').css('display','none');
 <%end%>
 $("#table_action_id").change('');
 <%end%>
+
+
+<%-if @value.empty? %>
+ $(".global_change").attr('disabled',true);
+<%-else%>
+ $(".global_change").attr('disabled',false);
+  <%end%>

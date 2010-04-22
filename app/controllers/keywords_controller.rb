@@ -7,7 +7,8 @@ class KeywordsController < ApplicationController
 
   def create
     @keyword_table = Keyword.new
-
+    #to remove the blank space
+    params[:keyword][:name] = params[:keyword][:name].strip
     @keyword_table.update_attributes(params[:keyword])
 
     @keyword_table.to_be_removed = false
@@ -33,7 +34,8 @@ class KeywordsController < ApplicationController
   def update
 
     @keyword_table= Keyword.find(params[:id].to_i)
-   
+       #to remove the blank space
+    params[:keyword][:name] = params[:keyword][:name].strip
     @keyword_table.update_attributes(params[:keyword])
     if @keyword_table.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new Keyword with ID #{@keyword_table.id}.")
