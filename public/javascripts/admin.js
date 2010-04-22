@@ -1534,11 +1534,11 @@ $(function(){
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             link.css("display","none");
-                  if(link.attr("KeepEditStatus")!="true"){
-        $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
-        $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
-        $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
-      }
+            if(link.attr("KeepEditStatus")!="true"){
+              $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
+              $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
+              $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+            }
             $('.new_option[field='+ link.attr('field') +']').css("display","");
             $('#check_input_change').val("false");
             $("#new_" + link.attr('field')+ "_form").toggle('blind');
@@ -2382,18 +2382,38 @@ $(function(){
 
 $(function(){
   $(".global_change_fields").live('change',function(){
+
+
+
     var data ="";
+
     if ($(this).attr("source")=="Person")
     {
 
       data = "select_type="+$("#global_change_table_name").val();
 
+      if ($(this).val()=="keyword" || $(this).val()=="group")
+      {
+        $('#table_field').html("<span class='asterisk'>*</span>Type");
+      }
+      else
+      {
+        $('#table_field').html("<span class='asterisk'>*</span>Field");
+      }
     }
     else
     {
 
       data="select_type="+$("#org_global_change_table_name").val()+"&type=Org"
 
+      if ($(this).val()=="keyword" || $(this).val()=="group")
+      {
+        $('#org_table_field').html("<span class='asterisk'>*</span>Type");
+      }
+      else
+      {
+        $('#org_table_field').html("<span class='asterisk'>*</span>Field");
+      }
 
     }
 
@@ -2757,7 +2777,9 @@ $(document).ready(function(){
 $(function(){
   $('#run_nightly_process').live('click',function(){
   {
-    $(this).attr('disabled',true);
+
+    $(this).attr('disabled',true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
+
     $('#nightly_process_spinner').show();
     $.ajax({
       type: "GET",

@@ -261,6 +261,12 @@ class GlobalChangesController < ApplicationController
       @value=GroupMetaType.find(params[:table_field].to_i).group_types
     end
 
+
+
+    puts "**********88"
+    puts @value.nil?
+    puts @value.blank?
+    puts @value.empty?
     @type =params[:table_name]
     respond_to do |format|
       format.js
