@@ -461,27 +461,20 @@ module OutputPdf
   end
 
   def self.generate_system_log_report_body(pdf, system_log_entries)
-
     if system_log_entries.empty?
       pdf.text "No matching records found.", :font_size => 32, :justification => :center
       return
     end
-
     PDF::SimpleTable.new do |tab|
-
       tab.column_order.push(*%w(system_id log_date user ip_address log_controller log_action message))
-
       tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
         col.heading = "ID"
       }
       tab.columns["system_id"].width = 25
-
-
       tab.columns["log_date"] = PDF::SimpleTable::Column.new("log_date") { |col|
         col.heading = "Date"
       }
       tab.columns["log_date"].width = 100
-
       tab.columns["user"] = PDF::SimpleTable::Column.new("user") { |col|
         col.heading = "User"
       }
@@ -517,9 +510,7 @@ module OutputPdf
       data = Array.new
 
       for log_entry in system_log_entries do
-
         data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.getlocal.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.try(:login_account).try(:user_name)}", "ip_address" => "#{log_entry.ip_address}", "log_controller" => "#{log_entry.controller}", "log_action" => "#{log_entry.action}", "message" => "#{log_entry.message}" }
-
       end
 
       tab.data.replace data

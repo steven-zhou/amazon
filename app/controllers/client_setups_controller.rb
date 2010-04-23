@@ -27,7 +27,7 @@ class ClientSetupsController < ApplicationController
   end
 
 
-    def client_organisation_structure
+  def client_organisation_structure
     @client_setup = ClientSetup.first
     @organisation = ClientOrganisation.first
     @next_level = @organisation.level + 1
@@ -159,12 +159,8 @@ class ClientSetupsController < ApplicationController
   end
 
   def search_system_log
-
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) searched System Log entries.")
-
-
     @query=""
-
     if (params[:start_date].blank? || params[:end_date].blank? )
       params[:start_date]= '01-01-1909' if params[:start_date].blank?
       params[:end_date] = '12-31-2599' if params[:end_date].blank?
@@ -176,28 +172,20 @@ class ClientSetupsController < ApplicationController
         flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
       end
     else
-
-
-      if valid_date(params[:start_date]) && valid_date(params[:end_date])
-
-  
+      if valid_date(params[:start_date]) && valid_date(params[:end_date])  
         @start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
         @end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
       else
         flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
-      end
-    
+      end    
     end
 
     if flash.now[:error].nil?
       @query << "start_date="+@start_date+"&end_date="+@end_date
     end
 
-
-
     @user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '')
     unless @user_name.empty?
-
       @query << "&user_name="+@user_name
     end
 
@@ -205,10 +193,6 @@ class ClientSetupsController < ApplicationController
     unless @status.empty?
       @query << "&status="+@status
     end
-    # controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
-    # action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
-
-
     respond_to do |format|
       format.js
     end
@@ -516,14 +500,14 @@ class ClientSetupsController < ApplicationController
   def reset_default_label
 
 
-      i = 0
-      @default_label = Array.new
-      @id = Array.new
-        while i <= 9
-          @default_label << ClientSetup.first.__send__("level_#{i}_default_label")
-          @id << "client_setup_level_#{i}_label"
-          i+=1
-        end
+    i = 0
+    @default_label = Array.new
+    @id = Array.new
+    while i <= 9
+      @default_label << ClientSetup.first.__send__("level_#{i}_default_label")
+      @id << "client_setup_level_#{i}_label"
+      i+=1
+    end
       
     respond_to do |format|
       format.js
@@ -534,14 +518,14 @@ class ClientSetupsController < ApplicationController
   def reset_client_default_label
 
 
-      i = 0
-      @default_label = Array.new
-      @id = Array.new
-        while i <= 9
-          @default_label << ClientSetup.first.__send__("level_#{i}_client_default_label")
-          @id << "client_setup_level_#{i}_client_label"
-          i+=1
-        end
+    i = 0
+    @default_label = Array.new
+    @id = Array.new
+    while i <= 9
+      @default_label << ClientSetup.first.__send__("level_#{i}_client_default_label")
+      @id << "client_setup_level_#{i}_client_label"
+      i+=1
+    end
 
     respond_to do |format|
       format.js

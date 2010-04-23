@@ -122,7 +122,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :receipt_methods, :collection => {:new_receipt_method => :get, :create_receipt_method => :post, :edit_receipt_method => :get, :update_receipt_method => :post, :copy_receipt_method => :get, :create_copy_of_receipt_method => :post, :destroy_receipt_method => :get }
     
-  map.resources :reports, :collection => {:generate_report => :post, :generate_organisation_report_pdf => :get,:generate_person_report_pdf=>:get,:preview_report => :post, :person_contacts_report_grid => :get,:organisation_contacts_report_grid => :get, :generate_system_log_pdf => :post, :page_initial => :get}
+  map.resources :reports, :collection => {:generate_report => :post, :generate_organisation_report_pdf => :get,:generate_person_report_pdf=>:get,:preview_report => :post, :person_contacts_report_grid => :get,:organisation_contacts_report_grid => :get, :generate_system_log_pdf => :get, :page_initial => :get}
 
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get, :change_status => :get}
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
