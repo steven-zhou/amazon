@@ -147,14 +147,29 @@ class ReportsController < ApplicationController
   end
 
   def generate_system_log_pdf
-    user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
-    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
-    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
-    controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
-    action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
-    status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '%%')
+    conditions = Array.new
+    values = Array.new
 
-    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date.to_date.tomorrow, status)
+    unless params[:user_name].blank?
+      conditions << "login_accounts.user_name ILIKE ?"
+      values << params[:user_name]
+    end
+
+    unless params[:start_date].blank?
+      conditions << "system_logs.created_at >= ?"
+      values << params[:start_date].to_date
+    end
+
+    unless params[:end_date].blank?
+      conditions << "system_logs.created_at <= ?"
+      values << params[:end_date].to_date.tomorrow
+    end
+
+    unless params[:status].blank?
+      conditions << "system_logs.status = ?"
+      values << params[:status]
+    end
+    @system_log_entries = SystemLog.find(:all, :conditions => [conditions.join(' AND '), *values], :include => ['login_account'])
     @type = "System Log Report"
     @report_format = "system_log_report"
 

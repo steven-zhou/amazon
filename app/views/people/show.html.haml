@@ -50,7 +50,7 @@
       .container
         %h1 Primary Address
         -unless @primary_address.nil?
-          .container{:style => "text-align:right;"}
+          %div{:style => "text-align:right;"}
             = format_address(@primary_address)
 
 

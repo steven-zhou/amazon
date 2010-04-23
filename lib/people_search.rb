@@ -40,7 +40,7 @@ module PeopleSearch
     end
 
     query = condition_clauses.join(' AND '), *condition_options
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :order => "id")
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :order => "people.id")
   end
 
   def self.by_phone(params)
@@ -63,7 +63,7 @@ module PeopleSearch
       end
     end
 
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones], :order => "id")
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones], :order => "people.id")
 
   end
 
@@ -87,7 +87,7 @@ module PeopleSearch
       end
     end
 
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails], :order => "id")
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails], :order => "people.id")
 
   end
   
@@ -112,7 +112,7 @@ module PeopleSearch
       end
     end
 
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses], :order => "id")
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses], :order => "people.id")
 
   end
 
@@ -136,7 +136,7 @@ module PeopleSearch
       end
     end
 
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords], :order => "id")
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords], :order => "people.id")
 
   end
   

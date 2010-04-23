@@ -2744,49 +2744,6 @@ $(document).ready(function(){
   $('.iphone_checkbox').iphoneStyle();
 });
 
-
-
-
-
-//user_checking = function(){
-//  link = $(this.el)
-//
-//  if(link.val()!= ""){
-//    $('.login_account_spinner').show();
-//    $.ajax({
-//      type: "GET",
-//      url: "/people/login_id_finder.js",
-//      data: 'person_id='+link.val()+'&login_account_id='+link.attr('login_account_id'),
-//      dataType:"script"
-//    });
-//  }else{
-//    $("#login_name_container_"+link.attr('login_account_id')).html("");
-//    $('#error_message_text').html("Please type Person ID");
-//    $('#error_message_image').css("display","");
-//    $('#error_message').dialog({
-//      modal: true,
-//      resizable: false,
-//      draggable: true,
-//      height: 'auto',
-//      width: 'auto',
-//      buttons: {
-//        "OK":function(){
-//
-//          $(this).dialog('destroy');
-//          return false;
-//
-//        }
-//      }
-//    });
-//    $('#error_message').dialog('option', 'title', 'ERROR');
-//
-//    $('#error_message').parent().find("a").css("display","none");
-//    $("#error_message").parent().css('background-color','#D1DDE6');
-//    $("#error_message").css('background-color','#D1DDE6');
-//
-//    $('#error_message').dialog('open');
-
-
 check_person_for_new_account = function(target){
   link = $(this.el)
 
@@ -2799,7 +2756,6 @@ check_person_for_new_account = function(target){
       dataType:"script"
     });
   }else{
-
 }
 };
 
@@ -2856,54 +2812,35 @@ email_checking=function(target){
   link = $(this.el)
   $("#email_spinner").css('display', '');
   _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test(target);
-  if(target!=""){
-  
-    if(_valid == false){
-
-      //      $('#error_message_text').html("Invalid Email Address ");
-      //      $('#error_message_image').css("display","");
-      //      $('#error_message').dialog({
-      //        modal: true,
-      //        resizable: false,
-      //        draggable: true,
-      //        height: 'auto',
-      //        width: 'auto',
-      //        buttons: {
-      //          "OK": function(){
-      //            $('#login_account_security_email').val("");
-      //            $(this).dialog('destroy');
-      //            return true;
-      //          }
-      //        }
-      //      });
-      //      $('#error_message').dialog('option', 'title', 'Error');
-      //      $('#error_message').parent().find("a").css("display","none");
-      //      $("#error_message").parent().css('background-color','#D1DDE6');
-      //      $("#error_message").css('background-color','#D1DDE6');
-      //      $('#error_message').dialog('open');
-    
+  if(target!=""){  
+    if(_valid == false){   
       $("#email_spinner").css('display', 'none');
       $(".user_email_new").css('background-color', 'pink');
-      $("#user_account_new_submit").attr("disabled",true);
-
-   
+      $("#user_account_new_submit").attr("disabled",true);   
     }else {
-
       $("#email_spinner").css('display', 'none');
-      $(".user_email_new").css('background-color', '');
- 
+      $(".user_email_new").css('background-color', ''); 
     }
   }else{
     $("#email_spinner").css('display', 'none');
     $(".user_email_new").css('background-color', 'pink');
-
   }
 };
 
 $(document).ready(function(){
-  $(".user_email_new").typeWatch( {
-   
+  $(".user_email_new").typeWatch( {   
     callback:  email_checking
   } );
 });
 
+//Audit Trail
+$(function(){
+  $('#report_system_log_submit_button').live('click', function(){
+    params = "";
+    params += "user_name="+$('#system_log_export_user_name').val();
+    params += "&start_date="+$('#system_log_export_start_date').val();
+    params += "&end_date="+$('#system_log_export_end_date').val();
+    params += "&status="+$('#system_log_export_status').val();
+    window.open("/reports/generate_system_log_pdf?"+params);
+  });
+});

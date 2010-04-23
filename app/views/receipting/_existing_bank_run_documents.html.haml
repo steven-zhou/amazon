@@ -1,13 +1,8 @@
-#header
-  #page_title
-    %h2 Documents Filter
-
-    %br.clear
-
 -form_tag("/receipting/bank_run_document_filter", {:class => "ajax_form", :id => "bank_run_document_filter_form"}) do
   .full_container
+    %h2 Documents Filter
     .form_line
-      .field_15
+      .field_10
         %label Bank Run Id
         %input{:id => "bank_run_document_filter_bank_run_id",:name => "bank_run_document_filter[bank_run_id]"}
       .field_15
@@ -37,6 +32,6 @@
         %input{:class => "enddatepick",:id => "bank_run_document_filter_end_date",:start_date => "bank_run_document_filter_start_date", :value => "31-12-#{Date.today().year().to_s}", :name => "bank_run_document_filter[end_date]"}
       .field_15
         %label &nbsp
-        =submit_tag 'filter', :id => "bank_run_document_submit"
+        =submit_tag 'Filter', :id => "bank_run_document_submit"
 
 #current_user_document

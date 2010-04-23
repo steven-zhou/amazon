@@ -28,7 +28,7 @@
       %h3 YTD
       .form_line
         .field_31
-          %label Number of Transactions
+          %label NO.Transactions
           .display_field_bg
             2
 
@@ -48,7 +48,7 @@
     .options
       = image_tag('Icons/System/expand.png')
     .right{:style => "margin:3px 3px 0 0;"}
-      = link_to "My Donations", {:controller => "receipting", :action => "personal_deposit"}, :class => "alt_link"
+      = link_to_function "My Donations", :class => "alt_link"
     %h1 Fundraising
 
   %div#fundraising_details.left{:style => "width:100%;display:none;"}
@@ -93,9 +93,10 @@
     .options
       = image_tag('Icons/System/expand.png')
     .right{:style => "margin:3px 3px 0 0;"}
-      -unless @person.is_member
+      = link_to_function "My Memberships", :class => "alt_link"
+      -#unless @person.is_member
         = link_to "My Memberships", {:controller => "module", :action => "become_membership",:id=>@person.id}, :class => "alt_link"
-      -else
+      -#else
         = link_to "My Memberships", {:controller => "module", :action => "manage_membership",:id=>@person.id}, :class => "alt_link"
     %h1 Membership
 
@@ -144,7 +145,7 @@
     .options
       = image_tag('Icons/System/expand.png')
     .right{:style => "margin:3px 3px 0 0;"}
-      = link_to "My Cases", {:controller => "receipting", :action => "personal_deposit"}, :class => "alt_link"
+      = link_to_function "My Cases", :class => "alt_link"
     %h1 Case Management
 
   %div#case_management_details.left{:style => "width:100%;display:none;"}
@@ -181,7 +182,7 @@
     .options
       = image_tag('Icons/System/expand.png')
     .right{:style => "margin:3px 3px 0 0;"}
-      = link_to "My Events", {:controller => "receipting", :action => "personal_deposit"}, :class => "alt_link"
+      = link_to_function "My Events", :class => "alt_link"
     %h1 Events
 
   %div#events_details.left{:style => "width:100%;display:none;"}

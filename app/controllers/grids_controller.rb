@@ -168,7 +168,7 @@ class GridsController < ApplicationController
       values << params[:user_name]
     end
     if params[:status]
-      conditions << "system_logs.status ilike ?"
+      conditions << "system_logs.status = ?"
       values << params[:status]
     end
     if params[:start_date]
