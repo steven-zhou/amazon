@@ -733,7 +733,7 @@ $(function(){
     {
       display: 'Date',
       name : 'field_1',
-      width : 180,
+      width : 120,
       sortable : true,
       align: 'left'
     },
@@ -741,7 +741,7 @@ $(function(){
     {
       display: 'Submitted By',
       name : 'field_2',
-      width : 180,
+      width : 140,
       sortable : true,
       align: 'left'
     },

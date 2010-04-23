@@ -1,7 +1,7 @@
 .form_line
   .field_10
     %label &nbsp;
-    = image_tag('Icons/System/search.png', :id => "quick_search_toggle")
+    = link_to_function image_tag('Icons/System/search.png', :id => "quick_search_toggle")
   .field_20
     %label Sort By
     %select{:class => "album_page_load",:id => "album_sortname", :name => "sortname"}

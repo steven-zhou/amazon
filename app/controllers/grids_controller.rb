@@ -168,7 +168,7 @@ class GridsController < ApplicationController
       values << params[:user_name]
     end
     if params[:status]
-      conditions << "system_logs.status ilike ?"
+      conditions << "system_logs.status = ?"
       values << params[:status]
     end
     if params[:start_date]
@@ -1254,7 +1254,7 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-    @list_header = ListHeader.find(session[:current_org_list_id])
+    @list_header = ListHeader.find(session[:current_org_list_id]) rescue OrganisationPrimaryList.first
     @active_tab = session[:active_tab]
     @active_sub_tab =  session[:active_sub_tab]
     @current_operation = session[:current_operation]
@@ -1347,6 +1347,7 @@ class GridsController < ApplicationController
           :cell=>[u.id,
             u.full_name,
             u.short_name,
+            u.primary_address.nil? ? "" : u.primary_address.first_line,
             u.primary_phone_num,
             u.primary_email_address]}}
       # Convert the hash to a json object

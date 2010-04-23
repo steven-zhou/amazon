@@ -550,7 +550,7 @@ class DepositsController < ApplicationController
       if params[:BRAS]
 
         report_name = "#{@run_id}-#{account.id}-BankRunAuditSheet"
-        @bank_run_audit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
+        @bank_run_audit_sheet_header = render_to_string(:partial => "deposits/bank_run_audit_sheet_header",:locals=>{:account=>account})
         @bank_run_audit_sheet = render_to_string(:partial => "deposits/bank_run_audit_sheet",:locals=>{:account=>account})
         @space = -40
         generate_html_and_pdf(@bank_run_audit_sheet_header,@bank_run_audit_sheet, report_name, file_prefix, file_dir, @space)

@@ -23,11 +23,17 @@
       {
       display: 'ID',
       name : 'id',
-      width : 20,
+      width : 40,
       sortable : true,
       align: 'left'
       },
-
+      {
+      display: 'Type',
+      name : 'amazon_settings.name',
+      width : 60,
+      sortable : true,
+      align: 'left'
+      },
       {
       display: 'Label',
       name : 'label',
@@ -37,17 +43,9 @@
       },
 
       {
-      display: 'Short Description',
-      name : 'short_description',
-      width : 100,
-      sortable : true,
-      align: 'left'
-      },
-
-      {
       display: 'Body Text',
       name : 'body_text',
-      width : 220,
+      width : 180,
       sortable : true,
       align: 'left'
       },
@@ -66,8 +64,8 @@
       },
 
       {
-      display: 'Short Description',
-      name : 'short_description'
+      display: 'Type',
+      name : 'amazon_settings.name'
       },
 
       {
@@ -82,7 +80,6 @@
       sortname: "id",
       sortorder: "asc",
       usepager: true,
-
       useRp: true,
       rp: 20,
       showTableToggleBtn: false,

@@ -8,16 +8,15 @@
   %input{:id => "contact_hidden_tab", :mode => "show", :style => "display:none"}
   %input{:id => "contact_input_change_or_not", :style => "display:none", :value => "false"}
 
-  %div#new_contact{:style=>"display:none"}
-    %p
-      .form_line
-        .field_20
-          %label <span class='asterisk'>*</span>MetaType
-          %select#select_contact_type
-            %option
-            -for cmt in ContactMetaMetaType.find(:all, :conditions => ["status = true and to_be_removed = false"])
-              %option{:value => "add_#{cmt.name.downcase}"}
-                = cmt.name
+  %div#new_contact{:style=>"display:none;float:left;width:100%;"}
+    .form_line
+      .field_20
+        %label <span class='asterisk'>*</span>MetaType
+        %select#select_contact_type
+          %option
+          -for cmt in ContactMetaMetaType.find(:all, :conditions => ["status = true and to_be_removed = false"])
+            %option{:value => "add_#{cmt.name.downcase}"}
+              = cmt.name
 
     #phone_type
       = render :partial => '/phones/personal_phone_type', :locals => { :phone => @phone }

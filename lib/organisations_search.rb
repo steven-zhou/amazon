@@ -35,7 +35,7 @@ module OrganisationsSearch
 
     query = condition_clauses.join(' AND '), *condition_options
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :order => "id")
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :order => "organisations.id")
 
   end
 
@@ -59,7 +59,7 @@ module OrganisationsSearch
       end
     end
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones], :order => "id")
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones], :order => "organisations.id")
 
   end
 
@@ -83,7 +83,7 @@ module OrganisationsSearch
       end
     end
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails], :order => "id")
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails], :order => "organisations.id")
 
   end
 
@@ -108,7 +108,7 @@ module OrganisationsSearch
       end
     end
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses], :order => "id")
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses], :order => "organisations.id")
 
   end
   
@@ -128,7 +128,7 @@ module OrganisationsSearch
       end
     end
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords], :order => "id")
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords], :order => "organisations.id")
 
   end
 

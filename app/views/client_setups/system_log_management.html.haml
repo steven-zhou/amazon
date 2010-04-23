@@ -36,12 +36,11 @@
 
     .full_container#system_log_export_options{:style => "display:none;"}
       %h2 Data Export
-      - form_tag("/reports/generate_system_log_pdf") do
-        %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
-        %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
-        %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
-        %input{:name => "status", :style => "display:none;", :id => "system_log_export_status"}
-        = submit_tag("Export PDF")
+      %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
+      %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
+      %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
+      %input{:name => "status", :style => "display:none;", :id => "system_log_export_status"}
+      = button_to_function 'Export PDF', :style => "float:right;", :id => "report_system_log_submit_button"
     .full_container#system_log_archive_options{:style => "display:none;"}
       %h2 Archive
       - form_tag("/client_setups/archive_system_log_entries") do
@@ -56,26 +55,5 @@
         %input{:name => "start_date", :style => "display:none;", :id => "system_log_delete_archive_start_date"}
         %input{:name => "end_date", :style => "display:none;", :id => "system_log_delete_archive_end_date"}
         = submit_tag("Delete")
-
-#archive_page.tab_switch_container
-  .full_container#system_log_archive
-    - form_tag("/client_setups/archive_system_log", :class => "ajax_form") do
-      .form_line
-        .field_27
-          %label Username
-          = text_field_tag :archive_user_name, nil
-        .field_27
-          %label Start Date
-          %input{:name => "start_date", :style => "width:82% !important;", :id => "archive_system_log_start_date", :class => "startdatepick", :end_date => "archive_system_log_end_date"}
-        .field_27
-          %label End Date
-          %input{:name => "end_date", :style => "width:82% !important;", :id => "archive_system_log_end_date", :class => "enddatepick", :start_date => "archive_system_log_start_date"}
-
-      = submit_tag("Search", :id => "system_log_archive_submit")
-
-  .full_container#system_log_archive_results{:style => "display:none;"}
-    %h2 System Log Entrie
-    %table#system_log_archive_grid
-
 
 

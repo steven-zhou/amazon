@@ -1,6 +1,4 @@
-
-$("#modify_my_account_content").html("<%= escape_javascript(render(:partial => "user_preferences/show_modify_my_account.html.haml")) %>");
-
+$("#modify_my_account_content").html("<%= escape_javascript(render(:partial => "user_preferences/show_modify_my_account")) %>");
 $("#modify_my_account_dialog").dialog( {
 modal: true,
 resizable: false,
@@ -14,6 +12,4 @@ $('#modify_my_account_dialog').dialog('open');
 
 $(function(){
   $('.password').pstrength();
-
-
 });

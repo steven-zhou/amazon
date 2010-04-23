@@ -253,6 +253,7 @@ class GlobalChangesController < ApplicationController
       @source_type = params[:type]
       @add_delete = ["Add","Delete"]
       @add_change_delete = ["Insert","Change","Delete"]
+
     if params[:table_name] == "keyword"
       @value = KeywordType.find(params[:table_field].to_i).keywords
 #    elsif params[:table_name] == "role"
@@ -262,11 +263,6 @@ class GlobalChangesController < ApplicationController
     end
 
 
-
-    puts "**********88"
-    puts @value.nil?
-    puts @value.blank?
-    puts @value.empty?
     @type =params[:table_name]
     respond_to do |format|
       format.js

@@ -6,6 +6,7 @@
 
 - form_for @client_setup,:html => {:submit_button_id => "password_submit"} do |f|
   %input{:name => "member_zone", :style => "display:none;"}
+  %input{:name => "client_setup[installation_date]", :style => "display:none;"}
   .full_container
     %h1 Login Details
     .form_line
@@ -20,5 +21,4 @@
         = submit_tag "Submit", :disabled => true, :id => "password_submit"
 
 #password_error{:style => "display:none;"}
-  .container
-    %p Two password are not matched
+  %p Two password are not matched
