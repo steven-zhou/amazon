@@ -4,20 +4,17 @@
     <p>Please answer the following security questions:</p>
     <table>
       <tr style="width:180px;">
-        <td><label><%= @login_account.security_question_1.name %></label>
+        <td><label><%= @login_account.security_question1 %></label>
         <%= text_field :username_retrieval_answer_1, nil %></td>
       </tr>
       <tr style="width:180px;">
-        <td><label><%= @login_account.security_question_2.name %></label>
+        <td><label><%= @login_account.security_question2 %></label>
         <%= text_field :username_retrieval_answer_2, nil %></td>
       </tr>
-      <tr style="width:180px;">
-        <td><label><%= @login_account.security_question_3.name %></label>
-        <%= text_field :username_retrieval_answer_3, nil %></td>
-      </tr >
+
       <tr style="width:180px;">
         <td><%= submit_tag("Submit") %></td>
-      </tr style="width:180px;">
+      </tr>
     </table>
   <% end  -%>
 </div>

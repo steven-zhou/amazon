@@ -112,7 +112,7 @@ $(function() {
       modal: true,
       resizable: false,
       draggable :false,
-      height: 315,
+      height: 400,
       width: 575
     }
 
@@ -135,8 +135,8 @@ $(function() {
 
     $("#username_retrieval_captcha").show();
     $(".login_help_content").show();
-    $("#username_retrieval_security_questions").html("<div id='username_retrieval_security_questions' style='display:none;'></div>");
-    $("#username_retrieval_error_messages").html("<div id='username_retrieval_error_messages' style='display:none;'></div>");
+    $("#username_retrieval_security_questions").replaceWith("<div id='username_retrieval_security_questions' style='display:none;'></div>");
+    $("#username_retrieval_error_messages").replaceWith("<div id='username_retrieval_error_messages' style='display:none;'></div>");
 
   });
 
