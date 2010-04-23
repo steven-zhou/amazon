@@ -19,9 +19,8 @@ development:
   encoding: utf8
   database: amazon_development
   pool: 5
-  username: postgres
-  host: localhost
-  password: password
+  username: rails
+  password: rails
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -31,15 +30,13 @@ test:
   encoding: utf8
   database: amazon_test
   pool: 5
-  host: localhost
-  username: postgres
-  password: password
+  username: rails
+  password: rails
 
 production:
   adapter: postgresql
   encoding: utf8
   database: amazon_production
   pool: 5
-  host: localhost
-  username: postgres
-  password: password
+  username: rails
+  password: rails
