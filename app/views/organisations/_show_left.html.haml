@@ -51,17 +51,17 @@
       %h1
         = @primary_address.nil? ? "Address" : "<strong #{'class=\'red\'' if @primary_address.address_type.to_be_removed == true}>#{@primary_address.address_type_name}</strong> Address"
       -unless @primary_address.nil?
-        .container.primary_address_and_employment
+        %div.primary_address_and_employment{:style => "text-align:right;"}
           = format_address(@primary_address)
 
     .container
       %h1= "Legal Details"
-      .right
+      .right{:style => "text-align:right;"}
         = format_legal_details(@organisation)
 
     .container
       %h1= "Business Details"
-      .right
+      .right{:style => "text-align:right;"}
         = format_business_details(@organisation)
 
 
