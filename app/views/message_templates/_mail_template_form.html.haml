@@ -37,7 +37,7 @@
   .form_line
     .field_22
       %label Table Name
-      %select{:class => "select_table_word clear_select general_drop_down_level", :drop_down_field => @mail_template.new_record? ? "new_mail_template" : "edit_mail_template", :method => "GET", :url => "/message_templates/drop_down_list"}
+      %select{:class => "select_table_word clear_select general_drop_down_level", :drop_down_field => @mail_template.new_record? ? "new_mail_template" : "edit_mail_template", :method => "GET", :url => "/message_templates/drop_down_list", :update_field => @mail_template.new_record? ? "merge_field_insert" : "edit_merge_field_insert"}
         -@table_attributes.each do |i|
           %option{:value => i.name}
             = i.name
@@ -52,7 +52,7 @@
 
     .field_10
       %label &nbsp
-      =button_to_function 'Insert', :class => "mail_merge_insert_word" ,:style => "width:100%;"
+      =button_to_function 'Insert', :class => "mail_merge_insert_word" ,:style => "width:100%;", :id => @mail_template.new_record? ? "merge_field_insert" : "edit_merge_field_insert"
     .field_10
       %input{:class => "hidden", :name => "type", :value => "#{@type}"}
 
