@@ -470,7 +470,7 @@ module OutputPdf
       tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
         col.heading = "ID"
       }
-      tab.columns["system_id"].width = 25
+      tab.columns["system_id"].width = 40
       tab.columns["log_date"] = PDF::SimpleTable::Column.new("log_date") { |col|
         col.heading = "Date"
       }
