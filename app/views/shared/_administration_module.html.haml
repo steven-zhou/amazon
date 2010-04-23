@@ -89,7 +89,7 @@
         <p>Security Groups</p>
         %ul
           %li{:id => action == "security_groups" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Manager",{:controller => "administrations", :action => "security_groups"}, :controller => "administrations", :action => "security_groups",:class => "draggable",:icon_module=>"administration",:image_url => "'Icons/Admin/Security/group_manager.png", :title => "Manager"
+            = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Manager",{:controller => "administrations", :action => "security_groups"}, :controller => "administrations", :action => "security_groups",:class => "draggable",:icon_module=>"administration", :image_url => "Icons/Admin/Security/group_manager.png", :title => "Manager"
           %li{:id => action == "group_lists" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Security/group_list.png')} Lists",{:controller => "administrations", :action => "group_lists"}, :controller => "administrations", :action => "group_lists",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Security/group_list.png", :title => "Lists"
           %li{:id => action == "group_permissions" ? "selected" : ""}
@@ -132,7 +132,7 @@
           %li{:id => @current_action == "country_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Maintenance/country_data.png')} Country Data",{:controller => "maintenance", :action => "country_data"}, :controller => "maintenance", :action => "country_data",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Maintenance/country_data.png", :title => "Country Data"
           %li{:id => @current_action == "list" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Maintenance/bankdata.png')} Bank Data",{:controller => "banks", :action => "list"}, :controller => "banks", :action => "list",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Bank Data"
+            = link_to "#{image_tag('Icons/Admin/Maintenance/bankdata.png')} Bank Data",{:controller => "banks", :action => "list"}, :controller => "banks", :action => "list",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Maintenance/bankdata.png", :title => "Bank Data"
     .bottom
 
   - # Testing Nightly Process
@@ -140,12 +140,12 @@
     .top
     .item
       - if !(@current_controller == "nightly_processes")
-        = link_to "#{image_tag('Icons/Admin/Nightlyprocess.png')} NightlyProcess", {:controller => "nightly_processes", :action => "index"}, :controller => "nightly_processes", :action => "index",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Nightlyprocess.png", :title => "nightly_processes"
+        = link_to "#{image_tag('Icons/Admin/Nightlyprocess.png')} NightlyProcess", :controller => "nightly_processes", :action => "index"
       - else
-        <p>Nightly Process</p>
+        <p>NightlyProcess</p>
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Nightlyprocess.png')} Test", {:controller => "nightly_processes", :action => "index"}, :controller => "nightly_processes", :action => "index",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Nightlyprocess.png", :title => "nightly_processes"
+            = link_to "#{image_tag('Icons/Admin/Nightlyprocess.png')} NightlyProcess", {:controller => "nightly_processes", :action => "index"}, :controller => "nightly_processes", :action => "index",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Nightlyprocess.png", :title => "nightly_processes"
     .bottom
 
   -# Global Change
@@ -153,7 +153,7 @@
     .top
     .item
       -if !(@current_controller == "global_changes")
-        = link_to "#{image_tag('Icons/Admin/Global Changes/global_changes.png')} Global Change",{:controller => "global_changes", :action => "index"},:controller => "global_changes",:action => "index", :class => "draggable", :icon_module => "administration", :image_url => "Icons/Admin/Global Changes/global_changes.png", :title => "global_changes"
+        = link_to "#{image_tag('Icons/Admin/Global Changes/global_changes.png')} Global Change", :controller => "global_changes", :action => "index"
       -else
         <p>Global Change</p>
         %ul
