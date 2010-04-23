@@ -1,0 +1,66 @@
+#membership_person_info
+  %h1 Membership Details
+  .form_line
+    .field_25{:style => "margin-right: 2px;"}
+      = label_tag :name, '<span class="asterisk">*</span>Person ID'
+      - if @membership.new_record?
+        %input{:id=>"membership_person_id",:class=>"membership_person_lookup compulsory_field",:value=>@person.nil? ? "" : @person.id}
+      - else
+        .display_field_bg
+          = @person.id unless @person.nil?
+          %input{:id=>"membership_person_id",:class=>"membership_person_lookup hidden",:value=>@person.nil? ? "" : @person.id}
+    .field_5
+      %label &nbsp;
+      - if @membership.new_record?
+        = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "membership_person_id", :title=>"Search"
+      
+    .field_30
+      = label_tag :name, 'Name'
+      -unless @person.nil?
+        %input{:name=>"membership[person_id]",:value=>"#{@person.id}",:class=>"hidden"}
+      -unless @membership.nil?
+        %input{:name=>"id",:value=>"#{@membership.id}",:class=>"hidden"}
+      .display_field_bg
+        =@person.nil? ? "" :@person.name.to_s
+    .field_30
+      %label Application Date
+      .display_field_bg
+        = @membership.new_record? ? Time.now.strftime("%d-%m-%Y") : @membership.created_at.getlocal.to_date.to_s
+
+    %br.clear
+  #membership_employer_info
+    .form_line
+      .field_30
+        = label_tag :name, 'Employer Reference No'
+        %div.display_field_bg
+          = @person.try(:primary_employment).try(:staff_reference)
+
+      .field_30
+        = label_tag :type, "Workplace Reference No"
+        %div.display_field_bg
+          = @person.try(:primary_employment).try(:workplace_reference)
+      .field_30
+        = label_tag :age,"Union Reference No"
+        %div.display_field_bg
+          = @person.try(:primary_employment).try(:union_reference)
+      %br.clear
+
+
+  #membership_organisation_info
+    .form_line
+      .field_30
+        = label_tag :name, 'Employer '
+        %div.display_field_bg
+          =(@person.try(:primary_employment).try(:organisation).try(:id).to_s + '-' +  @person.try(:primary_employment).try(:organisation).try(:full_name).to_s) unless  @person.try(:primary_employment).try(:organisation).try(:full_name).nil?
+          %input{:name=>"membership[employer_id]",:value=>"#{@person.try(:primary_employment).try(:organisation).try(:id)}",:class=>"hidden"}
+      .field_30
+        = label_tag :name, "Workplace"
+        %div.display_field_bg
+          = (@person.try(:primary_employment).try(:workplace).try(:id).to_s+ '-' +@person.try(:primary_employment).try(:workplace).try(:full_name).to_s) unless  @person.try(:primary_employment).try(:workplace).try(:full_name).nil?
+          %input{:name=>"membership[workplace_id]",:value=>"#{@person.try(:primary_employment).try(:workplace).try(:id)}",:class=>"hidden"}
+      .field_30
+        = label_tag :pay_roll_center, "PayRoll Center"
+        %div.display_field_bg
+          = @person.try(:primary_employment).try(:payroll_center)
+        
+      %br.clear

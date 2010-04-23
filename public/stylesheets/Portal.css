@@ -1,29 +1,197 @@
 @charset "utf-8";
 @import url("reset.css");
 /* CSS Document */
+/*
+    Document   : guest
+    Created on : Apr 12, 2010, 11:29:14 AM
+    Author     : matthew
+    Description:
+        Purpose of the stylesheet follows.
+*/
 
+/*
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+  background-color: #C6D6E1;
+  background-image: url(/images/bg3.jpg);
+  background-repeat: repeat;
+  background-position: center -300px;
+}
+
+#main {
+  width: 960px;
+  margin: 0 auto;
+}
+
+#top_bar {
+  width: 100%;
+  background-color: #154073;
+  background-repeat: repeat;
+  height: 35px;
+}
+
+
+h1 {
+  color:#153f73;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: normal;
+  line-height: 1em;
+  padding: 6px;
+}
+
+#go_back_link {
+  width: 960px;
+  height: 40px;
+  margin: 0 auto;
+}
+
+#go_back_link a{
+  color:  #c5d6e0;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 12px;
+  display:block;
+  padding: 9px 0px;
+  text-decoration: underline;
+}
+
+#feedback_area {
+  display:none;
+
+}
+
+#signin_container{
+
+  background-color:#FFF;
+
+  width: 385px;
+  /*  margin-top: 10%;*/
+  margin-right: auto;
+  margin-bottom: 0.5%;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+}
+
+#signin_form{
+
+
+  height: 227px;
+padding:0 7%
+
+}
+
+#signin_container #signin_logo {
+  background-image:url(/images/systemlogo.png);
+  background-repeat:no-repeat;
+  background-position:center center;
+  width: 100%;
+  height: 178px;
+  float:left;
+
+}
+#signin_container #signin_form form a {
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #143F72;
+  font-weight: bold;
+}
+#signin_container #signin_form form a:hover {
+  text-decoration: underline;
+}
+#signin_container #signin_form form a img {
+  vertical-align: bottom;
+}
+
+#register_form{
+  background-color:#FFF;
+  height: 240px;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  padding:0 7%
+}
+
+#register_form form a {
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #143F72;
+  font-weight: bold;
+}
+#register_form form a:hover {
+  text-decoration: underline;
+}
+#register_form form a img {
+  vertical-align: bottom;
+  border: none;
+}
+#register_form form #signin_button {
+  float: right;
+  margin-top:15px;
+}
+
+#retrieve_password_form a {
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #143F72;
+  font-weight: bold;
+}
+
+/* SIMPLE CAPTCHA CSS STYLING*/
+#simple_captcha .form_line #captcha_image {width: auto; height: auto; display:inline;}
+#simple_captcha .form_line #captcha_image img{width: 110px !important; height:30px; background-color: #fff;}
+
+.sign_content_title{
+  font-family:Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  color: #14427D;
+  font-size:27px;
+  margin-bottom: 20px;
+  padding-top: 6%;
+}
+
+input[type=submit] {
+  float:right;
+  background-color: #E3E1E2;
+  -moz-border-radius: 10px;
+  -webkit-border-radius:10px;
+  border-radius: 15px;
+  padding:6px 12px;
+  opacity:0.6; /*Firefox*/
+}
 
 .form_line {
-    float: left;
-    min-height: 30px;
-    padding-bottom: 5px;
-    width: 100%;
+  float: left;
+  min-height: 30px;
+  padding-bottom: 5px;
+  width: 100%;
 }
 
 .form_line label {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 12px;
-    color: #666;
-    text-decoration: none;
-    display: block;
-    padding-left: 3px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 12px;
+  color: #666;
+  text-decoration: none;
+  display: block;
+  padding-left: 3px;
 }
 
-.form_line input {
-    width:100%;
+.form_line input[type=text], .form_line input[type=password] {
+  width:100%;
+  height:24px;
 }
+
 
 .form_line .field_2,
 .form_line .field_5,
@@ -46,10 +214,11 @@
 .form_line .field_70,
 .form_line .field_75,
 .form_line .field_80,
-.form_line .field_85 {
-    float: left;
-    height: 40px;
-    margin-right: 10px;
+.form_line .field_90,
+.form_line .field_95 {
+  float: left;
+  height: 40px;
+  margin-right: 10px;
 }
 .form_line .field_2 {width: 2%;}
 .form_line .field_5 {width: 5%;}
@@ -73,7 +242,290 @@
 .form_line .field_75 {width: 75%;}
 .form_line .field_80 {width: 80%;}
 .form_line .field_85 {width: 85%;}
+.form_line .field_90 {width: 90%;}
+.form_line .field_95 {width: 95%;}
 
-.captcha #captcha_image {display:inline;height:auto;width:auto;}
-.captcha #label {display:block;width:30%;float:left;height:40px;margin-right:10px;}
-.captcha #captcha {width:60%;float:left;margin-right:10px;}
+
+a.alt_option{
+  font-size: 12px ;
+  font-weight:normal ;
+  color: #143f72 !important;
+  text-decoration:underline;
+  float: right;
+  margin:2px 15px 0px 10px;
+  padding:1px;
+  line-height:16px;
+  cursor: pointer;
+}
+
+.footer{
+  margin: 0px auto;
+  width: 40%;
+  text-align: center;
+  color: #796b52;
+  font-size: 11px;
+}
+
+
+#successful_message_container{
+  background-color:#D5E7A0;
+  width: auto;
+  padding: 6%;
+  margin-right: auto;
+
+  margin-bottom: 11px;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+  margin-top:5px;
+}
+
+
+#fail_message_container{
+  background-color:#E68282;
+  width: auto;
+  padding: 6%;
+  margin-right: auto;
+  margin-bottom: 11px;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+  margin-top:5px;
+
+}
+
+
+.sign_content_title_level2{
+
+  font-size: 13px;
+  color: #005592;
+  font-weight:bold;
+
+}
+
+
+
+/* For sign in screen */
+#sign_out_link {
+  width: 960px;
+  height: 40px;
+  margin: 0 auto;
+}
+
+#sign_out_link a{
+  color:  #c5d6e0;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  display:block;
+  float:right;
+  padding: 11px 0px;
+  text-decoration: underline;
+}
+
+#left_content {
+  /*  background-color: white;*/
+  background-repeat: repeat;
+  float:left;
+  width: 214px;
+  padding: 0px 18px 0px 14px;
+}
+
+#right_content {
+  background-repeat: repeat;
+  float:left;
+  width: 70%;
+  margin-bottom: 10px;
+}
+
+#login_body #top_bar {
+  background-color: #3f3f3f !important;
+}
+
+#login_body #tab_menu {
+  height: 45px;
+}
+
+
+#login_body #signin_logo {
+  -moz-border-radius: 0px 0px 15px 15px;
+  -webkit-border-bottom-right-radius:15px;
+  -webkit-border-bottom-left-radius:15px;
+  border-radius: 0px 0px 15px 15px;
+  background-color: white;
+  background-image:url(/images/systemlogo.png);
+  background-repeat:no-repeat;
+  background-position:center center;
+  width: 100%;
+  height: 75px;
+  float:right;
+}
+
+#login_body #person_info {
+
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  background-color: white;
+  background-repeat:no-repeat;
+  background-position:center center;
+  margin-top: 20px;
+  width: 100%;
+  min-height: 250px;
+  float:right;
+}
+
+#login_body #person_change_password {
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  background-color: white;
+  background-repeat:no-repeat;
+  background-position:center center;
+  margin-top: 10px;
+  width: 100%;
+  min-height: 200px;
+
+  float:left;
+
+}
+
+
+#login_body #person_info #show_person_info {
+  float: left;
+  min-height: 30px;
+  padding-bottom: 5px;
+  width: 100%;
+  margin-left:20px;
+  margin-top:20px;
+}
+
+#login_body #person_info #show_person_info #name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #005492;
+  margin-bottom: 10px;
+  line-height: 20px;
+}
+
+#login_body #person_info #show_person_info .value {
+  font-size: 12px;
+  color: #333;
+}
+
+#login_body #person_info #show_person_info .form_line {
+  min-height: 20px !important;
+}
+
+#login_body #person_change_password #show_person_change_password {
+  float: left;
+  min-height: 30px;
+  padding-bottom: 5px;
+  width: 100%;
+  margin-left:28px;
+  margin-top:29px;
+}
+
+
+#show_person_profile{
+  float: left;
+  margin-top:29px;
+  margin-left:28px;
+  width: 100%;
+}
+
+#login_body #person_info label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: #133f72;;
+  text-decoration: none;
+  display: block;
+  padding-left: 0px;
+  font-weight: normal;
+  line-height: 20px;
+}
+#person_profile {
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  background-color: white;
+  background-position:center center;
+  width: 100%;
+  float:left;
+}
+
+#login_body .tab_menu_item {
+  -moz-border-radius: 10px 10px 0px 0px;
+  -webkit-border-top-left-radius:10px;
+  -webkit-border-top-right-radius:10px;
+  border-radius: 10px 10px 0px 0px;
+  -moz-box-shadow:0 2px 0 #fff;
+  -webkit-box-shadow:0 2px 0 #fff;
+  background-color: white;
+  background-position:center center;
+  float:left;
+  padding: 2px;
+  opacity:0.6;
+  margin: 7px 0 0 5px;
+}
+
+#login_body .tab_menu_item.active{
+  -moz-border-radius: 10px 10px 0px 0px;
+  -webkit-border-top-left-radius:10px;
+  -webkit-border-top-right-radius:10px;
+  border-radius: 10px 10px 0px 0px;
+  -moz-box-shadow:0 2px 0 #ccc;
+  -webkit-box-shadow:0 2px 0 #ccc;
+  background-color: white;
+  background-position:center center;
+  float:left;
+  padding: 2px;
+  opacity:1;
+}
+
+#successful_password_message_container{
+  background-color:#D5E7A0;
+  width: auto;
+  padding: 2%;
+  margin:5px 117px 10px -7px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+
+#fail_password_message_container{
+  background-color:#E68282;
+  width: auto;
+  padding: 2%;
+  margin:5px 117px 10px -7px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+#login_fail_message_container{
+  background-color:#E68282;
+  width:90%;
+  padding: 19px;
+  margin-right: auto;
+  margin-bottom: 11px;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+  margin-top:5px;
+
+}

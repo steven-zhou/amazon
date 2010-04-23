@@ -1,0 +1,16 @@
+-# :locals => {:extra => extra, :group => group}
+.toggle_options{:field => "extra"}
+  .title
+    %h1
+  .options{:style => "display:none;"}
+    = link_to image_tag('edit_icon.png'), edit_extra_path(extra), :class => 'get edit_option ', :field => "extra", :title=>"Edit"
+  %br{ :style=>"clear: both;"}
+
+  - i = 1
+  - group.extra_types.each do |label|
+    .field_40{:style => "width:45%;float:left;"}
+      %label{:style => "margin-top:3px;"} #{label.name}:
+      .display_field_bg
+        - field = "label#{i}_value"
+        = extra.__send__(field)
+    - i = i + 1

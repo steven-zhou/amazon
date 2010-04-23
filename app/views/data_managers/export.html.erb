@@ -40,7 +40,7 @@
     end
 else-%>
   <%= "ID, First Name, Family Name, Address, Email, Phone, Website"%>
-  <% @people.each do |person| -%>
+  <% @entities.each do |person| -%>
     <%- primary_e = person.primary_email.nil? ? "" : person.primary_email.address
                 primary_p = person.primary_phone.nil? ? "" : person.primary_phone.complete_number
                 primary_w = person.primary_website.nil? ? "" : person.primary_website.address

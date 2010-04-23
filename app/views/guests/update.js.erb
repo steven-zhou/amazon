@@ -1,0 +1,27 @@
+$('#feedback_area').show();
+<%-if @password%>
+
+  <%-if !@password_error_message.blank?%>
+    $('#fail_password_message_container').html('<%= escape_javascript("#{@password_error_message}")%>').css('display', '');
+    $('#successful_password_message_container').css('display', 'none');
+  <%-else%>
+    $('#successful_password_message_container').html('<%= escape_javascript("#{@password_successful_message}")%>').css('display', '');
+    $('#fail_password_message_container').css('display', 'none');
+  <%end%>
+
+<%else%>
+
+  <%-if !@error_message.blank? %>
+    $('#fail_message_container').html('<%= escape_javascript("#{@error_message}")%>').css('display', '');
+    $('#successful_message_container').css('display', 'none');
+
+  <%else%>
+    $('#successful_message_container').html('<%= escape_javascript("#{@successful_message}")%>').css('display', '');
+    $('#fail_message_container').css('display', 'none');
+    $('#person_info').html("<%= escape_javascript(render(:partial => "person_info"))%>");
+  <%end%>
+
+<%end%>
+enable_form_after_submit_finish();
+
+

@@ -21,13 +21,15 @@
           %li{:id => @current_action == "installation" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Powernet_module/Installation.png')} Installation",{:controller => "client_setups", :action => "installation"}, :controller => "client_setups", :action => "installation",:class => "draggable",:icon_module=>"client_setup",:image_url => "Icons/Powernet_module/Installation.png", :title => "Installation"
           %li{:id => @current_action == "super_admin" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Super Admin",{:controller => "client_setups", :action => "super_admin"}, :controller => "client_setups", :action => "super_admin",:class => "draggable",:icon_module=>"client_setup",:image_url => "image_tag('icon_holder.png')", :title => "Super Admin"
+            = link_to "#{image_tag('Icons/Powernet_module/Superadmin.png')} Super Admin",{:controller => "client_setups", :action => "super_admin"}, :controller => "client_setups", :action => "super_admin",:class => "draggable",:icon_module=>"client_setup",:image_url => "Icons/Powernet_module/Superadmin.png", :title => "Super Admin"
           %li{:id => @current_action == "member_zone" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Member Zone",{:controller => "client_setups", :action => "member_zone"},  :controller => "client_setups", :action => "member_zone", :class => "draggable",:icon_module=>"client_setup",:image_url => "image_tag('icon_holder.png')", :title => "Member Zone"
+            = link_to "#{image_tag('Icons/Powernet_module/Memberzone.png')} Member Zone",{:controller => "client_setups", :action => "member_zone"},  :controller => "client_setups", :action => "member_zone", :class => "draggable",:icon_module=>"client_setup",:image_url => "Icons/Powernet_module/Memberzone.png", :title => "Member Zone"
           %li{:id => @current_action == "available_modules" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Powernet_module/modules.png')} Modules", {:controller => "client_setups", :action => "available_modules"},:controller => "client_setups", :action => "available_modules",:class => "draggable",:icon_module=>"client_setup",:image_url => "Icons/Powernet_module/modules.png", :title => "Modules"
           %li{:id => @current_action == "feedback_list" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Powernet_module/user_feedback.png')} Feedback List",{:controller => "client_setups", :action => "feedback_list"}, :controller => "client_setups", :action => "feedback_list",:class => "draggable",:icon_module=>"client_setup",:image_url => "Icons/Powernet_module/user_feedback.png", :title => "Feedback List"
+          %li{:id => @current_action == "client_organisation_structure" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Client Org Structure",{:controller => "client_setups", :action => "client_organisation_structure"}, :controller => "client_setups", :action => "client_organisation_structure",:class => "draggable",:icon_module=>"client_setup",:image_url => "icon_holder.png", :title => "Client Organisatoin Structure"
     .bottom
 
   - # Configuration Menu

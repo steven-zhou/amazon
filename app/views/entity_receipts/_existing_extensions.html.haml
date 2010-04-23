@@ -1,0 +1,57 @@
+.container
+  %h2 Extensions
+
+  %table#show_existing_extensions_grid{:class=>"selectable_grid",:field=>"extension",:db_click_function=>"true", :db_click_url=>"/receipts/show_extension_receipts"}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_existing_extensions_grid tr.trSelected").attr('id'),"#extension_mode","delete","/entity_receipts/");
+    };
+
+    $("#show_existing_extensions_grid").flexigrid({
+    url: '/grids/show_existing_extensions_grid?deposit_id=#{@deposit.id}',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'Entity',
+    name : 'entity_type',
+    width : 60,
+    sortable : false,
+    align: 'left'
+    },
+    
+    {
+    display: 'Manual Receipt Number',
+    name : 'manual_receipt_number',
+    width : 130,
+    sortable : false,
+    align: 'left'
+    },
+    {
+    display: 'Total Allocated',
+    name : 'amount',
+    width : 80,
+    sortable : false,
+    align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+    display: 'Entity Type',
+    name : 'entity_type'
+    }
+    ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid}
+        ],
+    sortname: "entity_type",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

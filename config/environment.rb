@@ -66,6 +66,8 @@ Rails::Initializer.run do |config|
   config.gem "remarkable_rails"
   config.gem "webrat"
   config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list', :source => 'http://gems.github.com'
+  #   config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
+
 
 
   
@@ -95,8 +97,13 @@ Rails::Initializer.run do |config|
     :domain => "memberzone.com.au",
     :authentication => :plain,
     :user_name => "feedback@memberzone.com.au",
-    :password => "feedback123",
+    :password => "feedbackmemberzone",
   }
+
+
+  #move the cached files into this folder
+  config.action_controller.page_cache_directory = RAILS_ROOT + "/public/cache"
+  config.load_paths << "#{RAILS_ROOT}/app/sweepers"
 
 end
 
@@ -106,3 +113,4 @@ ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
 
 ExceptionNotifier.exception_recipients = %w(lei@powernet.com.au wei@powernet.com.au matthew@powernet.com.au)
 ExceptionNotifier.sender_address = %("feedback@memberzone.com.au")
+

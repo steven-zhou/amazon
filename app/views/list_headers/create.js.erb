@@ -19,6 +19,7 @@ $("#flash_message").css('background-color','#D1DDE6');
 $('#flash_message').dialog('open');
 
 <% else %>
+ $('#result_div').dialog('close');
  $('#copy_form').dialog('close');
  $('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
  $('#flash_feedback').fadeIn("slow");

@@ -46,21 +46,20 @@
     .form_line
       .field_20
         =label_tag :super_passowrd, "<span class='asterisk'>*</span>Super Password"
-        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop"}
+        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop compulsory_field"}
       .field_20
         =label_tag :super_passowrd_confirmation, "<span class='asterisk'>*</span>Super Password Confirmation"
-        %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
+        %input{:type => "password", :id => "repeat_password", :name => "repeat_password",:class=>"compulsory_field"}
     .form_line
       = submit_tag "Submit", :disabled => true, :id => "password_submit"
 
   .full_container
-    %h2 Advanced Option
+    %h2 Advanced
 
     .form_line
-      .field_17{:class => @login_account.login_status ? "" : "hidden"}
+      .field_20{:class => @login_account.login_status ? "" : "hidden"}
         %label &nbsp
         = link_to 'reset user online status', reset_online_status_login_account_path(@login_account), :class => "post alt_option"
 
 #password_error{:style => "display:none;"}
-  .container
-    %p Two password are not matched
+  %p Two passwords are not matched

@@ -49,7 +49,7 @@
         %br.clear
       .form_line
         .field_33
-          = p.label :registered_date, 'registered_date'
+          = p.label :registered_date, 'Registered Date'
           = p.text_field :registered_date, :class=> "datepick", :value=>@client_organisation.registered_date.to_s
         .field_30
           = p.label :registered_country_id, 'Country of Incorporation'
@@ -69,8 +69,7 @@
           = p.label :legal_no_2, 'Legal Number 2'
           = p.text_field :legal_no_2
         %br.clear
-
-    %p.submit
-      = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
-      = submit_tag "Submit",:id=>"client_organisation_submit"
-
+      .form_line
+        .field_100
+          = submit_tag "Submit",:id=>"client_organisation_submit"
+        %br.clear

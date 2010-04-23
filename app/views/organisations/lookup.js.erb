@@ -26,7 +26,7 @@ $('#organisation_lookup_dialog').dialog( {
                            {display: 'Phone', name : 'field_4'},
                            {display: 'Email', name : 'field_5'}
             ],
-            sortname: "grid_object_id",
+            sortname: "id",
             sortorder: "asc",
             usepager: true,
             title: 'Organisation Lookup',
@@ -36,3 +36,6 @@ $('#organisation_lookup_dialog').dialog( {
             width: 'auto',
             height: 'auto'
         });
+
+
+ $('.organisation_lookup_disabled').addClass('organisation_lookup').removeClass('organisation_lookup_disabled');

@@ -1,27 +1,15 @@
-%script{:type => "text/javascript"}
-  :plain
-    $(function() {
-      $('.new_client_bank_account_required_field').keyup(function() {
-          if($('#new_client_bank_account_number').val() == '') {
-              $('#new_client_bank_account_submit').attr('disabled', true);
-          } else {
-              $('#new_client_bank_account_submit').removeAttr('disabled');
-          }
-      });
-    });
-
-- form_for :client_bank_account, @ClientBankAccount, :url => {:controller => "client_setups", :action => "create_client_bank_account" }, :html => {:class => 'ajax_form'}  do |f|
+- form_for :client_bank_account, @ClientBankAccount, :url => {:controller => "client_setups", :action => "create_client_bank_account" }, :html => {:class => 'ajax_form', :id => "new_bank_account",:submit_button_id =>"new_client_bank_account_submit"}  do |f|
   .form_line
     .field_15
-      = f.label :account_number, "* Account Number", :class => "required_field"
-      = f.text_field :account_number, :class => "new_client_bank_account_required_field", :id => "new_client_bank_account_number", :disabled => false
+      = f.label :account_number, "<span class='asterisk'>*</span> Account Number"
+      = f.text_field :account_number, :class => "compulsory_field", :id => "new_client_bank_account_number", :disabled => false
   .form_line
     .field_30
-      = f.label :bank, "Bank"
-      = collection_select(:client_bank_account, :bank_id, Bank.active_record, :id, :display_name, {})
+      = f.label :bank, "<span class='asterisk'>*</span>Bank"
+      = collection_select(:client_bank_account, :bank_id, Bank.active_record, :id, :display_name, {:include_blank=>true}, {:class => "compulsory_field"})
     .field_30
       = f.label :account_purpose_id, "Purpose"
-      = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name)
+      = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name,{:include_blank=>true})
   .form_line
     .field_30
       = f.label :remarks, "Remarks"

@@ -1,0 +1,28 @@
+<% if flash[:error].nil? -%>
+
+  $('#extra_div_<%=escape_javascript(@position.to_s)%>').html('<%= escape_javascript(render(:partial => "/extras/display_extra", :locals => {:extra => @extra, :group => @group})) %>').effect('slide', {direction:'right'});
+
+<%- else%>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message_image').css("display","");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>
+enable_form_after_submit_finish_extension('extra_form[submit_button_id="group<%=escape_javascript(@group.id.to_s)%>_submit"]',false);
+
+

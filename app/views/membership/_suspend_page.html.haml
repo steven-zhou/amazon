@@ -1,0 +1,8 @@
+
+.container
+  %h1 Memberships
+  =render :partial => "/membership/display_grid",:locals=>{:type=>"Pre-active"}
+
+
+
+= render :partial => "membership/edit_membership_container", :locals => {:title => "Manage"}

@@ -1,0 +1,27 @@
+.container
+  %h1 Filter Form
+  .form_line
+    .field_20
+      %label Start Date
+      %input{:class => "startdatepick",:id => "membership_filter_start_date",:end_date => "membership_filter_end_date", :value => "#{Date.today().last_year.to_s}", :name => "start_date"}
+
+    .field_20
+      %label End Date
+      %input{:class => "enddatepick",:id => "membership_filter_end_date",:start_date => "membership_filter_start_date", :value => "#{Date.today().to_s}", :name => "end_date"}
+
+    .field_20
+      %label Creator
+      %input{:id => "membership_filter_creator_username", :value => "#{@current_user.user_name}",:name => "creator_username"}
+
+    .field_20
+      %label Status
+      %select{:id => "membership_status",:name=>"membership_status"}
+        %option{:value => ""}
+          All
+        -@membership_status.each do |s|
+          %option{:value => s.id}
+            = s.name
+          
+    .field_15
+      %label &nbsp
+      =submit_tag 'Submit'

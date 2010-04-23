@@ -1,0 +1,7 @@
+$('#add_new_campaign').css('display','none');
+$('#edit_campaign').css('display', '');
+$('#edit_campaign_form').html('<%= escape_javascript(render(:partial => "/receipting_admin/edit_campaign_form", :locals => {:campaign => @campaign })) %>');
+$('#campaign_mode').attr('mode', 'edit');
+$('.close_option[field="campaign"]').css("display","");
+
+

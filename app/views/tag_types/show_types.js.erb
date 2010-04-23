@@ -7,13 +7,13 @@
 
   $("#group_id").html("<%= escape_javascript("#{options}") %>");
   $("#group_id").change('');
-  $("#group_type_description").html("<%= escape_javascript("#{@group_meta_type.description}") %>");
+  $("#group_type_description").show().html('<%= escape_javascript("#{@group_meta_type.description.gsub("\n","<br>")}") %>');
 
 
 <% else %>
   $("#group_id").html('<option></option>');
-  $("#group_description").html("");
-  $("#group_type_description").html("");
+  $("#group_description").html("").hide();
+  $("#group_type_description").html("").hide();
   $(".mandantory_dropdown_list").change();
 <% end %>
 

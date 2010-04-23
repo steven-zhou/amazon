@@ -4,7 +4,7 @@
   $("#username_retrieval_captcha").hide();
   $(".login_help_content").hide();
   
-  $("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "/signin/username_retrieval_security_questions"))%>");
+  $("#username_retrieval_security_questions").replaceWith("<%= escape_javascript(render(:partial => "/signin/username_retrieval_security_questions"))%>");
   $("#username_retrieval_security_questions").show();
 
 <%- else %>

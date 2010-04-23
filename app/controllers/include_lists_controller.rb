@@ -35,15 +35,8 @@ class IncludeListsController < ApplicationController
 
   def destroy
 
-    @include_list = PersonIncludeList.find(params[:id].to_i) rescue @org_or_person = "org"
-    if @org_or_person =="org"
-      @include_list = OrganisationIncludeList.find(params[:id].to_i)
-    end
-    if @org_or_person =="person"
-      @include_list = PersonIncludeList.find(params[:id].to_i)
-    end
-
-       
+    @include_list = PersonIncludeList.find(params[:id].to_i) rescue @include_list = OrganisationIncludeList.find(params[:id].to_i)    
+    @org_or_person = (@include_list.class.to_s == "PersonIncludeList") ? "person" : "org"
     @list_header_id = String.new
     @list_header_id = @include_list.list_header_id
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted IncludeList with ID #{@include_list.id}.")

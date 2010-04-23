@@ -7,6 +7,7 @@ class Employment < ActiveRecord::Base
   belongs_to :emp_terminator, :class_name => 'Person', :foreign_key => 'terminated_by'
   belongs_to :emp_suspender, :class_name => 'Person', :foreign_key => 'suspended_by'
   belongs_to :organisation
+  belongs_to :workplace, :class_name => "Organisation", :foreign_key => "workplace_id"
   belongs_to :department
   belongs_to :section
   belongs_to :cost_centre
@@ -16,12 +17,12 @@ class Employment < ActiveRecord::Base
   belongs_to :award_agreement
   belongs_to :position_status
   belongs_to :payment_frequency
-  belongs_to :payment_method
+  belongs_to :payroll_method
   belongs_to :payment_day
   belongs_to :suspension_type
   belongs_to :termination_method
 
-  validates_presence_of :organisation, :commenced_date, :emp_recruiter,:staff_reference,:position_name
+  validates_presence_of :organisation, :workplace, :commenced_date, :emp_recruiter,:staff_reference,:position_name, :workplace_reference, :union_reference, :payroll_center
   validates_associated :organisation, :emp_supervisor
   validates_numericality_of :weekly_nominal_hours, :hourly_rate, :greater_than_or_equal_to => 0
   validate :end_date_must_be_equal_or_after_commence_date, :person_must_be_valid
@@ -44,7 +45,6 @@ class Employment < ActiveRecord::Base
     errors.add(:suspended_by, "can't be invalid") if (!suspended_by.blank? && Person.find_by_id(suspended_by).nil?)
   end
   
-
   private
   def assign_priority
     self.sequence_no = self.employee.employments.length+1

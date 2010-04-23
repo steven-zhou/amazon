@@ -14,9 +14,9 @@ class LoginAccount < ActiveRecord::Base
   has_many :dashboard_preferences
   has_many :quick_launch_icons, :order => "sequence"
   has_many :to_do_lists
-  belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
-  belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
-  belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
+  has_one :default_value, :class_name => "UserPreference", :foreign_key => "login_account_id"
+  belongs_to :person
+ 
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
   validates_presence_of  :user_name
 
@@ -264,4 +264,7 @@ class LoginAccount < ActiveRecord::Base
     LoginAccount.count(:all, :conditions => ["online_status=? and type!=?", true, "MemberZone"])
   end
 
+  def self.username_available?(username)
+     LoginAccount.find_by_user_name(username).blank? ? true : false
+  end
 end

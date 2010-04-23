@@ -7,6 +7,10 @@
     %h1 Find by Person
     %div
       - form_for @person, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        -first_title = @current_user.default_value.try(:default_first_title_id)
+        -default_nationality = @current_user.default_value.try(:default_nationality_id)
+        -default_language = @current_user.default_value.try(:default_language_id)
+        
         .container
           %h2 Record Details
           .form_line
@@ -17,14 +21,14 @@
               = p.label :custom_id, 'Custom ID'
               = p.text_field :custom_id
             .field_45
-              = p.label :onrecord_since, 'Recorded on'
+              = p.label :onrecord_since, 'On Record Since'
               = p.text_field :onrecord_since, :class=>"datepick", :style => "width:82% !important;"
         .container
           %h2 Name Details
           .form_line
             .field_20
               = p.label :primary_title_id, '1st Title'
-              = p.collection_select :primary_title_id, @active_title, :id, :name, {:include_blank => true}
+              = p.collection_select :primary_title_id, @active_title, :id, :name, {:include_blank => true, :selected => first_title}
             .field_40
               = p.label :first_name, "First Names"
               = p.text_field :first_name
@@ -76,10 +80,10 @@
               = p.collection_select :origin_country_id, @countries, :id, :short_name, {:include_blank => true}
             .field_33
               = p.label :nationality_id, 'Nationality'
-              = p.collection_select :nationality_id, @countries, :id, :citizenship, {:include_blank => true}
+              = p.collection_select :nationality_id, @countries, :id, :citizenship, {:include_blank => true, :selected => default_nationality}
             .field_30
               = p.label :language_id, 'Language'
-              = p.collection_select :language_id, @Languages, :id, :name, {:include_blank => true}
+              = p.collection_select :language_id, @Languages, :id, :name, {:include_blank => true, :selected => default_language}
           .form_line
             .field_30
               = p.label :residence_country_id,"Country of Residence"
@@ -111,13 +115,14 @@
       %a{:href => "#"}
         %h1 Find by Email
     %div.container
-      -form_for Email.new, :url => {:action => 'search'}, :html => {:method => :post} do |email|
+      -form_for Email.new, :url => {:action => 'search'}, :html => {:method => :post} do |email|    
+        -default_email = @current_user.default_value.try(:default_email_type_id)
         .container
           %h2 Email
           .form_line
             .field_20
               = email.label :contact_meta_type_id, 'Type'
-              = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name, {:include_blank => true }
+              = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name, {:include_blank => true, :selected => default_email }
               %input{:id => "find_email_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
             .field_60
               = email.label :value, "Value"
@@ -132,12 +137,13 @@
       %a{:href => "#"} Find by Phone
     %div.container
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
+        -default_phone = @current_user.default_value.try(:default_phone_type_id)
         .container
           %h2 Phone
           .form_line
             .field_15
               = phone.label :contact_meta_type_id, 'Type'
-              = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name, {:include_blank => true }
+              = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name, {:include_blank => true, :selected => default_phone}
               %input{:id => "find_phone_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
             .field_15
               = phone.label :pre_value, "Pre Value"
@@ -159,11 +165,13 @@
       %a{:href => "#"} Find by Address
     %div.container
       -form_for Address.new, :url => {:action => 'search'}, :html => {:method => :post} do |address|
+        -default_address_type = @current_user.default_value.try(:default_address_type_id)
         .container
           .form_line
             .field_20
               = address.label :address_type_id, 'Type'
-              = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name, {:include_blank => true}
+              = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name, {:include_blank => true, :selected => default_address_type}
+
             .field_40
               = address.label :building_name, 'Building Name'
               = address.text_field :building_name
@@ -181,13 +189,15 @@
           .form_line
             .field_38
               = address.label :town, 'Suburb/Town'
-              = address.text_field :town, :id => "person_addresses_attributes_0_town", :class => "suburb_value"
+              = address.text_field :town, :id => "person_addresses_attributes_0_town", :class => "suburb_value", :field=>"suburb"
+            .post_spinner{:field=>"suburb",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
             .field_5
               %label &nbsp;
               = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"person_addresses_attributes_0_town", :update_field2 =>"person_addresses_attributes_0_state",:update_field3 => "person_addresses_attributes_0_postal_code", :update_field4 => "person_addresses_attributes_0_country_id", :title=>"Postcode"
             .field_45
               = address.label :state, 'State/Province'
-              = address.text_field :state, :id =>"person_addresses_attributes_0_state",  :class => "state_value"
+              = address.text_field :state, :id =>"person_addresses_attributes_0_state",  :class => "state_value uppercase", :field=>"state"
+            .post_spinner{:field=>"state",:style=>"height: 24px;float:left;display:none;background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin: 13px 0 0 -52px !important;"}
           .form_line{:style => "margin-bottom:15px;"}
             .field_45
               = address.label :postal_code, 'Postal Code'

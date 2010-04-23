@@ -5,7 +5,7 @@
       %div
         .title
           %h2{:class=>("red" if person_role.role.to_be_removed == true)}= person_role.role.name
-      .div{:style => "float:right;"}
+      .div{:style => "float:right;text-align:right;"}
         = format_role(person_role)
 -else
   .no_record

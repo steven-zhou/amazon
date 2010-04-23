@@ -82,9 +82,9 @@ class PostcodesController < ApplicationController
   
   def destroy
     @postcode = Postcode.find(params[:id])
-#    @postcode.destroy
-@postcode.to_be_removed = true
-@postcode.save
+    #    @postcode.destroy
+    @postcode.to_be_removed = true
+    @postcode.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted postcode with ID #{@postcode.id}.")
     respond_to do |format|
       format.js
@@ -99,19 +99,28 @@ class PostcodesController < ApplicationController
   end
 
   def lookup_postcode
-    @postcode = Postcode.lookup_postcode(params[:suburb],params[:state])
+    unless params[:country].blank?
+      @postcode = Postcode.lookup_postcode(params[:suburb],params[:state],params[:country]) rescue @postcode = nil
+    else
+      @postcode = Postcode.lookup_postcode(params[:suburb],params[:state]) rescue @postcode = nil
+    end
     @postcode_id = @postcode.try(:postcode)
     @postcode_country_name = @postcode.try(:country).try(:short_name)
+
+
+    if @postcode_id.nil? || @postcode_country_name.nil?
+      flash.now[:error]= "Can not Find the Suburb or State.</br> Do you want to continue ?"
+    end
     respond_to do |format|
       format.js
     end
   end
 
-    def retrieve_postcode
+  def retrieve_postcode
     @postcode = Postcode.find(params[:id])
-#    @postcode.destroy
-   @postcode.to_be_removed = false
-   @postcode.save
+    #    @postcode.destroy
+    @postcode.to_be_removed = false
+    @postcode.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieved postcode with ID #{@postcode.id}.")
     respond_to do |format|
       format.js

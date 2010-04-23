@@ -8,14 +8,14 @@
   %br.clear
 .form_line
   .field_33
-    = p.label :registered_date, 'Registered_Date'
+    = p.label :registered_date, 'Registered Date'
     - if (@organisation.class.to_s == "ClientOrganisation")
       = p.text_field :registered_date, :value=>@organisation.registered_date.to_s, :style => "width:82% !important"
     - else
       = p.text_field :registered_date, :class=> @check_field.include?("registered_date") ? "organisational_check_field datepick" : "datepick", :value=>@organisation.registered_date.to_s, :style => "width:82% !important"
   .field_30
     = p.label :registered_country_id, 'Country of Incorporation'
-    = p.collection_select :registered_country_id, Country.all, :id, :short_name, {:include_blank => true}, {:class => @check_field.include?("registered_country") ? "check_field" : ""}
+    = p.collection_select :registered_country_id, Country.all, :id, :short_name, {:include_blank => true,:selected=> ClientSetup.try(:first).try(:home_country_id)}, {:class => @check_field.include?("registered_country") ? "check_field" : ""}
   .field_30
     = p.label :organisation_type_id, 'Organisation Legal Type'
     = p.collection_select :organisation_type_id, OrganisationType.active_organisation_type, :id, :name, {:include_blank => true}, {:class => @check_field.include?("organisation_type") ? "check_field" : ""}

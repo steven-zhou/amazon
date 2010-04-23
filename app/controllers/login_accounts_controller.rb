@@ -3,20 +3,24 @@ class LoginAccountsController < ApplicationController
  
   def user_name_unique
   
-    @error_flag_unique = (LoginAccount.find_by_user_name(params[:user_name]).nil?) ? false : true
+    #    @error_flag_unique = (LoginAccount.find_by_user_name(params[:user_name]).nil?) ? false : true
+    #    @error_flag_length = ( params[:length].to_i < 6 || params[:length].to_i > 30 || params[:length].blank? ) ? true : false
+    #    @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
+    #
+    #    if @error_flag_unique
+    #      flash.now[:error] = "The Required User Name Is Unavailable"
+    #    elsif @error_flag_length
+    #      flash.now[:error] = " Username Must Be Between 6 and 30 Characters Long"
+    #    end
+    format = params[:user_name] =~ /^[A-Za-z0-9!@$%^&*()_.#]+$/
+    @error_format = format.blank? ? true : false
+    @error_flag_unique = !LoginAccount.username_available?(params[:user_name])
     @error_flag_length = ( params[:length].to_i < 6 || params[:length].to_i > 30 || params[:length].blank? ) ? true : false
-    @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
-  
-    #    unless @login_account.new_record?
-    #      if (@login_account == LoginAccount.find_by_user_name(params[:user_name]))
-    #        @error_flag_unique = false
-    #      end
-    #    end 
-    if @error_flag_unique
-      flash.now[:error] = "The Required User Name Is Unavailable"
-    elsif @error_flag_length
-      flash.now[:error] = " Username Must Be Between 6 and 30 Characters Long"
-    end
+#    if @error_flag_unique
+#      flash.now[:error] = "The Required User Name Is Unavailable"
+#    elsif @error_flag_length
+#      flash.now[:error] = " Username Must Be Between 6 and 30 Characters Long"
+#    end
     respond_to  do |format|
       format.js
     end
@@ -60,7 +64,7 @@ class LoginAccountsController < ApplicationController
 
         #-----------------------validate--format- ------------------------
       elsif(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
-        flash.now[:error] = flash_message(:type => "format error", :field => "security_email")  
+        flash.now[:error] = flash_message(:type => "format error", :field => "security_email")
       elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("regular expression of username is wrong"))
         flash.now[:error] = flash_message(:type => "format error", :field => "user_name")
         #-----------------------validate--length- ------------------------

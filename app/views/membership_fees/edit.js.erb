@@ -1,0 +1,25 @@
+
+$('#edit_membership').show();
+$('.close_option[field=membership]').show();
+$('#membership_mode').attr('mode','edit');
+
+$('#edit_membership_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+$('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_membership_histroy")) %>');
+
+<%-if @type == "Prospective"%>
+$('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/reviewer_form")) %>');
+
+<%-elsif @type == "In-review"%>
+$('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/finalizer_form")) %>');
+
+<%-elsif @type =="Approved"%>
+$('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/suspend_form")) %>');
+
+
+<%-elsif @type =="Suspended"%>
+$('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/terminate_form")) %>');
+<%end%>
+datapick_config();
+start_end_date_pick();
+
+hasDatepicker();

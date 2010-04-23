@@ -24,7 +24,6 @@ describe Employment do
   it { should belong_to(:award_agreement)}
   it { should belong_to(:position_status)}
   it { should belong_to(:payment_frequency)}
-  it { should belong_to(:payment_method)}
   it { should belong_to(:payment_day)}
   it { should belong_to(:suspension_type)}
   it { should belong_to(:termination_method)}

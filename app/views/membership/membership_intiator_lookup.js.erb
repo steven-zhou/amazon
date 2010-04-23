@@ -1,0 +1,27 @@
+<%-unless @person.nil?%>
+
+$("#"+"<%=escape_javascript("#{@update_field}")%>").html("<%=@person.name%>");
+
+ <%else%>
+
+$("#"+"<%=@update_field%>").html("");
+$(".membership_intiator_lookup").val("").keyup();
+$("#flash_message_text").html("Invalid Person ID");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<%-end%>

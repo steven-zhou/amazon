@@ -1,0 +1,19 @@
+
+-form_for @default_value, :url => {:controller => "user_preferences", :action => "update_default_value", :id => "#{@default_value.id}"}, :html => {:class => "ajax_form",:submit_button_id => "edit_default_value_submit"} do |f|
+  .form_line
+    .field_15
+      = f.label :start_date, "<span class='asterisk'>*</span>Name"
+      %input{:class => "startdatepick",:id => "default_value_start_date",:end_date => "default_value_end_date", :value => "01-01-1900", :name => "default_value[start_date]"}
+    .field_20
+      = f.label :end_date, "description"
+      %input{:class => "enddatepick",:id => "default_value_end_date",:start_date => "default_value_start_date", :value => "31-12-3000", :name => "default_value[end_date]"}
+    .field_20
+      = f.label :address_type_id, "address_type"
+      %select{:class => "clear_select"}
+        -@address_types.each do |i|
+          %option{:value => i.id,:selected => @default_address_type.id}
+            = i.name
+   
+    .field_20
+      %label &nbsp
+      = submit_tag 'submit', :id => "edit_default_value_submit"

@@ -1,0 +1,4 @@
+$('#tag_meta_type_form').dialog('close').remove();
+$('#tag_type_form').dialog('close').remove();
+$('#tag_form').dialog('close').remove();
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>');

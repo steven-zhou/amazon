@@ -8,16 +8,16 @@
   %h1 New Contact
   %input{:id => "contact_mode", :mode => "show", :style => "display:none"}
   %input{:id => "contact_input_change_or_not", :style => "display:none", :value => "false",:class => "ogranisation_input_change_class"}
-  =# Initially hidden new address form
-  %div#new_contact{:style=>"display:none"}
-    %p
-      .form_line
-        .field_20
-          %select#select_contact_type
-            = for cmt in ContactMetaMetaType.all
-              %option{:value => "add_#{cmt.name.downcase}"}
-                = cmt.name
-      %br{ :style=>"clear: both;"}
+
+  %div#new_contact{:style=>"display:none;float:left;width:100%;"}
+    .form_line
+      .field_20
+        %label <span class='asterisk'>*</span>MetaType
+        %select#select_contact_type
+          %option
+          -for cmt in ContactMetaMetaType.find(:all, :conditions => ["status = true and to_be_removed = false"])
+            %option{:value => "add_#{cmt.name.downcase}"}
+              = cmt.name
     #phone_type
       = render :partial => '/phones/organisation_personal_phone_type', :locals => { :phone => @phone }
     #email_type
@@ -27,7 +27,7 @@
     #im_type
       = render :partial => '/instant_messagings/organisation_personal_instant_messaging_type', :locals => {:instant_messaging => @instant_messaging }
 #contacts
-  =# Render the person's contacts
+
   -if !@organisation.phones.blank?
     .container
       %h2 Phone

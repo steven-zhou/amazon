@@ -83,10 +83,10 @@
 
 
 <!-- For comfirmation message -->
-<%- if flash[:comfirmation]%>
+<%- if flash[:confirmation]%>
   <script type="text/javascript">
     $(function() {
-      $("#confirm_message_text").html("<%=escape_javascript(flash[:comfirmation])%>");
+      $("#confirm_message_text").html("<%=escape_javascript(flash[:confirmation])%>");
       $("#confirm_message_text").css('padding-top', '32px')
       $('#confirm_message_image').css("display","");
       $('#confirm_message').dialog( {
@@ -94,7 +94,7 @@
         resizable: false,
         draggable: true,
         height: 'auto',
-        width: 600,
+        width: 800,
         buttons:{
           Ok: function() {
             $(this).dialog('destroy');

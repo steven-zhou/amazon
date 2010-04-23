@@ -1,0 +1,81 @@
+-# locals => {:title => "tilte"} 
+%h1 #{title}
+%table#show_membership_grid{:class=>"selectable_grid",:field=>"membership",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/membership/",:params2=>membership_status}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $("#show_membership_grid").flexigrid({
+    url: '/grids/show_intiate_membership_grid?type=#{@type}&#{@query_conditions}',
+    dataType: 'json',
+    colModel : [
+    {
+        display: 'ID',
+        name : 'id',
+        width : 40,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Person Name',
+        name : 'person.name',
+        width : 100,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Employer Name',
+        name : 'employer_id',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    },
+    {
+        display: 'Workplace Name',
+        name : 'workplace_id',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    },
+    {
+        display: 'Membership Status ',
+        name : 'membership_status_id',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    },
+    {
+        display: 'Membership Type ',
+        name : 'membership_type_id',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    }
+    ],
+    searchitems : [
+
+
+    {
+        display: 'Employer Name',
+        name : 'organisations.full_name'
+    },
+
+
+    {
+        display: 'Workplace Name',
+        name : 'organisations.full_name'
+    }
+
+    ],
+
+    sortname: "memberships.id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

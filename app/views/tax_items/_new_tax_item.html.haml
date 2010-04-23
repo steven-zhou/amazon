@@ -1,0 +1,8 @@
+.full_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "tax_item", :title=>"Close", :class => "close_option", :toggle_id_name => "new_tax_item_form"
+  .title
+    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "tax_item", :title => "New", :method => "GET", :url => "/tax_items/new"
+    &nbsp;
+  %h2 New Tax Items
+  #new_tax_item_form{:style => "float:left;width:100%;"}

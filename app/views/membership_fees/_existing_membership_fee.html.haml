@@ -1,0 +1,83 @@
+.ex_container
+  %h2 Existing Membership Fee
+  %table#show_membership_fee_grid{:class=>"selectable_grid",:field=>"membership_fee",:db_click_function=>"false",:edit=>"false"}
+
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_membership_fee_grid tr.trSelected").attr('id'),"#membership_fee_mode","delete","/membership_fees/");
+    };
+    $("#show_membership_fee_grid").flexigrid({
+    url: '/grids/show_membership_fee_grid?membership_id=#{@membership_id}',
+    dataType: 'json',
+    colModel : [
+    {
+        display: 'ID',
+        name : 'id',
+        width : 40,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Fee Item',
+        name : 'fee_item.name',
+        width : 100,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Person Name',
+        name : 'person.name',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    },
+    {
+        display: 'Payment Method Type',
+        name : 'payment_method_type.name',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    } ,
+    {
+        display: 'Receipt Account Name',
+        name : 'receipt_account.name',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+        display: 'Fee Item',
+        name : 'fee_items.name'
+    },
+
+    {
+        display: 'Payment Method Type',
+        name : 'tags.name'
+    },
+
+
+    {
+        display: 'Receipt Account Name',
+        name : 'receipt_accounts.name'
+    }
+
+    ],
+    buttons : [
+    {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+    ],
+    sortname: "membership_fees.id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

@@ -1,0 +1,26 @@
+
+<%-if @up_current_tag_meta_type.position == 1 %>
+  $("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}")%>").find("a").attr("title","Move Down").attr("href","/tag_types/<%= escape_javascript("#{@up_current_tag_meta_type.id}")%>/move_down_tag_meta_type_priority");
+  $("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}")%> a").find("img").attr("src","/images/down_arrow.png").attr("alt","Down_arrow");;
+  var temp = $("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}")%>").html();
+  $("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position}")%>").find("a").attr("title","Move Up").attr("href","/tag_types/<%= escape_javascript("#{@up_exchange_tag_meta_type.id}")%>/move_up_tag_meta_type_priority");
+  $("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position}")%> a").find("img").attr("src","/images/up_arrow.png").attr("alt","Up_arrow");;
+
+<%-else%>
+  var temp = $("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}")%>").html();
+<%-end%>
+
+
+var extra_temp =$("#extra_div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}")%>").html();
+var extra_temp_style = $("#extra_div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}")%>").attr("style");
+
+
+
+$("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}") %>").html($("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position}") %>").html());
+$("#extra_div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}") %>").html($("#extra_div_<%= escape_javascript("#{@up_current_tag_meta_type.position}") %>").html());
+$("#extra_div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}") %>").attr("style",$("#extra_div_<%= escape_javascript("#{@up_current_tag_meta_type.position}") %>").attr("style"))
+
+
+$("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position}")%>").html(temp);
+$("#extra_div_<%= escape_javascript("#{@up_current_tag_meta_type.position}")%>").html(extra_temp);
+$("#extra_div_<%= escape_javascript("#{@up_current_tag_meta_type.position}")%>").attr("style",extra_temp_style);

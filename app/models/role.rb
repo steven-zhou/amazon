@@ -12,7 +12,7 @@ class Role < ActiveRecord::Base
   
   delegate :name, :to => :role_type, :prefix => true,:allow_nil => true
 
-  default_scope :order => "id ASC"
+  default_scope :order => "roles.id ASC"
 
 #  before_destroy :check_assign
   after_save :update_role_type_when_retrieve

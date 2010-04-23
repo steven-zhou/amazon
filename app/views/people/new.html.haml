@@ -20,7 +20,7 @@
         %h1 Picture
       .right
         -#= label :image, :id, "Picture"
-        = file_field :image, :image_file,:class=>@personal_check_field.include?("image") ? "personal_check_field":"" , :style => "margin-right:5%;"
+        = file_field :image, :image_file,:class=>@personal_check_field.include?("image") ? "personal_check_field":"" , :style => "margin-right:5%;", :accept => "*.jpeg"
       %br.clear
 
   #right_content{:style => "margin-top:0px;"}

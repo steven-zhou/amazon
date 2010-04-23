@@ -9,12 +9,12 @@ class ActiveRecord::Base
 
   private
   def insert_createdby
-    self.creator_id = LoginAccount.current_user.id
+    self.creator_id = LoginAccount.current_user.id rescue self.creator_id = nil
   end
 
   def insert_updatedby
 
-    self.updater_id = LoginAccount.current_user.id
+    self.updater_id = LoginAccount.current_user.id rescue self.updater_id = nil
 
   end
 

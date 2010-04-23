@@ -37,6 +37,7 @@ class Person < ActiveRecord::Base
   has_many :emp_terminators, :through => :employments, :source => :emp_terminator
   has_many :emp_suspenders, :through => :employments, :source => :emp_suspender
   has_many :employers, :through => :employments, :source => :organisation
+  has_many :workplaces, :through => :employments, :source => :workplace
   has_many :organisation_key_personnels
   has_many :notes, :as => :noteable,:dependent => :destroy
   has_one  :image, :as => :imageable
@@ -44,7 +45,7 @@ class Person < ActiveRecord::Base
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship",:dependent => :destroy
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship',:dependent => :destroy
   has_many :person_bank_accounts, :foreign_key => "entity_id",:order => "priority_number ASC",:dependent => :destroy
-
+  has_many :extras, :as => "entity", :order => "group_id", :dependent => :destroy
 
   has_many :mail_logs, :as=>:entity
   has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id',:dependent => :destroy
@@ -71,9 +72,20 @@ class Person < ActiveRecord::Base
   has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :transaction_headers, :as => :entity
-#  has_many :list_details, :as => :listable
-#  has_many :mail_logs, :as => :entity
+  #  has_many :list_details, :as => :listable
+  #  has_many :mail_logs, :as => :entity
   #has_many :players, :through => :list_details, :source => :player
+  has_many :memberships, :dependent => :destroy
+  has_many :initated_memberships, :foreign_key => "initiated_by", :class_name => "Membership",:dependent => :destroy
+  has_many :reviewed_memberships, :foreign_key => "reviewed_by", :class_name => "Membership",:dependent => :destroy
+  has_many :finalized_memberships, :foreign_key => "finalized_by", :class_name => "Membership",:dependent => :destroy
+  has_many :next_reviewed_memberships, :foreign_key => "next_reviewed_by", :class_name => "Membership",:dependent => :destroy
+  has_many :suspended_memberships, :foreign_key => "suspended_by", :class_name => "Membership",:dependent => :destroy
+  has_many :terminated_memberships, :foreign_key => "terminated_by", :class_name => "Membership",:dependent => :destroy
+  has_many :deposits, :as => :entity, :dependent => :destroy
+  has_many :entity_receipts, :as=> :entity, :dependent => :destroy
+
+
 
   
   belongs_to :primary_title, :class_name => "Title", :foreign_key => "primary_title_id"
@@ -105,19 +117,7 @@ class Person < ActiveRecord::Base
   ################
   #++
 
-  accepts_nested_attributes_for :addresses,
-    :reject_if => proc {
-    |attributes|
-    blank = true
-    attributes.each do |key,value|
-      unless value.blank?
-        if (key != 'address_type_id' && key != 'priority')
-          blank = false
-        end
-      end
-    end
-    blank
-  }
+  accepts_nested_attributes_for :addresses, :reject_if => proc { |attributes|attributes['address_type_id'].blank? || attributes['street_name'].blank? }
 
   accepts_nested_attributes_for :phones, :emails, :faxes, :websites,:instant_messagings,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_meta_type_id'].blank? }
 
@@ -376,7 +376,7 @@ class Person < ActiveRecord::Base
 
   
     if !self.birth_date.nil? && self.birth_date > Date.today
-        return false
+      return false
     else
       return true
     end

@@ -1,10 +1,20 @@
+
 class PeopleController < ApplicationController
+  #cache pages
+  #caches_action :show_list, :find
+  #cache_sweeper :person_sweeper, :only => [:create, :update, :destroy]
+
   # Added system logging
+  #caches_page :show_album
 
   include PeopleSearch
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
   protect_from_forgery :except => [:post_data]
-  
+
+
+
+
+
   def new
    
     @person = Person.new
@@ -47,25 +57,27 @@ class PeopleController < ApplicationController
   def show
    
     
-   # if no person in the system , go to person new directly
+    # if no person in the system , go to person new directly
     if PrimaryList.first.entity_on_list.empty?
       redirect_to :action=>"new"
     else
       #@group_types = @current_user.group_types
       @list_headers = @current_user.all_person_lists
-      puts "***********************"
-      puts @list_headers
       @active_tab = params[:active_tab]
       @active_sub_tab = params[:active_sub_tab]
       #when it is cal show action
       if request.get?
+        
         if @list_headers.blank?
           @list_header = ListHeader.new
           @person = Person.new
           @p = Array.new
+          flash[:warning] = "No List Found Within Your Group"
+          redirect_to :controller => "module", :action => "dashboard" and return
         else
           if params[:id].nil? || params[:id] == "show" #when just jumping or change list
-            @list_header = @list_headers.first
+            @list_header = @current_user.default_value.try(:default_list_header).nil? ? @list_headers.first : @current_user.default_value.try(:default_list_header)
+
             session[:current_list_id] = @list_header.id
             @person = @list_header.entity_on_list.first unless @list_headers.blank?
             @person = Person.new if @person.nil?
@@ -87,7 +99,7 @@ class PeopleController < ApplicationController
               #else
             end
           end
-        end
+         end
       end
 
       if request.post?
@@ -137,7 +149,7 @@ class PeopleController < ApplicationController
 
   def edit
    
-   # if no person in the system , go to person new directly
+    # if no person in the system , go to person new directly
     if PrimaryList.first.entity_on_list.empty?
       redirect_to :action=>"new"
 
@@ -171,7 +183,7 @@ class PeopleController < ApplicationController
               session[:current_person_id] = @person.id
             end
           else
-            @list_header = @list_headers.first
+            @list_header = @current_user.default_value.try(:default_list_header).blank? ? @list_headers.first : @current_user.default_value.try(:default_list_header)
             session[:current_list_id] = @list_header.id
             @person = @list_headers.first.entity_on_list.first unless @list_headers.blank?
             session[:current_person_id] = @person.id
@@ -222,7 +234,9 @@ class PeopleController < ApplicationController
         end
       end
       @entity = @person
-
+      puts "**********"
+      puts @person
+      puts @p
       respond_to do |format|
         format.html
         format.js {render 'show_edit_left.js'}
@@ -232,93 +246,116 @@ class PeopleController < ApplicationController
 
   def create
     
-      check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date]) 
-      if check_valid_date
+    check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date])
+    if check_valid_date
 
-    @person = Person.new(params[:person])
-    @person.onrecord_since = Date.today()
-    if @person.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person with ID #{@person.id}.")
-      if !params[:image].nil?
-        @image = Image.new(params[:image])
-        if @image.save
-          @person.image = @image
-        else
-          flash[:warning_before_message] = "There Was an Error to Save the Selected Image."
+      @person = Person.new(params[:person])
+      @person.onrecord_since = Date.today()
+      if @person.save
+        #to save to the person primary email address and pirmary phone address
+        @person.primary_email_address = @person.try(:emails).find_by_priority_number(1).try(:value)
+        @person.primary_phone_num = @person.try(:phones).find_by_priority_number(1).try(:value)
+        @person.save
+
+
+        #create default custom field for new person
+        @extra_types = ExtraMetaType.active
+        i=1
+        @extra_types.each do |group|
+          @extra =  Extra.new
+          @extra.entity_id = @person.id
+          @extra.group_id = group.id
+          @extra.entity_type = "Person"
+          group.extra_types.each do |label|
+            @extra.__send__(("label#{i}_id=").to_sym,label.id)
+            @extra.__send__(("label#{i}_value=").to_sym,nil)
+            i=i+1
+          end
+          @extra.save
+          i=1
         end
-      end
 
-      # edit by Tao, "submit and edit" button is removed, code is commit for further checking.
-      # If the user wants to edit the record they just added
-      #      if(params[:edit])
-      #        flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name}"
-      #        redirect_to edit_person_path(@person)
-      #        # If the user wants to continue adding records
-      #      else
-      flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href='/people/#{@person.id}/edit' style='color:white;'>edit details</a>)"
-#         redirect_to new_person_path
-      #end
-    else
-      @person.addresses.build(params[:person][:addresses_attributes][0]) if @person.addresses.empty?
-      @person.phones.build(params[:person][:phones_attributes][0]) if @person.phones.empty?
-      @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
-      @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
-      #@postcodes = Postcode.find(:all)
-      @image = Image.new
-
-      @personal_check_field = Array.new
-      @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-      unless @duplication_formula_appiled.status == false
-        @duplication_formula_appiled.duplication_formula_details.each do |i|
-          @personal_check_field << i.field_name
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person with ID #{@person.id}.")
+        if !params[:image].nil?
+          @image = Image.new(params[:image])
+          if @image.save
+            @person.image = @image
+          else
+            flash[:warning_before_message] = "There Was an Error to Save the Selected Image."
+          end
         end
-      end
 
-      flash[:message] = "There Was an Error to Create a New User"
-      #      redirect_to new_person_path
-      #      render :action => "new"
+        # edit by Tao, "submit and edit" button is removed, code is commit for further checking.
+        # If the user wants to edit the record they just added
+        #      if(params[:edit])
+        #        flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name}"
+        #        redirect_to edit_person_path(@person)
+        #        # If the user wants to continue adding records
+        #      else
+        flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href='/people/#{@person.id}/edit' style='color:white;'>edit details</a>)"
+        #         redirect_to new_person_path
+        #end
+      else
+        @person.addresses.build(params[:person][:addresses_attributes][0]) if @person.addresses.empty?
+        @person.phones.build(params[:person][:phones_attributes][0]) if @person.phones.empty?
+        @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
+        @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
+        #@postcodes = Postcode.find(:all)
+        @image = Image.new
+
+        @personal_check_field = Array.new
+        @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+        unless @duplication_formula_appiled.status == false
+          @duplication_formula_appiled.duplication_formula_details.each do |i|
+            @personal_check_field << i.field_name
+          end
+        end
+
+        flash[:error] = "There Was an Error to Create a New User"
+        #      redirect_to new_person_path
+        #      render :action => "new"
     
-    end
-
-       else
-
-      flash[:message] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
-       
       end
-       redirect_to new_person_path
+
+    else
+
+      flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+       
+    end
+    redirect_to new_person_path
   end
 
   def update
 
-      check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date])
+    check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date])
 
     @person = Person.find(params[:id])
     if check_valid_date
-    Image.transaction do
-      unless params[:image].nil?
-        @image = Image.new(params[:image])
-        if @image.save
-          @person.image.destroy unless @person.image.nil?
-          @person.image = @image
-        else
-          flash[:warning] = "There Was an Error to Save the Selected Image."
+      Image.transaction do
+        unless params[:image].nil?
+          @image = Image.new(params[:image])
+          if @image.save
+            @person.image.destroy unless @person.image.nil?
+            @person.image = @image
+          else
+            flash[:warning] = "There Was an Error to Save the Selected Image."
+          end
         end
       end
-    end
 
 
 
-    @person.update_attributes(params[:person])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person #{@person.id}.")
-    flash[:warning] = "There was an error updating the person's details." unless @person.save
+      @person.update_attributes(params[:person])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person #{@person.id}.")
+      flash[:warning] = "There was an error updating the person's details." unless @person.save
   
 
-    flash[:message] = "#{@person.name}'s information was updated successfully." unless !flash[:warning].nil?
-    #modified by Tao, removing "submit and close", code is commited for further checking
-    #if(params[:edit])
+      flash[:message] = "#{@person.name}'s information was updated successfully." unless !flash[:warning].nil?
+      #modified by Tao, removing "submit and close", code is commited for further checking
+      #if(params[:edit])
     else
       flash[:warning] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
-      end
+    end
     redirect_to edit_person_path(@person)
     #else
     #    redirect_to person_path(@person)
@@ -434,73 +471,54 @@ class PeopleController < ApplicationController
     end
   end
 
+
   def login_id_finder
     @person = Person.find(params[:person_id]) rescue @person = Person.new
-    @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
-    @primary_email = @person.primary_email.value unless @person.primary_email.blank?
-    #@person_login_account = @person.login_accounts rescue @person_login_account = LoginAccount.new
-    respond_to do |format|
-      format.js()
+    puts"---debug-@person- #{@person.to_yaml}-----"
+    @person = Person.new if @person.nil?  #handle the situation when @person return nil
+    puts"---debug-@perso2- #{@person.to_yaml}-----"
+    @person_valid = @person.new_record? ? false : true
+    puts"---debug-@person_valid- #{@person_valid.to_yaml}-----"
+    if @person_valid == true
+      @person_unique_valid = @person.login_accounts.blank? ? true : false
     end
-
+    puts"---debug-@person_unique_valid- #{@person_unique_valid.to_yaml}-----"
+    @validation = @person_valid && @person_unique_valid
+    puts"---debug-@validation- #{@validation.to_yaml}-----"
+    @primary_email = @person.try(:primary_email).try(:value) if @validation == true
+    puts"---debug-- #{@primary_email.to_yaml}-----"
+    respond_to do |format|
+      format.js
+    end
   end
 
   def show_list
-
+    # people show
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
-    @p = Array.new
-    @p = @list_header.entity_on_list
-    #clear
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
-
-     
-    ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
-
-    @p.each do |person|
-      @slg = ShowListGrid.new
-      @slg.login_account_id = session[:user]
-      if person.to_be_removed
-        @slg.grid_object_id = person.id
-        @slg.field_1 = "<span class='red'>"+person.first_name+"</span>"
-        @slg.field_2 = "<span class='red'>"+person.family_name+"</span>"
-        @slg.field_3 = "<span class='red'>"+person.primary_address.first_line+"</span>" unless person.primary_address.blank?
-        @slg.field_4 = "<span class='red'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
-        @slg.field_5 = "<span class='red'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
-
-      else
-        @slg.grid_object_id = person.id
-        @slg.field_1 = person.status ? person.first_name : "<span class='gray'>"+person.first_name+"</span>"
-        @slg.field_2 = person.status ? person.family_name : "<span class='gray'>"+person.family_name+"</span>"
-        @slg.field_3 = person.status ? person.primary_address.first_line : "<span class='gray'>"+person.family_name+"</span>" unless person.primary_address.blank?
-        @slg.field_4 = person.status ? person.primary_phone.value : "<span class='gray'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
-        @slg.field_5 = person.status ? person.primary_email.address : "<span class='gray'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
-
-      end
-
-
-
-      @slg.save
-    end
-
     @current_operation = params[:current_operation]
-
+    #----use for the pop window
+    session[:active_tab]= params[:active_tab]
+    session[:active_sub_tab] = params[:active_sub_tab]
+    session[:current_operation] = params[:current_operation]
+ 
     respond_to do |format|
       format.js
     end
   end
 
   def show_left
+   
+    params[:person_id] =  params[:param1] if params[:param1]
+    params[:current_operation]= session[:current_operation]
+    
 
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
+    @active_tab = session[:active_tab]
+    @active_sub_tab = session[:active_sub_tab]
     #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
-
-
     @active_address = AddressType.active_address_type
     @active_title = Title.active_title
     @countries = Country.all #
@@ -568,9 +586,9 @@ class PeopleController < ApplicationController
       @primary_website = @person.primary_website
       @primary_address = @person.primary_address
       @primary_employment = @person.primary_employment
-      #      @other_phones = @person.other_phones
-      #      @other_emails = @person.other_emails
-      #      @other_faxes = @person.other_faxes
+      #  @other_phones = @person.other_phones
+      #  @other_emails = @person.other_emails
+      #  @other_faxes = @person.other_faxes
       #      @other_websites = @person.other_websites
       #      @other_addresses = @person.other_addresses
       #      @notes = @person.notes
@@ -671,7 +689,7 @@ class PeopleController < ApplicationController
 
   def  show_postcode
     @suburb = params[:suburb]
-    @postcode = params[:postcode]
+    @postcode = ""
     @state = params[:state]
     respond_to do |format|
       format.js
@@ -735,23 +753,6 @@ class PeopleController < ApplicationController
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
     @p = @list_header.entity_on_list
-
-
-    ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
-
-    @p.each do |person|
-      @slg = ShowListGrid.new
-      @slg.login_account_id = session[:user]
-      @slg.grid_object_id = person.id
-      @slg.field_1 = person.first_name
-      @slg.field_2 = person.family_name
-      @slg.field_3 = person.primary_address.first_line unless person.primary_address.blank?
-      @slg.field_4 = person.primary_phone.value unless person.primary_phone.blank?
-      @slg.field_5 = person.primary_email.address unless person.primary_email.blank?
-      @slg.save
-    end
     respond_to do |format|
       format.js
     end
@@ -793,6 +794,30 @@ class PeopleController < ApplicationController
     end
   end
 
+
+  def show_grid
+    @person = Person.find(session[:current_person_id])
+    @list_header = ListHeader.find(session[:current_list_id])
+
+    #    @render_page = params[:render_page]
+    #    @field = params[:field]
+
+
+
+    respond_to do |format|
+
+      format.js
+    end
+
+  end
+
+  def show_album
+
+    respond_to do |format|
+
+      format.js
+    end
+  end
 
 
 end

@@ -7,7 +7,7 @@
         %div.options
           -if tag.to_be_removed == false
             = link_to image_tag('edit_icon.png'), edit_tag_path(tag), :class => 'get_tag', :title=>"Edit"
-            = link_to image_tag('delete_icon.png'), tag_path(tag), :class => 'delete' ,:field => "Tag",:error_message_field => "Tag", :title=>"Remove"
+            = link_to (image_tag('delete_icon.png'), tag_path(tag), :class => 'delete' ,:field => "Tag",:error_message_field => "Tag", :title=>"Remove") unless (category == "Extra")
           -else
             = link_to image_tag('Icons/System/Restore.png'),retrieve_tag_path(tag),:class => 'get',:field => "tag", :id => 'tag_retrieve_button', :tag_id => tag.id, :title=>"Retrieve"
         .title

@@ -1,0 +1,37 @@
+<% if @deposit.errors.empty? -%>
+
+  $('#new_deposit_form').attr('action', '/deposits/update').attr('method','put');
+  $('#deposit_id').val('<%= escape_javascript("#{@deposit.id}") %>')
+  $('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
+  $('#temp_allocation_total_amount').show();
+
+  $('#add_new_extension').html('<%= escape_javascript(render(:partial => "/entity_receipts/new_extension")) %>');
+  $('.new_option[field="extension"]').hide();
+  $('.close_option[field="extension"]').show();
+  $('#new_extension_form').show().html('<%= escape_javascript(render(:partial => "/entity_receipts/extension_form")) %>');
+  $('#existing_extensions').html('<%= escape_javascript(render(:partial => "/entity_receipts/existing_extensions")) %>');
+  
+<% else %>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'ERROR');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>
+enable_form_after_submit_finish();
+$(function(){
+  return false;
+});

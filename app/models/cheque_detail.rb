@@ -1,4 +1,4 @@
-class ChequeDetail < TransactionTypeDetail
+class ChequeDetail < DepositDetail
 
   belongs_to :bank
   

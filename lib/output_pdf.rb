@@ -95,7 +95,7 @@ module OutputPdf
   #       text_align(alignment)             = "left"/"center"/"right"
   def self.generate_organisational_report_pdf(source_type, source_id, format, header_settings={}, body_settings={})
     pdf = PDF::Writer.new
-    generate_report_header(pdf, source_type, source_id, format, nil, {:title => "Organisaiton Contact Report"})
+    generate_report_header(pdf, source_type, source_id, format, nil, {:title => "Organisation Contact Report"})
     generate_organisational_report_body(pdf, source_type, source_id, format, body_settings)
     return pdf
   end
@@ -178,10 +178,10 @@ module OutputPdf
   #       bold_header(header bold?)         = true/false
   #       font_size(font_size)              = any integer(e.g. 32)
   #       text_align(alignment)             = "left"/"center"/"right"
-  def self.generate_transaction_histroy_report_pdf(entity_type, entity_id, start_date, end_date, header_settings={}, body_settings={})
+  def self.generate_deposit_histroy_report_pdf(entity_type, entity_id, start_date, end_date, header_settings={}, body_settings={})
     pdf = PDF::Writer.new
     @entity = (entity_type=="Person") ? Person.find(entity_id.to_i) : Organisation.find(entity_id.to_i)
-    header_settings[:title] ||= "#{entity_type} Transation Histroy Report\n"
+    header_settings[:title] ||= "#{entity_type} Deposit Histroy Report\n"
     if entity_type == "Person"
       header_settings[:extra_title] ||= "Name: (#{@entity.id}) #{@entity.name}\nPeriod from #{start_date} to  #{end_date}\n\n"
     else
@@ -189,7 +189,7 @@ module OutputPdf
     end
     header_settings[:right_extra_title] ||= "Print Date: #{Date.today()}"
     generate_report_header(pdf, entity_type, entity_id, start_date, end_date, header_settings)
-    generate_transaction_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings)
+    generate_deposit_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings)
     return pdf
   end
 
@@ -461,27 +461,20 @@ module OutputPdf
   end
 
   def self.generate_system_log_report_body(pdf, system_log_entries)
-
     if system_log_entries.empty?
       pdf.text "No matching records found.", :font_size => 32, :justification => :center
       return
     end
-
     PDF::SimpleTable.new do |tab|
-
       tab.column_order.push(*%w(system_id log_date user ip_address log_controller log_action message))
-
       tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
         col.heading = "ID"
       }
-      tab.columns["system_id"].width = 25
-
-
+      tab.columns["system_id"].width = 40
       tab.columns["log_date"] = PDF::SimpleTable::Column.new("log_date") { |col|
         col.heading = "Date"
       }
       tab.columns["log_date"].width = 100
-
       tab.columns["user"] = PDF::SimpleTable::Column.new("user") { |col|
         col.heading = "User"
       }
@@ -517,9 +510,7 @@ module OutputPdf
       data = Array.new
 
       for log_entry in system_log_entries do
-
-        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.try(:login_account).try(:user_name)}", "ip_address" => "#{log_entry.ip_address}", "log_controller" => "#{log_entry.controller}", "log_action" => "#{log_entry.action}", "message" => "#{log_entry.message}" }
-
+        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.getlocal.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.try(:login_account).try(:user_name)}", "ip_address" => "#{log_entry.ip_address}", "log_controller" => "#{log_entry.controller}", "log_action" => "#{log_entry.action}", "message" => "#{log_entry.message}" }
       end
 
       tab.data.replace data
@@ -656,19 +647,19 @@ module OutputPdf
             if (OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0].include?("FK"))
               data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = (person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]).nil?) ? "" : "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]).name}"
             else
-         tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]) { |col| col.heading = "#{OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0]}"}
-         case OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]
-        when "address" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "phone" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 80
-        when "email" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "website" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "id" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 40
-        when "first_name" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 70
-        when "family_name" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width =80
-        end
+              tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]) { |col| col.heading = "#{OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0]}"}
+              case OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]
+              when "address" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "phone" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 80
+              when "email" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "website" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "id" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 40
+              when "first_name" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width = 70
+              when "family_name" then  tab.columns[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]].width =80
+              end
 
 
-        #        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[1]
+              #        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[1]
 
 
 
@@ -798,16 +789,16 @@ module OutputPdf
               data_row[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = (organisation.__send__(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]).nil?) ? "" : "#{organisation.__send__(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]).name}"
             else
 
- tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]) { |col| col.heading = "#{OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].keys[0]}"}
-         case OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]
-        when "address" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "phone" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 80
-        when "email" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "website" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
-        when "id" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
-        when "full_name " then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 70
-        when "trading_as" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width =80
-        end
+              tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]) { |col| col.heading = "#{OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].keys[0]}"}
+              case OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]
+              when "address" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "phone" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 80
+              when "email" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "website" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 100
+              when "id" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 40
+              when "full_name" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 80
+              when "trading_as" then  tab.columns[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]].width = 70
+              end
 
 
               case OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]
@@ -880,7 +871,7 @@ module OutputPdf
     end
   end
 
-  def self.generate_transaction_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings={})
+  def self.generate_deposit_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings={})
     body_settings[:show_lines] ||= "outer"
     body_settings[:show_headings] ||= true
     body_settings[:orientation] ||= "center"
@@ -889,44 +880,44 @@ module OutputPdf
     body_settings[:font_size] ||= 18
     body_settings[:text_align] ||= "center"
 
-    @transaction = TransactionHeader.find(:all,
-      :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", entity_id, entity_type, true, start_date.to_date, end_date.to_date],
+    @deposit = Deposit.find(:all,
+      :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", entity_id, entity_type, start_date.to_date, end_date.to_date],
       :order => "id"
     )
 
-    if @transaction.empty?
+    if @deposit.empty?
       pdf.text "No matching records found.", :font_size => body_settings[:font_size], :justification => body_settings[:text_align]
       return
     end
 
     PDF::SimpleTable.new do |tab|
 
-      tab.column_order.push(*%w(receipt_number transaction_date bank_account receipt_meta_meta_type receipt_meta_type notes total_amount))
+      tab.column_order.push(*%w(receipt_number deposit_date bank_account payment_method_type payment_method notes total_amount))
 
       tab.columns["receipt_number"] = PDF::SimpleTable::Column.new("receipt_number") { |col|
         col.heading = "Receipt Number"
       }
       tab.columns["receipt_number"].width = 60
 
-      tab.columns["transaction_date"] = PDF::SimpleTable::Column.new("transaction_date") { |col|
-        col.heading = "Transaction Date"
+      tab.columns["deposit_date"] = PDF::SimpleTable::Column.new("deposit_date") { |col|
+        col.heading = "Deposit Date"
       }
-      tab.columns["transaction_date"].width = 80
+      tab.columns["deposit_date"].width = 80
 
       tab.columns["bank_account"] = PDF::SimpleTable::Column.new("bank_account") { |col|
-        col.heading = "Bank Account"
+        col.heading = "Deposit Bank Account"
       }
       tab.columns["bank_account"].width = 80
 
-      tab.columns["receipt_meta_meta_type"] = PDF::SimpleTable::Column.new("receipt_meta_meta_type") { |col|
-        col.heading = "Receipt Meta Type"
+      tab.columns["payment_method_meta_type"] = PDF::SimpleTable::Column.new("payment_method_meta_type") { |col|
+        col.heading = "Receipt Method Type"
       }
-      tab.columns["receipt_meta_meta_type"].width = 80
+      tab.columns["payment_method_meta_type"].width = 80
 
-      tab.columns["receipt_meta_type"] = PDF::SimpleTable::Column.new("receipt_meta_type") { |col|
-        col.heading = "Receipt Type"
+      tab.columns["payment_method_type"] = PDF::SimpleTable::Column.new("payment_method_type") { |col|
+        col.heading = "Receipt Method"
       }
-      tab.columns["receipt_meta_type"].width = 80
+      tab.columns["payment_method_type"].width = 80
 
       tab.columns["notes"] = PDF::SimpleTable::Column.new("notes") { |col|
         col.heading = "Notes"
@@ -945,17 +936,17 @@ module OutputPdf
       tab.bold_headings = body_settings[:bold_header]
 
       data = Array.new
-      @transaction.each do |transaction|
-        bank_account = transaction.bank_account.nil? ? "" : transaction.bank_account.account_number
-        receipt_meta_type = transaction.receipt_meta_meta_type.nil? ? "" : transaction.receipt_meta_meta_type.name
-        receipt_type = transaction.receipt_meta_type.nil? ? "" : transaction.receipt_meta_type.name
-        data << { "receipt_number" => "#{transaction.receipt_number}",
-          "transaction_date" => "#{transaction.transaction_date.to_s}",
+      @deposit.each do |deposit|
+        bank_account = deposit.bank_account.nil? ? "" : deposit.bank_account.account_number
+        payment_method_meta_type = deposit.payment_method_meta_type.nil? ? "" : deposit.payment_method_meta_type.name
+        payment_method_type = deposit.payment_method_type.nil? ? "" : deposit.payment_method_type.name
+        data << { "receipt_number" => "#{deposit.receipt_number}",
+          "deposit_date" => "#{deposit.deposit_date.to_s}",
           "bank_account" => "#{bank_account}",
-          "receipt_meta_meta_type" => "#{receipt_meta_type}",
-          "receipt_meta_type" => "#{receipt_type}",
-          "notes" => "#{transaction.notes}",
-          "total_amount" => "#{currencify(transaction.total_amount)}" }
+          "payment_method_meta_type" => "#{payment_method_meta_type}",
+          "payment_method_type" => "#{payment_method_type}",
+          "notes" => "#{deposit.notes}",
+          "total_amount" => "#{currencify(deposit.total_amount)}" }
       end
 
 

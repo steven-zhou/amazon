@@ -1,0 +1,40 @@
+- form_for :deposit, :url => "/deposits/run", :html => {:class => "full_container",:id=>"deposit_bank_run"} do |f|
+  %h1 Deposit Selection
+  %div
+    All outstanding deposits.
+    %br
+    = link_to_function "More Options",:id=>"bank_run_more_option", :class => "toggle_button", :toggle_id_name => "enquiry_filter"
+
+  #enquiry_filter{:style => "display:none;margin-top:20px;"}
+    = render :partial => "deposits/bank_run_filter"
+  #enquiry_selection{:style => "float:left;width:100%;"}
+    %h1{:style => "margin-top:20px;"}Report Selection
+    .form_line
+      .field_20
+        %input{:type => "checkbox", :readonly => "true", :checked => true, :disabled => true} Bank Deposit Sheet
+    .form_line
+      .field_15
+        %label Bank Run Audit Sheet
+        %input{:type => "checkbox", :name => "BRAS"}
+      .field_15
+        %label Credit Cards Receipt
+        %input{:type => "checkbox", :name => "CCR"}
+      .field_17
+        %label Receipt Account Summary
+        %input{:type => "checkbox", :name => "RAS"}
+      .field_15
+        %label Receipt Type Summary
+        %input{:type => "checkbox", :name => "RTS"}
+      .field_15
+        %label Campaign Summary
+        %input{:type => "checkbox", :name => "CS"}
+
+
+    .form_line
+      .field_15{:style => "float:right"}
+        %label &nbsp;
+        = submit_tag "Run", :id => "bank_run_submit"
+      .field_5{:style => "float:right"}
+        %label Confirm
+        %input{:type => "checkbox", :name => "confirm"}
+      

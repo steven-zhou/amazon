@@ -1,5 +1,5 @@
 <%- if @date_valid%>
-  $("#existing_mail_template" ).html('<%=escape_javascript(render(:partial => "message_templates/person_mail_log_enquiry_result", :locals => {:query => @query})) %>');
+  $("#existing_mail_log").html('<%=escape_javascript(render(:partial => "message_templates/person_mail_log_enquiry_result", :locals => {:query => @query})) %>');
 <%- else %>
 
 

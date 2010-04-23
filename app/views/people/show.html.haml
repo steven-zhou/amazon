@@ -1,111 +1,117 @@
-#content_container
-  #header
-    #page_title
-      %h1 Person Profile
-    #lol
-      = render :partial => "people/list_menu"
-      %br.clear
-  #left_content
-    %div#photo_info
-      %div#imageshow{:style => "float:left;"}
-        -if @person.image.nil?
-          = image_tag 'Icons/System/image-missing.png', :class => "medium"
-        -else
-          = image_tag(image_path(@person.image.id), :class => "medium")
-    
-     
-      %div#person_name{:style=>"width:360px;margin-left:130px;height:140px;"}
-        =render :partial => "person_name_brief_info"
-
-
-    .container
-      %h1 Primary Contacts
-      -unless @primary_phone.nil?
-        .container
-          .left
-            Phone
-          .right
-            = @primary_phone.complete_number
-
-      -unless @primary_website.nil?
-        .container
-          .left
-            Website
-          .right
-            = @primary_website.value
-
-      -unless @primary_email.nil?
-        .container
-          .left
-            Email
-          .right
-            = @primary_email.value
-
-    .container
-      %h1 Primary Address
-      -unless @primary_address.nil?
-        .container
-          = format_address(@primary_address)
-
-
-    .container
-      %h1 Notes
-      - note1_status = @person.notes.first.blank? ? "hidden" : ""
-      .container{:class => "#{note1_status}"}
-        %div
-          %div.left
-            = @person.notes.blank? ? "No Notes": "<strong #{'class=\'red\'' if @person.notes.first.note_type.to_be_removed == true}>#{@person.notes.first.note_type.name}</strong>"
-            \-
-            = show_date(@person.notes.first.created_at) unless @person.notes.blank?
-          %br.clear
-        %div.right
-          = @person.notes.first.label unless @person.notes.blank?
-          = @person.notes.first.short_description unless @person.notes.blank?
+- unless @person.new_record?
+  #content_container
+    #header
+      #page_title
+        %h1 Person Profile
+      #lol
+        = render :partial => "people/list_menu"
         %br.clear
-      - note2_status = @person.notes.second.blank? ? "hidden" : ""
-      .container{:class => "#{note2_status}"}
-        %div
-          %div.left
-            = @person.notes.second.blank? ? "No Notes": "<strong #{'class=\'red\'' if @person.notes.second.note_type.to_be_removed == true}>#{@person.notes.second.note_type.name}</strong>"
-            \-
-            = show_date(@person.notes.second.created_at) unless @person.notes.second.blank?
+    #left_content
+      %div#photo_info
+        %div#imageshow{:style => "float:left;"}
+          -if @person.image.nil?
+            = image_tag 'Icons/System/image-missing.png', :class => "medium"
+          -else
+            = image_tag(image_path(@person.image.id), :class => "medium")
+
+
+        %div#person_name{:style=>"width:360px;margin-left:130px;height:140px;"}
+          =render :partial => "person_name_brief_info"
+
+
+      .container
+        %h1 Primary Contacts
+        -unless @primary_phone.nil?
+          .container
+            .left
+              %span{:class=>("red" if @primary_phone.contact_meta_type.to_be_removed == true)}
+                (#{@primary_phone.contact_meta_type.name}) Phone
+            .right
+              = @primary_phone.complete_number
+
+        -unless @primary_website.nil?
+          .container
+            .left
+              %span{:class=>("red" if @primary_website.contact_meta_type.to_be_removed == true)}
+                (#{@primary_website.contact_meta_type.name}) Website
+            .right
+              %a{:href => "http://#{@primary_website.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+                = @primary_website.value
+
+        -unless @primary_email.nil?
+          .container
+            .left
+              %span{:class=>("red" if @primary_email.contact_meta_type.to_be_removed == true)}
+                (#{@primary_email.contact_meta_type.name}) Email
+            .right
+              %a{:href => "mailto:#{@primary_email.value}", :class => "alt_link"}
+                = @primary_email.value
+
+      .container
+        %h1 Primary Address
+        -unless @primary_address.nil?
+          %div{:style => "text-align:right;"}
+            = format_address(@primary_address)
+
+
+      .container
+        %h1 Notes
+        - note1_status = @person.notes.first.blank? ? "hidden" : ""
+        .container{:class => "#{note1_status}"}
+          %div
+            %div.left
+              = @person.notes.blank? ? "No Notes": "<strong #{'class=\'red\'' if @person.notes.first.note_type.to_be_removed == true}>#{@person.notes.first.note_type.name}</strong>"
+              \-
+              = show_date(@person.notes.first.created_at.getlocal) unless @person.notes.blank?
+            %br.clear
+          %div.right
+            = @person.notes.first.label unless @person.notes.blank?
+            = @person.notes.first.short_description unless @person.notes.blank?
           %br.clear
-        %div.right
-          = @person.notes.second.label unless @person.notes.second.blank?
-          = @person.notes.second.short_description unless @person.notes.second.blank?
-        %br.clear
-  
+        - note2_status = @person.notes.second.blank? ? "hidden" : ""
+        .container{:class => "#{note2_status}"}
+          %div
+            %div.left
+              = @person.notes.second.blank? ? "No Notes": "<strong #{'class=\'red\'' if @person.notes.second.note_type.to_be_removed == true}>#{@person.notes.second.note_type.name}</strong>"
+              \-
+              = show_date(@person.notes.second.created_at.getlocal) unless @person.notes.second.blank?
+            %br.clear
+          %div.right
+            = @person.notes.second.label unless @person.notes.second.blank?
+            = @person.notes.second.short_description unless @person.notes.second.blank?
+          %br.clear
 
-      
-    .container
-      %h1 Employment
-      - unless @primary_employment.nil?
-        .container
-          = format_employment(@primary_employment)
-        
 
 
-  #right_content
-    #photo_info{:style => "margin-bottom:35px;"}
-  
-    .tab_switch
-      .profile_tab_right{:field =>"person_info", :style => "margin-right:10px;"}
-      .container_icon{:align => 'center'}
-        = link_to_function "<h1>Personal</h1>",  :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info", :color_id => "1"
-      .profile_tab_left{:field =>"person_info"}
-      .profile_tab_right{:field =>"business_info", :style => "background-image:url(/images/round_right.png);"}
-      .container_icon{:align => 'center', :class => "container_icon_color"}
-        = link_to_function "<h1>System</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info", :color_id => "2"
-      .profile_tab_left{:field =>"business_info", :style => "background-image:url(/images/round_left.png);"}
-     
+      .container
+        %h1 Employment
+        - unless @primary_employment.nil?
+          .container{:style => "text-align:right;"}
+            = format_employment(@primary_employment)
 
- 
-    .container#person_info{:style=>"display:none"}
-      = render :partial => 'person_info'
-  
-    .container#business_info
-      = render :partial => 'person_system_info'
-      
-  %br.clear
+
+
+    #right_content
+      #photo_info{:style => "margin-bottom:35px;"}
+
+      .tab_switch
+        .profile_tab_right{:field =>"person_info", :style => "margin-right:10px;"}
+        .container_icon{:align => 'center'}
+          = link_to_function "<h1>Personal</h1>",  :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info", :color_id => "1"
+        .profile_tab_left{:field =>"person_info"}
+        .profile_tab_right{:field =>"business_info", :style => "background-image:url(/images/round_right.png);"}
+        .container_icon{:align => 'center', :class => "container_icon_color"}
+          = link_to_function "<h1>Business</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info", :color_id => "2"
+        .profile_tab_left{:field =>"business_info", :style => "background-image:url(/images/round_left.png);"}
+
+
+
+      .container#person_info{:style=>"display:none"}
+        = render :partial => 'person_info'
+
+      .container#business_info
+        = render :partial => 'person_system_info'
+
+    %br.clear
 
 

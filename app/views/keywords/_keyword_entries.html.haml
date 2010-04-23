@@ -11,7 +11,7 @@
       retrieve_from_grid($("#show_keywords_grid tr.trSelected").attr('id'),"#keyword_mode", "get", "/keywords/retrieve/");
     };
     $("#show_keywords_grid").flexigrid({
-      url: '/grids/show_keywords_grid?keyword_type_id=#{@keyword_type_id}',
+      url: '/grids/show_keywords_grid',
       dataType: 'json',
       colModel: [
         {
@@ -21,11 +21,17 @@
           sortable: true,
           align: 'left'
         },
-
+        {
+          display: 'Keyword Type',
+          name: 'keyword_type_id',
+          width: 100,
+          sortable: true,
+          align: 'left'
+        },
         {
           display: 'Name',
-          name: 'name',
-          width: 570,
+          name: 'keywords.name',
+          width: 200,
           sortable: true,
           align: 'left'
         },
@@ -33,7 +39,7 @@
         {
           display: 'Description',
           name: 'description',
-          width: 270,
+          width: 570,
           sortable: true,
           align: 'left'
         }
@@ -45,16 +51,20 @@
 
       searchitems:[
       {
+        display: 'Keyword Type',
+        name: 'amazon_settings.name'
+      },
+      {
         display: 'Name',
-        name: 'name'
+        name: 'keywords.name'
       },
       {
         display: 'Description',
-        name: 'description'
+        name: 'keywords.description'
       }
       ],
 
-      sortname: "name",
+      sortname: "keywords.name",
       sortorder: "asc",
       usepager: true,
       title: '',

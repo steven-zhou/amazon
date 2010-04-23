@@ -1,0 +1,21 @@
+
+$('#edit_membership').show();
+$('.close_option[field=membership]').show();
+$('#membership_mode').attr('mode','edit');
+$("#payment_detail").html('').hide();
+$('#person_detail.container').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+
+
+<%-if @type == "Prospective"%>
+$("#review_filter").css('display','none');
+$('#edit_membership_form').html("").append('<%= escape_javascript(render(:partial => "/membership/reviewer_form")) %>').show();
+
+<%end%>
+
+$('#histroy').html('<%= escape_javascript(render(:partial => "/membership/display_membership_histroy")) %>');
+datapick_config();
+start_end_date_pick();
+
+hasDatepicker();
+
+

@@ -1,51 +1,63 @@
 %script{:type => "text/javascript"}
   :plain
     $(function() {
-      $('.new_message_template_required_field').keyup(function() {
-          if($('#new_message_template_name').val() == '') {
-              $('#new_message_template_submit').attr('disabled', true);
-          } else {
-              $('#new_message_template_submit').removeAttr('disabled');
-          }
-      });
-
       tinyMCE.init({
         // General options
         mode: "textareas",
         theme : "advanced",
+        plugins : "table",
         skin: "o2k7",
         editor_selector : "mceEditor",
-        editor_deselector : "mceNoEditor",
-        plugins : "table,insertdatetime,preview",
-        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect,cut,copy,paste,pastetext,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-        theme_advanced_buttons2 : "tablecontrols,|,",
+
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,undo,redo,pastetext,paste,copy,cut,|,link,unlink,anchor,image,cleanup,code,|,bullist,numlist,insertdate,inserttime,preview,|,formatselect,fontselect,fontsizeselect,",
+        theme_advanced_buttons2 : "insertdate,inserttime,preview,|,forecolor,backcolor,|,outdent,indent,blockquote,tablecontrols,",
         theme_advanced_buttons3 : "",
-        width : 1050,
-        height : 500,
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left"
       });
 
+
+
     });
 
-- form_for :message_template, message_template, :url => { :action => "create_message_template" }, :html => {:class => 'ajax_form', :id => "add_message_template_form"}  do |f|
-  .full_container
+- form_for :message_template, message_template, :url => { :action => "create_message_template" }, :html => {:class => 'ajax_form', :id => "add_message_template_form", :submit_button_id => "new_message_template_submit"}  do |f|
+  .ex_container
     .form_line
-      .field_60
+      .field_10
+        = f.label :name, "<span class='asterisk'>*</span>Mail Category"
+        = f.collection_select :template_category_id, TemplateCategory.active_template_category, :id, :name, {:include_blank=>true},{:class=>"compulsory_field",:name => "message_template[template_category_id]",:id=>"mail_category_select"}
+      .field_20
         = f.label :name, "<span class='asterisk'>*</span>Name"
-        = f.text_field :name, :id => "new_message_template_name", :class => 'new_message_template_required_field'
-      .field_15
+        = f.text_field :name, :id => "new_message_template_name", :class => 'compulsory_field'
+      .field_10{:class => "hidden"}
         %label &nbsp
-        %select{:class => "select_word"}
-          %option{:value => "first_name"} First Name
-          %option{:value => "last_name"} Last Name
+        %input{:id => "prefix_table_name", :value => "#{@prefix_table_value}"}
+      .field_22
+        %label Table Name
+        %select{:class => "select_table_word clear_select general_drop_down_level", :drop_down_field => @message_template.new_record? ? "new_mail_template" : "edit_mail_template", :method => "GET", :url => "/message_templates/drop_down_list", :update_field => "merge_field_insert"}
+          -@table_attributes.each do |i|
+            %option{:value => i.name}
+              = i.name
+
+      .field_22
+        %label Field Name
+        %select{:class => "select_field_word drop_down_level2 general_drop_down_level_2_3", :drop_down_field => @message_template.new_record? ? "new_mail_template" : "edit_mail_template",:method => "GET", :url => "/message_templates/drop_down_list_level2_3"}
+        %br.clear
+
+      .field_10{:class => "hidden"}
+        %input{:class => "data_type drop_down_level3",:name => "data_type", :drop_down_field => @message_template.new_record? ? "new_mail_template" : "edit_mail_template"}
+
       .field_10
         %label &nbsp
-        = button_to_function 'Insert', :class => "insert_word"
+        =button_to_function 'Insert', :class => "mail_merge_insert_word" ,:style => "width:100%;", :id => "merge_field_insert"
+      .field_10
+        %input{:class => "hidden", :name => "type", :value => "#{@type}"}
+
+
     .form_line{:style => "height:auto;"}
       .field_100{:style => "height:auto;"}
         = f.label :body, "Body"
         = f.text_area :body, :id => "new_message_template_body", :class => 'mceEditor'
 
-  = submit_tag "Submit", :id => "new_message_template_submit", :disabled => true
+      = submit_tag "Submit", :id => "new_message_template_submit", :disabled => true
 

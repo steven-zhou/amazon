@@ -1,0 +1,23 @@
+- fields_for :deposit_detail, @cheque_detail do |t|
+  .form_line
+    .field_25
+      = t.label :bank_id, "<span class='asterisk'>*</span>Bank Name"
+      = t.collection_select :bank_id, Bank.find(:all, :order => "full_name"), :id, :full_name, {:include_blank => true}, {:class => 'compulsory_field select_to_show_more_detail', :target_class => "branch_nos"}
+    .field_15
+      = t.label :bank_id, "Branch No."
+      .display_field_bg
+        - unless @cheque_detail.new_record?
+          %span{:class => "branch_nos"}
+            #{@cheque_detail.bank.branch_number}
+        - Bank.find(:all, :order => "full_name").each do |i|
+          %span{:id => "branch_nos_#{i.id}", :class => "branch_nos", :style => "display:none;"}
+            #{i.branch_number}
+    .field_20
+      = t.label :name_on_cheque, "<span class='asterisk'>*</span>Drawers Name"
+      = t.text_field :name_on_cheque, :class => 'compulsory_field'
+    .field_15
+      = t.label :cheque_number, "<span class='asterisk'>*</span>Cheque Number"
+      = t.text_field :cheque_number, :class => 'compulsory_field'
+    .field_20
+      = t.label :date_on_cheque, "<span class='asterisk'>*</span>Date on Cheque"
+      = t.text_field :date_on_cheque, :class => "datepick compulsory_field"

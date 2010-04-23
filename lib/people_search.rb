@@ -21,6 +21,12 @@ module PeopleSearch
           condition_clauses.push("people.birth_date <= ?")
           condition_options.push(value+'-01-01')
           condition_options.push(value+'-12-31')
+        elsif attribute == 'onrecord_since'
+          condition_clauses.push("people.onrecord_since >= ?")
+          condition_options.push(value.to_date)
+        elsif attribute == 'birth_date'
+          condition_clauses.push("people.#{attribute} = ?")
+          condition_options.push(value.to_date)
         else
           condition_clauses.push("people.#{attribute} = ?")
           condition_options.push(value)
@@ -34,7 +40,7 @@ module PeopleSearch
     end
 
     query = condition_clauses.join(' AND '), *condition_options
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :order => "people.id")
   end
 
   def self.by_phone(params)
@@ -57,7 +63,7 @@ module PeopleSearch
       end
     end
 
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones])
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones], :order => "people.id")
 
   end
 
@@ -81,7 +87,7 @@ module PeopleSearch
       end
     end
 
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails])
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails], :order => "people.id")
 
   end
   
@@ -106,7 +112,7 @@ module PeopleSearch
       end
     end
 
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses])
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses], :order => "people.id")
 
   end
 
@@ -130,7 +136,7 @@ module PeopleSearch
       end
     end
 
-    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords])
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords], :order => "people.id")
 
   end
   

@@ -1,0 +1,32 @@
+
+<% if flash[:error].nil? -%>
+  <% if @type == "organisation" -%>
+
+    $("#org_mail_document_filter_form").doAjaxSubmit();
+  <%- else %>
+    $("#mail_document_filter_form").doAjaxSubmit();
+  <%end%>
+
+<%- else %>
+
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'ERROR');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<%- end %>
+
+enable_form_after_submit_finish();

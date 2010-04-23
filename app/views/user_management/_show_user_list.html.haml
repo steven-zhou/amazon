@@ -5,7 +5,7 @@
   :plain
     delete_from_a_grid = function(){
       var selectedId = $("#show_users_grid tr.trSelected").attr('id');
-      delete_from_grid(selectedId, "#login_account_mode", "DELETE", "/login_accounts/"+selectedId.substring(3));
+      delete_from_grid(selectedId, "#login_account_mode", "DELETE", "/login_accounts/");
     };
 
     $("#show_users_grid").flexigrid({
@@ -23,7 +23,7 @@
         {
           display: 'Person ID',
           name: 'person_id',
-          width: 570,
+          width: 100,
           sortable: true,
           align: 'left'
         },
@@ -31,7 +31,7 @@
         {
           display: 'User Name',
           name: 'user_name',
-          width: 270,
+          width: 300,
           sortable: true,
           align: 'left'
         }

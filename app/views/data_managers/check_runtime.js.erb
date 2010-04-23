@@ -1,0 +1,21 @@
+<%- if @runtime %>
+  $("#runtime_form").html('<%= escape_javascript(render(:partial => "data_managers/runtime_form")) %>');
+  $("#runtime_form").dialog({
+  modal: true,
+  resizable: true,
+  draggable: true
+  });
+  $("#runtime_form").dialog('option', 'title', 'Runtime Parameter(s)');
+  $("#runtime_form").parent().css('background-color','#D1DDE6');
+  $("#runtime_form").css('background-color','#D1DDE6');
+  $("#runtime_form").dialog('open');
+  $('#run_button').removeAttr('disabled');
+  $('#run_button_edit').removeAttr('disabled');
+  $('#save_button').removeAttr('disabled');
+  $('#spinner').remove();
+<%- else %>
+  $('#runtime_form').dialog('destroy');
+  window.open("/data_managers/export.<%= escape_javascript(@format)%>?source=<%= escape_javascript(@source)%>&source_id=<%= escape_javascript(@source_id)%>&file_name=<%= escape_javascript(@file_name)%>");
+<%- end %>
+$('.check_runtime_export_button').removeAttr("disabled");
+$('#spinner').remove();

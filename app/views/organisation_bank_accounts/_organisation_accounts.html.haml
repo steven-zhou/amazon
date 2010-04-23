@@ -14,5 +14,5 @@
       = link_to image_tag('delete_icon.png'), organisation_bank_account_path(organisation_accounts), :class => 'delete delete_option',:field => "organisation_account", :error_message_field =>"Account",:title => "Remove"
 
     %br.clear
-    %div{:style => "float:right;"}
+    %div{:style => "float:right;text-align:right;"}
       = format_bank_account(organisation_accounts)

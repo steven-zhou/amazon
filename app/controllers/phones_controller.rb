@@ -16,13 +16,19 @@ class PhonesController < ApplicationController
   
   def create
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+
     @phone = @entity.phones.new(params[:phone])
     @phone.save
+    
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Phone ID #{@phone.id}.")
     if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@phone.contactable_id)
+      @person.primary_phone_num = @person.phones.find_by_priority_number(1).value
+      @person.save
     else
       @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
+      @organisation.primary_phone_num = @organisation.phones.find_by_priority_number(1).value
+      @organisation.save
     end
     @phone_new = Phone.new
     respond_to do |format|
@@ -32,7 +38,7 @@ class PhonesController < ApplicationController
   
   def edit
     @phone =Phone.find(params[:id].to_i) 
-    @person = Person.find(@phone.contactable_id)
+   
     if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@phone.contactable_id)
     else
@@ -45,17 +51,24 @@ class PhonesController < ApplicationController
 
   def update
     @phone = Phone.find(params[:id].to_i)
-    if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
-      @person = Person.find(@phone.contactable_id)
-    else
-      @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
-    end
+   
     @phone_new = Phone.new
-    respond_to do |format|
-      if @phone.update_attributes(params[:phone])
-        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Phone #{@phone.id}.")
-        format.js { render 'show.js' }
+    if @phone.update_attributes(params[:phone])
+      if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
+        @person = Person.find(@phone.contactable_id)
+        @person.primary_phone_num = @person.phones.find_by_priority_number(1).value
+        @person.save
+      else
+        @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
+        @organisation.primary_phone_num = @organisation.phones.find_by_priority_number(1).value
+        @organisation.save
       end
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Phone #{@phone.id}.")
+
+    end
+    respond_to do |format|
+
+      format.js { render 'show.js' }
     end
   end
 
@@ -74,8 +87,12 @@ class PhonesController < ApplicationController
 
     if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@phone.contactable_id)
+      @person.primary_phone_num =  @person.phones.find_by_priority_number(1).value rescue @person.primary_phone_num = nil
+      @person.save
     else
       @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
+      @organisation.primary_phone_num =  @organisation.phones.find_by_priority_number(1).value rescue @organisation.primary_phone_num = nil
+      @organisation.save
     end
 
     @phone_new = Phone.new
@@ -86,7 +103,12 @@ class PhonesController < ApplicationController
 
 
   def move_down_phone_priority
+
+
     @current_phone = Contact.find(params[:id])
+
+
+
 
     if(@current_phone.priority_number==1)
       @exchange_phone = @current_phone.contactable.phones.find_by_priority_number(2)
@@ -97,6 +119,8 @@ class PhonesController < ApplicationController
       @current_phone.save
     end
     @person = Person.find(@current_phone.contactable_id)
+    @person.primary_phone_num = @person.phones.find_by_priority_number(1).value
+    @person.save
     respond_to do |format|
       format.js
     end
@@ -114,7 +138,8 @@ class PhonesController < ApplicationController
     @up_exchange_phone.save
     @up_current_phone.save
     @person = Person.find(@up_current_phone.contactable_id)
-
+    @person.primary_phone_num = @person.phones.find_by_priority_number(1).value
+    @person.save
     respond_to do |format|
       format.js
     end
@@ -135,6 +160,8 @@ class PhonesController < ApplicationController
       @current_phone.save
     end
     @organisation = Organisation.find(@current_phone.contactable_id)
+    @organisation.primary_phone_num = @organisation.phones.find_by_priority_number(1).value
+    @organisation.save
     respond_to do |format|
       format.js
     end
@@ -150,7 +177,8 @@ class PhonesController < ApplicationController
     @up_exchange_phone.save
     @up_current_phone.save
     @organisation = Organisation.find(@up_current_phone.contactable_id)
-
+    @organisation.primary_phone_num = @organisation.phones.find_by_priority_number(1).value
+    @organisation.save
     respond_to do |format|
       format.js
     end

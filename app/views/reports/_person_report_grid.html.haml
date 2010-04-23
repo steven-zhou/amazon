@@ -1,4 +1,39 @@
-#report_grid_form
-  %h2 People Contact Report Result
-  %table#report_grid_form1
-  = button_to_function 'Generate PDF', :style => "float:right;margin-top:10px;", :id => "report_person_pdf_submit_button"
+%h2 People Contact Report Result
+%table#person_report_grid
+= button_to_function 'Generate PDF', :style => "float:right;margin-top:10px;", :id => "report_person_pdf_submit_button"
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $("#person_report_grid").flexigrid(
+    {
+    url: '/grids/show_person_contacts_report_grid',
+    dataType: 'json',
+    colModel : [
+    {display: 'ID', name : 'grid_object_id', width : 70, sortable : true, align: 'left'},
+    {display: 'First Name', name : 'field_1', width : 90, sortable : true, align: 'left'},
+    {display: 'Family Name', name : 'field_2', width : 90, sortable : true, align: 'left'},
+    {display: 'Email', name : 'field_3', width : 160, sortable : true, align: 'left'},
+    {display: 'Phone', name : 'field_4', width : 80, sortable : true, align: 'left'},
+    {display: 'Website', name : 'field_5', width : 150, sortable : true, align: 'left'},
+    {display: 'Address', name : 'field_6', width : 230, sortable : true, align: 'left'}
+
+    ],
+    searchitems : [
+    {display: 'First Name', name : 'field_1'},
+    {display: 'Family Name', name : 'field_2'},
+    {display: 'Email', name : 'field_3'},
+    {display: 'Phone', name : 'field_4'},
+    {display: 'Website', name : 'field_5'},
+    {display: 'Address', name : 'field_6'}
+
+    ],
+    sortname: "grid_object_id",
+    sortorder: "asc",
+    usepager: true,
+
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

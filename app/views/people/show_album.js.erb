@@ -1,0 +1,9 @@
+
+$('#show_grid_album_page').html('<%= escape_javascript(render(:partial => "/tests/album_container")) %>');
+
+<%unless @query.blank? %>
+$('#quick_search_bar').css('display', '');
+<%end%>
+
+
+

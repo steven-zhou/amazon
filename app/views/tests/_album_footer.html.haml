@@ -1,0 +1,32 @@
+.form_line
+  .field_10
+    %label &nbsp;
+    = link_to_function image_tag'Icons/System/search.png', :id => "quick_search_toggle"
+  .field_20
+    %label Sort By
+    %select{:class => "album_page_load",:id => "album_sortname", :name => "sortname"}
+      %option{:value => "id", :selected => @sortname == "id"} Id
+      %option{:value => "first_name", :selected => @sortname == "first_name"} First Name
+      %option{:value => "family_name", :selected => @sortname == "family_name"} Family Name
+      %option{:value => "primary_email_address", :selected => @sortname == "primary_email_address"} Primary Email
+      %option{:value => "primary_phone_num", :selected => @sortname == "primary_phone_num"} Primary Phone
+  .field_10{:style => "margin-left: 25px;"}
+    %label &nbsp;
+    %select{:class => "album_page_load",:id => "album_rp",:name => "rp"}
+      %option{:value => "10", :selected => @rp == 10} 10
+      %option{:value => "15", :selected => @rp == 15} 15
+      %option{:value => "20", :selected => @rp == 20} 20
+      %option{:value => "25", :selected => @rp == 25} 25
+
+  .field_45{:style => "float:right !important;margin-left: 15px;"}
+    %label &nbsp;
+    %div#left_arrow{:style => "width:20%;margin-left:15px;display:inline;"}
+      = link_to_function image_tag 'Icons/Core/Lol/go-first.png', :class => "show_album", :url => "/grids/show_list_grid", :page => 1, :page_show => "album"
+      = link_to_function image_tag 'Icons/Core/Lol/go-previous.png', :class => "show_album",:url => "/grids/show_list_grid", :page => @page==1 ? @page : @page - 1, :style => "margin-left:10px;", :page_show => "album"
+    %input{:id => "album_page", :value => "#{@page}", :style => "width:6%;",:class => "album_page_load", :name => "page"}
+    %input{:id => "album_total_page", :value => "#{@total_pages}", :style => "width:6%;",:class => "hidden"}
+    %span{:style => "font-size:14px;"} of #{@total_pages} pages
+    %div#right_arrow{:style => "width:20%;display:inline;"}
+      - check = @page + 1 > @last_page ? "" : ""
+      = link_to_function image_tag 'Icons/Core/Lol/go-next.png', :class => "show_album",:style => "#{check}", :url => "/grids/show_list_grid", :page => @page + 1 > @last_page ? @last_page : @page + 1, :page_show => "album"
+      = link_to_function image_tag 'Icons/Core/Lol/go-last.png', :class => "show_album", :url => "/grids/show_list_grid", :page  => @last_page, :page_show => "album", :style => "margin-left:10px;#{check}", :page_show => "album"

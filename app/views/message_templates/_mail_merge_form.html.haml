@@ -1,22 +1,28 @@
 .full_container
   - form_tag("/message_templates/create_mail", {:class => "ajax_form",:id => "new_mail_merge",:submit_button_id => "new_mail_merge_submit"})  do
     .form_line
-      .field_30
+      .field_25
         %label <span class='asterisk'>*</span>Query/List
         -#= f.label :subject, "<span class='asterisk'>*</span>Query/List"
-        %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px", :class => 'select_ban_submit' }
+        %select{:id => "list_header_id", :name => "list_header_id", :class => 'select_ban_submit' }
           %option{:value => "0"} --------------------List--------------------------------
           - @entity_list_headers.each do |r|
             %option{:value => "list_#{r.id}"} #{r.name}
           %option{:value => "0"} --------------------Query------------------------------
           - @entity_query_headers.each do |r|
             %option{:value => "query_#{r.id}"} #{r.name}
-      .field_30
+
+      .field_20
+        %label <span class='asterisk'>*</span>Template Category
+        = collection_select :message_template, :template_category_id, TemplateCategory.active, :id, :name, {:include_blank=>true}, {:class => "select_ajax_call clear_select compulsory_field", :method => "GET", :url => "/message_templates/find_templates", :update_field => "message_template_id", :type_class => "#{@entity_type}_mail_template"}
+
+      .field_25
         -#= f.label :subject, "<span class='asterisk'>*</span>Template"
         %label <span class='asterisk'>*</span>Template
-        %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px", :class => 'select_ban_submit' }
-          - @mail_templates.each do |r|
-            %option{:value => "#{r.id}"} #{r.name}
+        %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px", :class => 'select_ban_submit compulsory_field' }
+          %option
+          -# @mail_templates.each do |i|
+            %option{:value => "#{i.id}"} #{i.name}
       .field_10
         %input{:name => "entity_type", :value => "#{@entity_type}", :class => "hidden"}
       .field_15{:style => "float:right;"}

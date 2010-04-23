@@ -15,8 +15,16 @@ module OrganisationsSearch
     params.each do |attribute,value|
       case sql_condition(attribute, equality, like)
       when 'equality'
-        condition_clauses.push("organisations.#{attribute} = ?")
-        condition_options.push(value)
+        if attribute == 'onrecord_since'
+          condition_clauses.push("organisations.onrecord_since >= ?")
+          condition_options.push(value.to_date)
+        elsif attribute == 'registered_date'
+          condition_clauses.push("organisations.#{attribute} = ?")
+          condition_options.push(value.to_date)
+        else
+          condition_clauses.push("organisations.#{attribute} = ?")
+          condition_options.push(value)
+        end
       when 'like'
         condition_clauses.push("organisations.#{attribute} ILIKE ?")
         condition_options.push(value + '%')
@@ -27,7 +35,7 @@ module OrganisationsSearch
 
     query = condition_clauses.join(' AND '), *condition_options
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :order => "organisations.id")
 
   end
 
@@ -51,7 +59,7 @@ module OrganisationsSearch
       end
     end
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones])
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones], :order => "organisations.id")
 
   end
 
@@ -75,7 +83,7 @@ module OrganisationsSearch
       end
     end
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails])
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails], :order => "organisations.id")
 
   end
 
@@ -100,7 +108,7 @@ module OrganisationsSearch
       end
     end
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses])
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses], :order => "organisations.id")
 
   end
   
@@ -120,7 +128,7 @@ module OrganisationsSearch
       end
     end
 
-    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords])
+    return Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords], :order => "organisations.id")
 
   end
 

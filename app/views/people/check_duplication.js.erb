@@ -1,7 +1,7 @@
 <%- if !@dup_personal.empty?%>
-$('#personal_check_duplication').html("<%= escape_javascript(render(:partial => "/people/duplication_grid")) %>");
+  $('#personal_check_duplication').html("<%= escape_javascript(render(:partial => "/people/duplication_grid")) %>");
 
-$('#personal_check_duplication').dialog({
+  $('#personal_check_duplication').dialog({
   modal: true,
   resizable: false,
   position: "center",
@@ -9,50 +9,51 @@ $('#personal_check_duplication').dialog({
   height: 300,
   width: 650,
   buttons:{
-          "Continue to edit": function(){
-          $(this).dialog('close');
-          },
-          "Clear to restart": function(){
-          personal_check_duplication_restart_button();
-          }
+  "Continue to edit": function(){
+  $(this).dialog('close');
+  },
+  "Clear to restart": function(){
+  personal_check_duplication_restart_button();
   }
-});
- $('#personal_check_duplication').parent().find("a").css("display","none");
- $('#personal_check_duplication').dialog('option', 'title', 'Possible Duplication Found');
-$('#personal_check_duplication').dialog('open');
+  }
+  });
+  $('#personal_check_duplication').parent().find("a").css("display","none");
+  $('#personal_check_duplication').dialog('option', 'title', 'Possible Duplication Found');
+  $('#personal_check_duplication').parent().css('background-color','#D1DDE6');
+  $('#personal_check_duplication').css('background-color','#D1DDE6');
+  $('#personal_check_duplication').dialog('open');
 
   $("#person_check_field").flexigrid(
 
-{
-url: '/grids/personal_check_duplication',
-dataType: 'json',
-colModel : [
-{display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-{display: 'First Name', name : 'field_1', width : 50, sortable : true, align: 'left'},
-{display: 'Family Name', name : 'field_2', width : 50, sortable : true, align: 'left'},
-{display: 'Address', name : 'field_3', width : 120, sortable : true, align: 'left'},
-{display: 'Phone', name : 'field_4', width : 80, sortable : true, align: 'left'},
-{display: 'Email', name : 'field_5', width : 140, sortable : true, align: 'left'}
+  {
+  url: '/grids/personal_check_duplication',
+  dataType: 'json',
+  colModel : [
+  {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+  {display: 'First Name', name : 'field_1', width : 50, sortable : true, align: 'left'},
+  {display: 'Family Name', name : 'field_2', width : 50, sortable : true, align: 'left'},
+  {display: 'Address', name : 'field_3', width : 120, sortable : true, align: 'left'},
+  {display: 'Phone', name : 'field_4', width : 80, sortable : true, align: 'left'},
+  {display: 'Email', name : 'field_5', width : 140, sortable : true, align: 'left'}
 
-],
-searchitems : [
-{display: 'First Name', name : 'field_1'},
-{display: 'Family Name', name : 'field_2'},
-{display: 'Address', name : 'field_3'},
-{display: 'Phone', name : 'field_4'},
-{display: 'Email', name : 'field_5'}
+  ],
+  searchitems : [
+  {display: 'First Name', name : 'field_1'},
+  {display: 'Family Name', name : 'field_2'},
+  {display: 'Address', name : 'field_3'},
+  {display: 'Phone', name : 'field_4'},
+  {display: 'Email', name : 'field_5'}
 
-],
-sortname: "grid_object_id",
-sortorder: "asc",
-usepager: true,
-title: 'People Search Result',
-useRp: true,
-rp: 20,
-showTableToggleBtn: false,
-width: 'auto',
-height: 'auto'
-});
+  ],
+  sortname: "grid_object_id",
+  sortorder: "asc",
+  usepager: true,
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
 
 
 

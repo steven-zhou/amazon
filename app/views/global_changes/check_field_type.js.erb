@@ -26,6 +26,7 @@ $("#org_system_data_id").change('');
 
 
 
+
 <%else%>
 
 
@@ -68,6 +69,9 @@ $("#org_table_action_id").change('');
 $("#global_change_value").removeClass();
 $('#global_change_value').val("").change();
 <%-if @type== "keyword" || @type == "group"%>
+
+
+
 $('#input_data_value').css('display','none');
 $('#select_system_data').css('display','');
  $('#global_change_label').css('display','none');
@@ -86,7 +90,7 @@ $('#select_system_data').css('display','');
 $("#global_run").attr('disabled',false);
 $("#global_change_checkbox").css('display','none');
 $("#system_data_id").html("<%= escape_javascript("#{options}") %>");
-$("#system_data_id").change('');
+$("#system_data_id").change();
 
 
 
@@ -118,3 +122,5 @@ $('#select_system_data').css('display','none');
 <%end%>
 $("#table_action_id").change('');
 <%end%>
+
+

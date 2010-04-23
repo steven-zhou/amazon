@@ -35,7 +35,6 @@ Factory.define :employment do |f|
   f.association :award_agreement, :factory => :award_agreement
   f.association :position_status, :factory => :position_status
   f.association :payment_frequency, :factory => :payment_frequency
-  f.association :payment_method, :factory => :payment_method
   f.association :payment_day, :factory => :payment_day
   f.association :suspension_type, :factory => :suspension_type
   f.association :termination_method, :factory => :termination_method

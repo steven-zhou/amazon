@@ -1,5 +1,3 @@
-
-
 $("#runtime_form").dialog('close');
 $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results")) %>');
 $('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
@@ -15,6 +13,8 @@ $('#result_div').dialog({
   width: 1100
   });
   $('#result_div').dialog('option', 'title', 'Query Results');
+  $('#result_div').parent().css('background-color','#D1DDE6');
+  $('#result_div').css('background-color','#D1DDE6');
   $('#result_div').dialog('open');
 
   $("#query_result_grid").flexigrid({
@@ -47,7 +47,13 @@ $('#result_div').dialog({
   width: 'auto',
   height: 300
   });
-
-
-
-  
+  $('#spinner').remove();
+<%- if @query_header.status == false  %>
+  $("#save_button").attr("disabled", "disabled");
+  $("#run_button").attr("disabled", "disabled");
+  $("#run_button_edit").attr("disabled", "disabled");
+<%- else %>
+  $("#save_button").removeAttr("disabled");
+  $("#run_button").removeAttr("disabled");
+  $("#run_button_edit").removeAttr("disabled");
+<%- end %>

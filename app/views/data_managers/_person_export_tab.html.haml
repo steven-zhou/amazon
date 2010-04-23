@@ -2,7 +2,7 @@
   %h2 Export Person Data
   .form_line
     .field_30
-      %label Select Source
+      %label  <span class='asterisk'>*</span>Select Source
       %select#source_id
         %option
         - @queries.each do |i|
@@ -13,7 +13,7 @@
       %label File Name
       %input{:id => "file_name"}
     .field_20
-      %label Format
-      %input{:type => "button", :value => "PDF", :class => "export_button", :source => "person"}
-      %input{:type => "button", :value => "XML", :class => "export_button", :source => "person"}
-      %input{:type => "button", :value => "CSV", :class => "export_button", :source => "person"}
+      %label &nbsp;
+      %input{:type => "button", :value => "CSV", :class => "check_runtime_export_button", :source => "person", :disabled => true, :style => "float:right;"}
+      %input{:type => "button", :value => "XML", :class => "check_runtime_export_button", :source => "person", :disabled => true, :style => "float:right;"}
+      %input{:type => "button", :value => "PDF", :class => "check_runtime_export_button", :source => "person", :disabled => true, :style => "float:right;"}

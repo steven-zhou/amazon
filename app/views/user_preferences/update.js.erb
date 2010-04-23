@@ -1,0 +1,5 @@
+$(".toggle_div[toggle_id_name='<%=escape_javascript(@current_tab)%>']").click();
+$("#flash_feedback").html("<%=escape_javascript(flash[:message])%>");
+$('#flash_feedback').fadeIn("slow");
+$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+enable_form_after_submit_finish();

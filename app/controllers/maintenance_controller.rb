@@ -37,7 +37,7 @@ class MaintenanceController < ApplicationController
       backup_directory = "#{RAILS_ROOT}/../../database/backup"
     end
     dir = Dir.new(backup_directory) rescue dir = nil
-    @backups = dir.nil? ? [] : (dir.entries - [".", ".."]).sort.reverse
+    @backups = dir.nil? ? [] : (dir.entries - [".", ".."]).sort
   end
 
   def restore

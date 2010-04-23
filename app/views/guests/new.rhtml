@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>EmZee Version 1.1 - The Community Social Solution</title>
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("jquery","1.3.2");
+      google.load("jqueryui","1.7.1");
+    </script>
+   <%= stylesheet_link_tag   "jpassword", "guest.css","jquery-ui-1.7.1.custom.css" %>
+    <%= javascript_include_tag  "guest.js",
+      "jquery.jclock.js",
+      "jquery.jpassword.js",
+      "jquery.form.js"
+  %>
+
+  </head>
+
+  <body>
+
+    <div id="signin_container" title="Login Assistance" style="height:500px;">
+      <div id="signin_logo">
+
+      </div>
+      <div id="shadow_bar">
+
+      </div>
+      <div id="register_form">
+        <h1> Member Registration </h1>
+        <div id="signin_form_wrapper">
+          <% form_tag('/guests/create/',:id=>"create_guest", :submit_button_id => "register_button") do -%>
+            <input id="first_name" class="field compulsory_field" type="text" size="28" name="guests[first_name]" title="First Name" />
+            <input id="family_name" class="field compulsory_field" type="text" size="28" name="guests[family_name]" title="Family Name"/>
+            <input id="eamil" class="field compulsory_field" type="text" size="28" name="email"  title="Email" />
+            <input id="phone" class="field compulsory_field" type="text" size="28" name="phone"  title="Phone"/>
+             <input id="register_button" type="submit" value="Register" disabled="true"/>
+          <% end -%>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+  </body>
+</html>

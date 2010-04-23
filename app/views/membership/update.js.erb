@@ -1,0 +1,83 @@
+<%-if flash[:error].nil?%>
+  <%- if @payment_required %>
+    $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+    $('#payment_detail').html('<%= escape_javascript(render(:partial => "/membership_fees/membership_fee_page")) %>').show();
+    $('#edit_membership_form').hide();
+    $('#histroy').html('<%= escape_javascript(render(:partial => "/membership/display_membership_histroy")) %>');
+  <%- else %>
+    $('#flash_feedback').html('<%=escape_javascript(flash[:message])%>');
+    $('#flash_feedback').fadeIn("slow");
+    $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+
+    $("#reviewer_id").val("");
+
+
+    $('#membership_mode').attr('mode', 'show');
+
+    $('#individual_review_page').html('');
+
+
+    $("#review_filter").css("display","");
+    $("#review_page_grid").css("display","none");
+    $('#review_page').html('<%= escape_javascript(render(:partial => "/membership/review_page")) %>');
+
+  <%- end %>
+
+
+
+
+  <%-unless flash[:confirmation].nil?%>
+    $("#confirm_message_text").html("<%=escape_javascript(flash[:confirmation])%>");
+    $("#confirm_message_text").css('padding-top', '32px')
+    $('#confirm_message_image').css("display","");
+    $('#confirm_message').dialog( {
+    modal: true,
+    resizable: false,
+    draggable: true,
+    height: 'auto',
+    width: 600,
+    buttons:{
+    Ok: function() {
+    $(this).dialog('destroy');
+    enable_form_after_submit_finish();
+    }
+    }
+    });
+    $('#confirm_message').dialog( 'option', 'title', 'Confirm');
+    $('#confirm_message').parent().find("a").css("display","inline");
+    $("#confirm_message").parent().css('background-color','#D1DDE6');
+    $("#confirm_message").css('background-color','#D1DDE6');
+    $('#confirm_message').dialog('open');
+
+  <%-end%>
+
+
+
+<%else%>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'ERROR');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+
+<%-end%>
+
+enable_form_after_submit_finish();
+
+datapick_config();
+start_end_date_pick();
+
+hasDatepicker();

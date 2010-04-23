@@ -1,0 +1,21 @@
+%input{:class => "hidden", :id => "extra_mode", :mode => "show"}
+%input{:id => "custom_field_input_change_or_not", :style => "display:none", :value => "false", :class=>"organisation_input_change_class person_input_change_class"}
+- i = 1
+- @extra_types.each do |group|
+  .container
+    .toggle_div{:toggle_id_name => "extra_div_#{i}", :style => "cursor: pointer;", :id => "div_#{i}", :expand_with_arrow => "true"}
+      .options{:style=>"float:right"}
+        -if(group.position == 1)
+          -if(@extra_types.size > 1)               
+            = link_to image_tag('down_arrow.png'), move_down_tag_meta_type_priority_tag_type_path(group), :class => 'get', :id => 'extra_down_button', :title=>"Move Down"
+        - else
+          = link_to image_tag('up_arrow.png'), move_up_tag_meta_type_priority_tag_type_path(group),  :class => 'get', :id => 'extra_up_button', :title=>"Move Up"
+        = image_tag('Icons/System/expand.png')
+      .title
+        %h1
+          = group.name
+      %br.clear
+    %div{:id => "extra_div_#{i}", :style => "display:none;"}
+      - extra = Extra.find_extra(group.id, @entity)
+      = render :partial => "/extras/display_extra", :locals => {:extra => extra, :group => group}
+  - i = i + 1

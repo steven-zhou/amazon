@@ -1,5 +1,5 @@
 class UserPreferencesController < ApplicationController
-# System Logging done...
+  # System Logging done...
 
   def change_email
     if @current_user.security_email == params[:old_email] && params[:new_email]== params[:retype_new_email]
@@ -26,7 +26,7 @@ class UserPreferencesController < ApplicationController
 
 
   def change_password
-     if (Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) == @current_user.password_hash  && params[:new_password]== params[:retype_new_password])
+    if (Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) == @current_user.password_hash  && params[:new_password]== params[:retype_new_password])
       @current_user.password = params[:new_password]
       if @current_user.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated its password.")
@@ -74,6 +74,52 @@ class UserPreferencesController < ApplicationController
   end
 
   def show_whoami
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def default_value
+    @default_value = @current_user.default_value.nil? ? UserPreference.new : @current_user.default_value
+    @end_date = @default_value.new_record? ? "01-01-1900" : @default_value.default_end_date.to_s
+    @start_date = @default_value.new_record? ? "01-01-3000" : @default_value.default_end_date.to_s
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create
+    @default_value = UserPreference.new(params[:user_preference])
+    @current_tab = params[:current_tab]
+
+    if @default_value.save!
+      flash[:message] = "successfull update default value"
+    else
+      
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update
+    @default_value = UserPreference.find(params[:id])
+    @current_tab = params[:current_tab]
+    if @default_value.update_attributes(params[:user_preference])
+      flash[:message] = "successfull update default value"
+
+    else
+
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_default_value
+    @default_value = UserPreference.find(params[:id])
+    
     respond_to do |format|
       format.js
     end

@@ -1,0 +1,12 @@
+- form_for @membership,:url => {:controller =>"membership",:action=>"create"}, :html => {:class => "ajax_form",:submit_button_id=>"new_membership_submit"} do |p|
+  #person_detail.container
+    #person_detail_form
+      =render :partial =>"/membership/membership_person_detail"
+
+  #initiator.container
+    =render :partial =>"/membership/initiator_form"
+
+  = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"
+
+#payment_detail
+#histroy

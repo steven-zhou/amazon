@@ -31,8 +31,8 @@ class AmazonSettingsController < ApplicationController
 
   def update
     @amazonsetting = AmazonSetting.find(params[:id].to_i)
-#    @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
-#    if @amazonsetting.save
+    #    @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
+    #    if @amazonsetting.save
     if @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazonsetting.id}.")
       flash[:message] = "Updated successfully."
@@ -79,6 +79,8 @@ class AmazonSettingsController < ApplicationController
 
   def new_setting
     @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
+    #to remove the blank space
+    params[:amazon_setting][:name]=params[:amazon_setting][:name].strip
     @amazon_setting.update_attributes(params[:amazon_setting])
     @amazon_setting.to_be_removed = false
     @type = params[:amazon_setting][:type]
@@ -96,8 +98,11 @@ class AmazonSettingsController < ApplicationController
 
   def update_setting
     @amazon_setting = AmazonSetting.find(params[:id].to_i)
-#    @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
-#    if @amazon_setting.save
+    #    @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
+    #    if @amazon_setting.save
+        #to remove the blank space
+            #to remove the blank space
+    params[params[:type].underscore.to_sym][:name]=params[params[:type].underscore.to_sym][:name].strip
     if @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "setting")
@@ -112,8 +117,13 @@ class AmazonSettingsController < ApplicationController
 
   def delete_system_data_entry
     amazon_setting = AmazonSetting.find(params[:id])
-    amazon_setting.to_be_removed = true
-    amazon_setting.save!
+    unless (amazon_setting.class.to_s == "MailMergeCategory" && amazon_setting.name == "others")
+      amazon_setting.to_be_removed = true
+      amazon_setting.save!
+    else
+      amazon_setting.description = "can not be deleted"
+      amazon_setting.save!
+    end
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
     respond_to do |format|
       format.js
@@ -140,4 +150,15 @@ class AmazonSettingsController < ApplicationController
     end
   end
 
+  def look_for_template
+    @amazon_setting = TemplateCategory.find(params[:param1])
+    @update_field = params[:update_field]
+    @options = "<option>"
+    @amazon_setting.message_templates.each do |i|
+      @options << "<option value = #{i.id}>#{i.name}</option>"
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 end

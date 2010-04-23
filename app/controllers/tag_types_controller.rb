@@ -5,6 +5,7 @@ class TagTypesController < ApplicationController
     @tag_type = (params[:tag]+"MetaType").camelize.constantize.new
     @tag_meta_type = (params[:tag]+"MetaMetaType").camelize.constantize.find(params[:tag_meta_type_id])
     @tag_types = @tag_meta_type.tag_types
+    @category = params[:tag]
     respond_to do |format|
       format.js
     end
@@ -28,6 +29,7 @@ class TagTypesController < ApplicationController
   def edit
     @tag_type = TagType.find(params[:id])
     @tag_meta_type = @tag_type.tag_meta_type
+    @category = @tag_type.class.to_s.sub(/MetaType/,'')
     respond_to do |format|
       format.js
     end
@@ -188,13 +190,28 @@ class TagTypesController < ApplicationController
     end
   end  
 
-  def show_receipt_type
-    @receipt_meta_type = ReceiptMetaMetaType.find(params[:param1])
-    @receipt_types = ReceiptMetaType.find(:all, :conditions => ['tag_meta_type_id = ? ', params[:param1]])
+#  def show_receipt_type
+#    @receipt_meta_type = ReceiptMetaMetaType.find(params[:param1])
+#    @receipt_types = ReceiptMetaType.find(:all, :conditions => ['tag_meta_type_id = ? ', params[:param1]])
+#    @action = params[:type] #new or edit
+#    @options = ""
+#    @receipt_types.each do |i|
+#      @options += '<option value=' + i.id.to_s + '>' + i.name
+#    end
+#    @cheque_detail = ChequeDetail.new
+#    @credit_card_detail = CreditCardDetail.new
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
+
+  def show_payment_method
+    @payment_method_type = PaymentMethodMetaType.find(params[:param1])
+    @payment_methods = PaymentMethodType.find(:all, :conditions => ['tag_type_id = ? ', params[:param1]])
     @action = params[:type] #new or edit
-    @options = ""
-    @receipt_types.each do |i|
-      @options += '<option value=' + i.id.to_s + '>' + i.name
+    @options = "<option></option>"
+    @payment_methods.each do |i|
+      @options << '<option value=' + i.id.to_s + '>' + i.name
     end
     @cheque_detail = ChequeDetail.new
     @credit_card_detail = CreditCardDetail.new
@@ -203,11 +220,23 @@ class TagTypesController < ApplicationController
     end
   end
 
+  def show_dd_payment_method
+    @payment_method_type = PaymentMethodMetaType.find(params[:param1])
+    @update_field = params[:update_field]
+    @payment_methods = PaymentMethodType.find(:all, :conditions => ['tag_type_id = ? ', params[:param1]])
+    @action = params[:type] #new or edit
+    @options = ""
+    @payment_methods.each do |i|
+      @options += '<option value=' + i.id.to_s + '>' + i.name
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   def retrieve
     @tag_type = TagType.find(params[:id])
-
-
     @tag_type.retrieve_all_children
     @tag_meta_type = @tag_type.tag_meta_type
     @category = @tag_type.type.to_s.sub(/MetaType/,"")
@@ -216,6 +245,34 @@ class TagTypesController < ApplicationController
       format.js
     end
   end
-  
-end
 
+
+  def move_down_tag_meta_type_priority
+    @current_extra_meta_type = TagType.find(params[:id])
+
+    if(@current_extra_meta_type.position == 1)
+      @exchange_extra_meta_type = @current_extra_meta_type.type.camelize.constantize.find_by_position(2)
+      @exchange_extra_meta_type.position = 1
+      @current_extra_meta_type.position = 2
+      @exchange_extra_meta_type.save
+      @current_extra_meta_type.save
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def move_up_tag_meta_type_priority
+    @up_current_tag_meta_type = TagType.find(params[:id])
+    @up_exchange_tag_meta_type = @up_current_tag_meta_type.class.find_by_position(@up_current_tag_meta_type.position - 1)
+    @up_exchange_tag_meta_type.position = @up_exchange_tag_meta_type.position + 1
+    @up_current_tag_meta_type.position = @up_current_tag_meta_type.position - 1
+    @up_exchange_tag_meta_type.save
+    @up_current_tag_meta_type.save
+    
+    respond_to do |format|
+      format.js
+    end
+  end 
+end

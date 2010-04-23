@@ -155,7 +155,7 @@ class GlobalChangesController < ApplicationController
         end
       end
 
-    elsif params[:type] == "Add"
+    elsif params[:type] == "Add" or params[:type] == "Insert"
       source_type = params[:source_type]
       @source_value.each do |i|
         if params[:table_name] == "addresses"
@@ -252,7 +252,8 @@ class GlobalChangesController < ApplicationController
   def check_field_type
       @source_type = params[:type]
       @add_delete = ["Add","Delete"]
-      @add_change_delete = ["Add","Change","Delete"]
+      @add_change_delete = ["Insert","Change","Delete"]
+
     if params[:table_name] == "keyword"
       @value = KeywordType.find(params[:table_field].to_i).keywords
 #    elsif params[:table_name] == "role"
@@ -260,6 +261,7 @@ class GlobalChangesController < ApplicationController
     elsif params[:table_name] == "group"
       @value=GroupMetaType.find(params[:table_field].to_i).group_types
     end
+
 
     @type =params[:table_name]
     respond_to do |format|

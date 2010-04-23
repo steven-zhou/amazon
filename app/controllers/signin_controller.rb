@@ -35,7 +35,7 @@ class SigninController < ApplicationController
           session[:user] = login_account.id
           session[:last_event] = Time.now()
           login_account.update_password = false
-          create_temp_list
+          create_temp_list unless login_account.all_group_person_lists.blank? #if the usre's group do not have list access you can just live in dashbaorad , you can not go to the core
           login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
           #login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
           login_account.online_status = true
@@ -74,7 +74,7 @@ class SigninController < ApplicationController
     login_account = LoginAccount.find_by_id(session[:user])
 
     LoginAccount.current_user = login_account
-
+    @current_user = login_account
     @temp_list = TempList.find_by_login_account_id(session[:user])
     @temp_list.destroy unless @temp_list.nil?
     system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged out of the system.", "signin", "signout")
@@ -83,6 +83,8 @@ class SigninController < ApplicationController
     session[:current_list_id] = nil
     session[:current_person_id] = nil
     session[:last_event] = nil
+    session[:current_organisation_id] = nil
+    session[:current_org_list_id] = nil
     redirect_to login_url
   end
 
@@ -265,9 +267,7 @@ class SigninController < ApplicationController
   def grace_period_check(login_account)
     if ( !login_account.authentication_grace_period.nil? && login_account.authentication_grace_period.to_i > 0)
       # If we have no timeout or if timeout is not defined or if we have not had a last event record
-
-
-      if( ( (Time.now - login_account.created_at) / (24 * 60 * 60) ) > login_account.authentication_grace_period.to_i )
+      if( ( (Time.now - login_account.created_at.getlocal) / (24 * 60 * 60) ) > login_account.authentication_grace_period.to_i )
         # If time since the account was created (in days) is greater than the grace period allowed
         # delete the account
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) attempted to login outside of the defined grace period.", "signin", "grace_period_check", login_account)

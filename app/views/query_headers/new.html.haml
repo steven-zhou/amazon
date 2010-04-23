@@ -1,65 +1,76 @@
-%div
-  #header
-    #page_title
-      %h1 Add New Query
-  
-#new_query
-  #new_form
-    %input{:style => "display:none", :id => "query_detail_mode", :mode => "show"}
-    #left
-      .container
-        #criteria_form{:class => "toggle_button2", :toggle_id_name => "new_criteria", :toggle_id_name1 => "new_selection", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
-          .options
-            = image_tag('Icons/System/collapse.png')
-          %h1 Criteria Attributes
-        #new_criteria
-          #new_query_form
-            = render :partial => "queries/new_query_criteria_form", :locals => {:exclude_category => "organisation"}
-
-      .container
-        #display_form{:class => "toggle_button2", :toggle_id_name => "new_selection", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
-          .options
-            = image_tag('Icons/System/expand.png')
-          %h1 Display Attributes
-        #new_selection{:style => "display:none"}
-          #new_selection_form
-            = render :partial => "queries/query_selection_form", :locals => {:exclude_category => "organisation"}
-          %br.clear
-
-      .container
-        #sort_form{:class => "toggle_button2", :toggle_id_name => "new_sorter", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_selection", :style => "cursor:pointer;cursor:hand"}
-          .options
-            = image_tag('Icons/System/expand.png')
-          %h1 Sorting Attributes
-        #new_sorter{:style => "display:none"}
-          #new_sorter_form
-            = render :partial => "queries/query_sorter_form", :locals => {:exclude_category => "organisation"}
-          %br.clear
-
-      .container
-        #extra_form
-          = render :partial => "queries/query_extra_attribute"
-
-            
-
-    #right
-      #new_query_list
-        = render :partial => "queries/query_criteria_list"
-      #new_selection_list
-        = render :partial => "queries/query_selection_list"
-      #new_sorter_list
-        = render :partial => "queries/query_sorter_list"
+#header
+  #page_title
+    %h1 New Query
+    #lol
     %br.clear
-    #query_options
-      = render :partial => "queries/new_query_options"
-    
-#save_form{:style => "display:none;"}
-  = render :partial => "queries/new_query_header"
+.tab_switch.alert_with_link_container{:style => "margin-left:15px;"}
+  .tab_switch_left.active.left{:field =>"review_page"}
+  .container_icon.active.left{:align => 'center'}
+    = link_to "<h1>Person</h1>", new_query_headers_path()
+  .tab_switch_right.active.left{:field =>"review_page"}
 
-#sql_div{:style => "display:none;"}
-  #sql_statement
+  .tab_switch_left.left{:field =>"review_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to "<h1>Organisation</h1>", org_new_query_headers_path()
+  .tab_switch_right.left{:field =>"review_page"}
+.full_container
+  #new_query
+    #new_form
+      %input{:style => "display:none", :id => "query_detail_mode", :mode => "show"}
+      #left
+        .container
+          #criteria_form{:class => "toggle_button2", :toggle_id_name => "new_criteria", :toggle_id_name1 => "new_selection", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+            .options
+              = image_tag('Icons/System/collapse.png')
+            %h1 Criteria Attributes
+          #new_criteria
+            #new_query_form
+              = render :partial => "queries/new_query_criteria_form", :locals => {:exclude_category => "organisation"}
 
-#result_div{:style => "display:none;"}
-  #sql_result
+        .container
+          #display_form{:class => "toggle_button2", :toggle_id_name => "new_selection", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+            .options
+              = image_tag('Icons/System/expand.png')
+            %h1 Display Attributes
+          #new_selection{:style => "display:none"}
+            #new_selection_form
+              = render :partial => "queries/query_selection_form", :locals => {:exclude_category => "organisation"}
+            %br.clear
 
-#runtime_form{:style => "display:none;"}
+        .container
+          #sort_form{:class => "toggle_button2", :toggle_id_name => "new_sorter", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_selection", :style => "cursor:pointer;cursor:hand"}
+            .options
+              = image_tag('Icons/System/expand.png')
+            %h1 Sorting Attributes
+          #new_sorter{:style => "display:none"}
+            #new_sorter_form
+              = render :partial => "queries/query_sorter_form", :locals => {:exclude_category => "organisation"}
+            %br.clear
+
+        .container
+          #extra_form
+            = render :partial => "queries/query_extra_attribute"
+
+
+
+      #right
+        #new_query_list
+          = render :partial => "queries/query_criteria_list"
+        #new_selection_list
+          = render :partial => "queries/query_selection_list"
+        #new_sorter_list
+          = render :partial => "queries/query_sorter_list"
+      %br.clear
+      #query_options
+        = render :partial => "queries/new_query_options"
+
+  #save_form{:style => "display:none;"}
+    = render :partial => "queries/new_query_header"
+
+  #sql_div{:style => "display:none;text-align:left;"}
+    #sql_statement
+
+  #result_div{:style => "display:none;"}
+    #sql_result
+
+  #runtime_form{:style => "display:none;"}

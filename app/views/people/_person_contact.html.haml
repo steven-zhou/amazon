@@ -9,10 +9,8 @@
             %div
               .title
                 %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
-            %div{:style => "float:right;"}
+            %div{:style => "float:right;text-align:right;"}
               = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
-              %br
-              = person_contact.remarks
 
   -if !@person.emails.blank?
     .container
@@ -23,10 +21,9 @@
             %div
               .title
                 %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
-            %div{:style => "float:right;"}
-              = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
-              %br
-              = person_contact.remarks
+            %div{:style => "float:right;text-align:right;"}
+              %a{:href => "mailto:#{person_contact.value}", :class => "alt_link"}
+                = person_contact.value
 
   -if !@person.websites.blank?
     .container
@@ -37,10 +34,9 @@
             %div
               .title
                 %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
-            %div{:style => "float:right;"}
-              = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
-              %br
-              = person_contact.remarks
+            %div{:style => "float:right;text-align:right;"}
+              %a{:href => "http://#{person_contact.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+                = person_contact.value
 
   -if !@person.instant_messagings.blank?
     .container
@@ -51,10 +47,8 @@
             %div
               .title
                 %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
-            %div{:style => "float:right;"}
+            %div{:style => "float:right;text-align:right;"}
               = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
-              %br
-              = person_contact.remarks
 -else
   .no_record
     %h1 No Record

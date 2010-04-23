@@ -1,0 +1,94 @@
+-# locals => {:entity_type, :entity_id, :start_date, :end_date}
+.full_container
+  %h2 Deposits
+
+  %table#show_deposit_histroy_grid.selectable_grid{:db_click_function => 'true', :field => 'histroy', :db_show => 'true', :db_click_url => "/deposits/"}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_deposit_histroy_grid").flexigrid({
+  url: '/grids/show_deposit_histroy_grid?entity_id=#{entity_id}&entity_type=#{entity_type}&start_date=#{start_date}&end_date=#{end_date}',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'deposits.id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Deposit Date',
+  name : 'deposit_date',
+  width : 90,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Deposit Bank Account',
+  name : 'bank_accounts.account_number',
+  width : 110,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Method Type',
+  name : 'tag_types.name',
+  width : 110,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Method',
+  name : 'tags.name',
+  width : 80,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Notes',
+  name : 'notes',
+  width : 160,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Total Amount',
+  name : 'total_amount',
+  width : 70,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  searchitems : [
+
+  {
+  display: 'Receipt Method Type',
+  name : 'tag_types.name'
+  },
+
+  {
+  display: 'Receipt Method',
+  name : 'tags.name'
+  },
+
+  {
+  display: 'Notes',
+  name : 'notes'
+  }
+  ],
+  sortname: "deposits.id",
+  sortorder: "asc",
+  usepager: true,
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });

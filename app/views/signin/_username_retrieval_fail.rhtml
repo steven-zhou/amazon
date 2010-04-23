@@ -31,7 +31,8 @@
   <%- else %>
     <script type="text/javascript">
 
-      $('#username_retrieval_answers_incorrect').dialog( {
+      $('#username_retrieval_answers_incorrect2').dialog( {
+      
         modal: true,
         resizable: false,
         draggable :true,
@@ -41,39 +42,38 @@
           "OK": function(){
 
             $(this).dialog('destroy');
-            return true;
+             $('#username_retrieval_answers_incorrect2').remove();
+      
           }
         }
 
       });
 
-      $('#username_retrieval_answers_incorrect').dialog('option', 'title', 'ERROR');
-      $('#username_retrieval_answers_incorrect').parent().find("a").css("display","none");
-      $("#username_retrieval_answers_incorrect").parent().css('background-color','#D1DDE6');
-      $("#username_retrieval_answers_incorrect").css('background-color','#D1DDE6');
-      $('#username_retrieval_answers_incorrect').dialog('open');
+      $('#username_retrieval_answers_incorrect2').dialog('option', 'title', 'ERROR');
+      $('#username_retrieval_answers_incorrect2').parent().find("a").css("display","none");
+      $("#username_retrieval_answers_incorrect2").parent().css('background-color','#D1DDE6');
+      $("#username_retrieval_answers_incorrect2").css('background-color','#D1DDE6');
+      $('#username_retrieval_answers_incorrect2').dialog('open');
+     
 
     </script>
-    <div style="display:none;" id="username_retrieval_answers_incorrect">The answers you supplied were incorrect. You are allowed a limited number of attempts before your account will be locked.</div>
+    <div style="display:none;" id="username_retrieval_answers_incorrect2">The answers you supplied were incorrect. You are allowed a limited number of attempts before your account will be locked.</div>
     <% form_tag("/signin/username_retrieval_request", :class => "ajax_form") do -%>
       <input type="hidden" name="username_retrieval_email_address" value="<%= h @login_account.security_email %>" />
       <p>Please answer the following security questions:</p>
       <table>
         <tr style="width:180px;">
-          <td><label><%= @login_account.security_question_1.name %></label>
-          <%= text_field :username_retrieval_answer_1, nil %></td>
+          <td><label><%= @login_account.security_question1 %></label>
+            <%= text_field :username_retrieval_answer_1, nil %></td>
         </tr>
         <tr style="width:180px;">
-          <td><label><%= @login_account.security_question_2.name %></label>
-          <%= text_field :username_retrieval_answer_2, nil %></td>
+          <td><label><%= @login_account.security_question2 %></label>
+            <%= text_field :username_retrieval_answer_2, nil %></td>
         </tr>
-        <tr style="width:180px;">
-          <td><label><%= @login_account.security_question_3.name %></label>
-          <%= text_field :username_retrieval_answer_3, nil %></td>
-        </tr >
+
         <tr style="width:180px;">
           <td><%= submit_tag("Submit") %></td>
-        </tr style="width:180px;">
+        </tr>
       </table>
     <% end  -%>
 

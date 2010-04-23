@@ -1,0 +1,20 @@
+.right
+  =link_to_function image_tag('Icons/Core/grid.png'), :class => "show_album", :page_show => "grid", :url => "/people/show_grid"
+%br.clear
+%div.container{:style => "height:445px;overflow:auto;"}
+
+ 
+
+  %div#album{:style => "margin: 5px auto;float:left;width:100%;"}
+    =render :partial => "/tests/album_wall"
+  %br.clear
+
+
+%div#album_control_panel
+  .container{:style => "height:45px;display:none;",:id => "quick_search_bar"}
+    %div#album_search{:style => "margin:auto 12px;"}
+      = render :partial => "tests/album_search"
+  .container{:style => "height:40px;"}
+    %div#album_footer{:style => "margin:auto 12px;"}
+      =render :partial => "tests/album_footer"
+

@@ -1,0 +1,4 @@
+$('#existing_extensions').html('<%= escape_javascript(render(:partial => "/entity_receipts/existing_extensions")) %>');
+$("#total_amount_value").html('<%= escape_javascript("#{number_to_currency(@deposit.total_amount)}")%>');
+$('#new_receipt').hide();
+enable_form_after_submit_finish();

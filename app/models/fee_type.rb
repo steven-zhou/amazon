@@ -3,11 +3,9 @@ class FeeType < Tag
   acts_as_list
 
   belongs_to :fee_meta_type, :class_name => "FeeMetaType", :foreign_key => "tag_type_id"
-  #has_many :groups, :class_name => "Group", :foreign_key => "group_type_id"
 
-  validates_presence_of :name
-  validates_uniqueness_of :name, :scope => :tag_type_id, :message => "A fee type already exists with the same name."
-
+  named_scope :subscription_fee, :conditions => {:category => "subscription"}
+  default_scope :order => "name ASC"
   after_create :assign_priority
   before_destroy :reorder_priority
 

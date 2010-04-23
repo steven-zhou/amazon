@@ -6,6 +6,7 @@ class TagsController < ApplicationController
     @tag_type = (params[:tag]+"MetaType").camelize.constantize.find(params[:tag_type_id])
     @tag_meta_type = @tag_type.tag_meta_type
     @tags = @tag_type.tags
+    @category = params[:tag]
     respond_to do |format|
       format.js
     end
@@ -30,6 +31,7 @@ class TagsController < ApplicationController
     @tag_type = @tag.tag_type
     @tag_meta_type = @tag_type.tag_meta_type
     @tags = @tag_type.tags
+    @category = @tag.class.to_s.sub(/Type/,'')
     respond_to do |format|
       format.js
     end
@@ -75,7 +77,7 @@ class TagsController < ApplicationController
   def destroy
     @tag = Tag.find(params[:id])
     @tag_type = @tag.tag_type
-
+    @category = @tag.class.to_s.sub(/Type/,'')
     #    @tag.destroy
     @tag.to_be_removed = true
     @tag.save
@@ -175,7 +177,7 @@ class TagsController < ApplicationController
 
    def retrieve
     @tag = Tag.find(params[:id])
-
+    @category = @tag.class.to_s.sub(/Type/,'')
     @tag_type = @tag.tag_type
     @tag.to_be_removed = false
     @tag.save

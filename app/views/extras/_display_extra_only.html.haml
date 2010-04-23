@@ -1,0 +1,32 @@
+-# :locals => {:extra => extra, :group => group}
+- i = 1
+- @extra_types.each do |group|
+  .container
+    .toggle_div{:toggle_id_name => "extra_div_#{i}", :style => "cursor: pointer;", :id => "div_#{i}", :expand_with_arrow => "true"}
+      .options{:style=>"float:right"}
+        = image_tag('Icons/System/expand.png')
+      .title
+        %h1
+          = group.name
+      %br.clear
+    %div{:id => "extra_div_#{i}", :style => "display:none;"}
+      - extra = Extra.find_extra(group.id, @entity)
+
+      .toggle_options{:field => "extra"}
+        .title
+          %h1
+        .options
+
+        %br{ :style=>"clear: both;"}
+
+        - j = 1
+        - group.extra_types.each do |label|
+          .field_40{:style => "width:45%;float:left;"}
+            %label{:style => "margin-top:3px;"} #{label.name}:
+            .display_field_bg
+              - field = "label#{j}_value"
+              = extra.try(field.to_sym)
+          - j = j + 1
+  - i = i + 1
+
+

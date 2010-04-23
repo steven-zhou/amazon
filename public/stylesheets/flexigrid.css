@@ -560,11 +560,11 @@ div.colCopy {
 
 .flexigrid tr.trEdited td
 {
-  background: #c7b2b2 repeat-x top !important;
+  background: RGB(255,232,217) repeat-x top !important;
   border-right: 1px solid #d2e3ec;
   border-left: 1px solid #eef8ff;
   border-bottom: 1px solid #a8d8eb;
-  background-color: #c7b2b2;
+  background-color: RGB(255,232,217);
 }
 
 /* novstripe adjustments */

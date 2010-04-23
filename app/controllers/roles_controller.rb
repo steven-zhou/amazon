@@ -134,10 +134,13 @@ class RolesController < ApplicationController
 
   def update
     @role = Role.find(params[:id].to_i)
-    if @role.update_attributes(params[:role])
+    @role.update_attributes(params[:role])
+    if @role.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Role #{@role.id}.")
       @role_type = @role.role_type
       @roles = @role_type.roles
+    else
+     flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Role")
     end
     @role_type_id = @role.role_type_id
     respond_to do |format|

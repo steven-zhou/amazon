@@ -1,0 +1,12 @@
+#header
+  #page_title
+    %h1 Life Management
+  #lol
+    %br.clear
+
+%input.hidden{:id => "life_mode", :mode => "show"}
+
+#life_page_filter
+  -form_tag("/membership/membership_filter?state=life", {:class => "ajax_form"}) do
+    = render :partial => "/membership/filter_form"
+.container#life_grid{:style=>"display:none"}

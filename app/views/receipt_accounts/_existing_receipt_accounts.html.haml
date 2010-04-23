@@ -5,208 +5,139 @@
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
-    delete_receipt_account = function(){
-    var trSelected = $("#show_receipt_accounts_grid tr.trSelected").attr('id');
-    var id = "";
-    if ($('#receipt_account_mode').attr("mode") == "show"){
-    if (trSelected != undefined)  {
-      id = trSelected.substring(3);
-      $("#warning_message_text").html("Are you sure you wish to delete this receipt account?");
-      $("#warning_message").dialog({
-        modal:false,
-        resizable:false,
-        draggable:false,
-        height: 'auto',
-        width: 'auto',
-        buttons:{
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_receipt_accounts_grid tr.trSelected").attr('id'),"#receipt_account_mode","get","/receipt_accounts/destroy_receipt_account/");
+    };
 
-        NO: function(){
-          $(this).dialog("destroy");
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_receipt_accounts_grid tr.trSelected").attr('id'),"#receipt_account_mode","get","/receipt_accounts/retrieve_receipt_account/");
+    };
 
-        },
+    $("#show_receipt_accounts_grid").flexigrid({
+    url: '/grids/show_receipt_accounts_grid',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
 
-        Yes: function(){
+    {
+    display: 'Name',
+    name : 'receipt_accounts.name',
+    width : 130,
+    sortable : true,
+    align: 'left'
+    },
 
-          $.ajax({
-                      type: "get",
-                      url: "/receipt_accounts/destroy_receipt_account/"+id+".js",
-                      dataType: "script"
-                  });
-                  $(this).dialog('destroy');
-                  return true;
+    {
+    display: 'Description',
+    name : 'description',
+    width : 150,
+    sortable : true,
+    align: 'left'
 
-              }
-              }
+    },
+    {
+    display: 'Receipt Account Type',
+    name : 'receipt_account_type_id',
+    width : 110,
+    sortable : true,
+    align: 'left'
 
-          });
-        }else{
-          $('#warning_message_text').html("Please select the record you want to delete");
-          $('#warning_message').dialog({
-              modal: true,
-              resizable: false,
-              draggable: true,
-              height: 'auto',
-              width: 'auto',
-              buttons: {
-                  Ok: function(){
-                      $(this).dialog('destroy');
-                      return false;
-                  }
-              }
+    },
 
-          });
-      }
-      $('#warning_message_image').css("display","");
-      $('#warning_message').dialog('option', 'title', 'Warning');
-      $('#warning_message').parent().find("a").css("display","none");
-      $("#warning_message").parent().css('background-color','#D1DDE6');
-      $("#warning_message").css('background-color','#D1DDE6');
-      $('#warning_message').dialog('open');
-      return false;
-      };
-      };
+    {
+    display: 'Link Module',
+    name : 'amazon_settings.name',
+    width : 80,
+    sortable : true,
+    align: 'left'
+    },
 
-       retrieve_receipt_account = function(){
-        var trSelected = $("#show_receipt_accounts_grid tr.trSelected").attr('id');
-        var id = "";
-        if ($('#receipt_account_mode').attr("mode") == "show"){
-        if (trSelected != undefined)  {
-          id = trSelected.substring(3);
-          $.ajax({
-                          type: "get",
-                          url: "/receipt_accounts/retrieve_receipt_account/"+id+".js",
-                          dataType: "script"
-                      });
-                      $(this).dialog('destroy');
-                      return true;
+    {
+    display: 'Post to History',
+    name : 'post_to_history',
+    width : 80,
+    sortable : true,
+    align: 'left'
+    },
 
-                  }
-              }
-          };
+    {
+    display: 'Post to Campaign',
+    name : 'post_to_campaign',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
 
+    {
+    display: 'Send Receipt',
+    name : 'send_receipt',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
 
+    {
+    display: 'Status',
+    name : 'status',
+    width : 50,
+    sortable : true,
+    align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+    display: 'Name',
+    name : 'receipt_accounts.name'
+    },
 
+    {
+    display: 'Description',
+    name : 'description'
 
-%script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_receipt_accounts_grid").flexigrid({
-  url: '/grids/show_receipt_accounts_grid',
-  dataType: 'json',
-  colModel : [
-  {
-  display: 'ID',
-  name : 'id',
-  width : 40,
-  sortable : true,
-  align: 'left'
-  },
+    },
 
-  {
-  display: 'Name',
-  name : 'receipt_accounts.name',
-  width : 130,
-  sortable : true,
-  align: 'left'
-  },
+    {
+    display: 'Link Module',
+    name : 'amazon_settings.name'
+    },
 
-  {
-  display: 'Description',
-  name : 'description',
-  width : 250,
-  sortable : true,
-  align: 'left'
+    {
+    display: 'Post to History',
+    name : 'post_to_history'
+    },
 
-  },
+    {
+    display: 'Post to Campaign',
+    name : 'post_to_campaign'
+    },
 
-  {
-  display: 'Link Module',
-  name : 'amazon_settings.name',
-  width : 130,
-  sortable : true,
-  align: 'left'
-  },
+    {
+    display: 'Send Receipt',
+    name : 'receipt'
+    },
 
-  {
-  display: 'Post to History',
-  name : 'post_to_history',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  },
+    {
+    display: 'Status',
+    name : 'status'
+    }
+    ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+            {name: '', bclass: 'get retrieve_button_on_grid', onpress : retrieve_from_a_grid}
+        ],
+    sortname: "receipt_accounts.id",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });
 
-  {
-  display: 'Post to Campaign',
-  name : 'post_to_campaign',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Send Receipt',
-  name : 'send_receipt',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Status',
-  name : 'status',
-  width : 70,
-  sortable : true,
-  align: 'left'
-  }
-  ],
-
-  buttons : [
-  {name: 'Delete', bclass: 'delete', onpress: delete_receipt_account},
-  {name: 'Retrieve', bclass: 'retrieve', onpress: retrieve_receipt_account}
-  ],
-  searchitems : [
-  {
-  display: 'Name',
-  name : 'receipt_accounts.name'
-  },
-
-  {
-  display: 'Description',
-  name : 'description'
-
-  },
-
-  {
-  display: 'Link Module',
-  name : 'amazon_settings.name'
-  },
-
-  {
-  display: 'Post to History',
-  name : 'post_to_history'
-  },
-
-  {
-  display: 'Post to Campaign',
-  name : 'post_to_campaign'
-  },
-
-  {
-  display: 'Send Receipt',
-  name : 'receipt'
-  },
-
-  {
-  display: 'Status',
-  name : 'status'
-  }
-  ],
-  sortname: "receipt_accounts.id",
-  sortorder: "asc",
-  usepager: true,
-  useRp: true,
-  rp: 20,
-  showTableToggleBtn: false,
-  width: 'auto',
-  height: 'auto'
-  });
-
- 

@@ -13,6 +13,7 @@ class AdministrationsController < ApplicationController
 
 
   def keyword_dict
+
     respond_to do |format|
       format.html
     end
@@ -77,6 +78,22 @@ class AdministrationsController < ApplicationController
   def contact_types
     @tag_meta_types = ContactMetaMetaType.all
     @category = "Contact"
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def payment_methods
+    @tag_meta_types = PaymentMethodMetaMetaType.all
+    @category = "PaymentMethod"
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def fee_types
+    @tag_meta_types = SubscriptionFeeMetaMetaType.all
+    @category = "SubscriptionFee"
     respond_to do |format|
       format.html
     end
@@ -158,6 +175,21 @@ class AdministrationsController < ApplicationController
   def user_lists
     @login_accounts = SystemUser.all
     respond_to do |format|
+      format.html
+    end
+  end
+
+  def tax_items
+    @tax_items = TaxItem.all
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def extra_custom_field
+    @tag_meta_type = ExtraMetaMetaType.extra_custom_field
+    @category = "Extra"
+      respond_to do |format|
       format.html
     end
   end

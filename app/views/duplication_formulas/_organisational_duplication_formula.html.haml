@@ -10,10 +10,6 @@
     - organisational_descriptions += "<label class='descriptions_organisational_duplication' id='description_organisational_duplication_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>"
 
 .full_container.duplication_check{:style => "width:98%;padding:1%;"}
-  -#= button_to_function "Re-generate Duplication Value", :id => "generate_organisational_duplication", :style => "float:right;"
-  -#= button_to_function "Load Default Setting", :id => "load_organisational_duplication", :style => "float:right;"
-  %h1 Organisational Duplication Formula
-
 
   #formular_form.full_container
     -form_for @organisational_duplication_formula, :html => {:class => 'ajax_form', :id => "organisational_duplication_form", :style => "margin-bottom:40px;"} do |f|

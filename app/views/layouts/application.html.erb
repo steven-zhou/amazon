@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MemberZone Version 1.0 - The Community Social Solution</title>
+    <title>EmZee Version 1.1 - The Community Social Solution</title>
     <style type="text/css">
       div.nicEdit-main
       {
@@ -10,27 +10,26 @@
         width:500px !important;
       }
     </style>
-
-
-    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword", :cache => "common"%>
-
-    <%= yield_authenticity_token %>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("jquery","1.3.2");
-      google.load("jqueryui","1.7.1");
+    <script language="JavaScript" type="text/javascript">
+      function noBack(){window.history.forward()}
+      noBack();
+      window.onload=noBack;
+      window.onpageshow=function(evt){if(evt.persisted)noBack()}
+      window.onunload=function(){void(0)}
     </script>
-
-
-    <%= javascript_include_tag  "flexigrid.js",
+    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword","jquery.lightbox-0.5", :cache => "common"%>
+    <%= yield_authenticity_token %>
+    <%= javascript_include_tag  "jquery.js", "jquery-ui-1.7.1.custom.min.js", "typewatch.js",
+      "flexigrid.js",
       "/javascripts/tiny_mce/tiny_mce.js",
       "jquery-tinymce.js",
       "application.js",
       "jquery.form.js",
       "jquery.validationEngine.js",
       "nicEdit.js",
+      "jquery.pstrength-min.1.2.js",
+      "jquery.lightbox-0.5",
       "jquery.jpassword.js"%>
-
     <%- if session[:module] == "dashboard" %>
       <%= stylesheet_link_tag "portlets" %>
       <%= javascript_include_tag  "config.js","interface.js"%>
@@ -48,13 +47,16 @@
     <%- if session[:module] == "receipting" %>
       <%= javascript_include_tag  "receipting.js"%>
     <%- end%>
-
+    <%- if session[:module] == "membership" %>
+      <%= stylesheet_link_tag "checkbox" %>
+      <%= javascript_include_tag  "membership.js","iphone-style-checkboxes.js"%>
+    <%- end%>
   </head>
 
   <body>
     <div id="app"><!--interface wrapper-->
 
-<%= render(:partial => "/shared/flash_messages") %>
+      <%= render(:partial => "/shared/flash_messages") %>
       <div id="lc"><!--left collumn, menu area-->
         <%= render(:partial => "/shared/menu") %>
       </div>
@@ -66,6 +68,11 @@
         </div>
         <br style="clear: both;"/>
       </div>
+      <br style="clear: both;"/>
+    </div>
+
+    <div id ="footer" class="footer">
+      <span>Powered by: <%=image_tag('memberzone_footer.png')%>  &nbsp;&nbsp; Licensed to: Demostration Server   </span>
     </div>
 
     <!-- Feedback form used throughout the system -->
@@ -75,3 +82,5 @@
     <div id="feedback_confirmation"></div>
   </body>
 </html>
+
+

@@ -15,8 +15,6 @@
                   %h2= "#{organisation_contact.contact_meta_type.name} "
                 %div{:style => "float:right;"}
                   = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
-                %br
-                  = organisation_contact.remarks
 
     -if !@organisation.emails.blank?
       .container
@@ -28,9 +26,8 @@
                 .title
                   %h2= "#{organisation_contact.contact_meta_type.name} "
                 %div{:style => "float:right;"}
-                  = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
-                %br
-                  = organisation_contact.remarks
+                  %a{:href => "mailto:#{organisation_contact.value}", :class => "alt_link"}
+                    = organisation_contact.value
 
 
     -if !@organisation.websites.blank?
@@ -43,9 +40,8 @@
                 .title
                   %h2= "#{organisation_contact.contact_meta_type.name} "
                 %div{:style => "float:right;"}
-                  = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
-                %br
-                  = organisation_contact.remarks
+                  %a{:href => "http://#{organisation_contact.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+                    = organisation_contact.value
 
     -if !@organisation.instant_messagings.blank?
       .container
@@ -58,8 +54,6 @@
                   %h2= "#{organisation_contact.contact_meta_type.name} "
                 %div{:style => "float:right;"}
                   = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
-                %br
-                  = organisation_contact.remarks
   -else
     .no_record
       %h1 No Record

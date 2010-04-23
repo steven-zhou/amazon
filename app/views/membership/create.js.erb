@@ -1,0 +1,60 @@
+<%-if flash[:error].nil?%>
+  <%-if @auto_approve%>
+    $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+    $('#payment_detail').html('<%= escape_javascript(render(:partial => "/membership_fees/membership_fee_page")) %>').show();
+    $('#initiator').hide();
+    $('#new_membership_submit').hide();
+    $('#histroy').html('<%= escape_javascript(render(:partial => "/membership/display_membership_histroy")) %>');
+
+
+  <%- else %>
+    $('#flash_feedback').html('<%=escape_javascript(flash[:message])%>');
+    $('#flash_feedback').fadeIn("slow");
+    $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+    $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+    $('#initiator').html('<%= escape_javascript(render(:partial => "/membership/initiator_form")) %>');
+    $("#membership_person_id").val("");
+    $('#membership_mode').attr('mode', 'show');
+  <%- end %>
+
+  <%- unless flash[:confirmation].nil? %>
+    $("#confirm_message_text").html("<%= escape_javascript(flash[:confirmation]) %>").css("padding-top", "32px");
+    $("#confirm_message_image").css("display", "");
+    $("#confirm_message").dialog({
+    modal: true,
+    resizable: false,
+    draggable: true,
+    height: 'auto',
+    width: 600,
+    buttons:{
+    Ok: function() {
+    $(this).dialog('destroy');
+    }
+    }
+    });
+  <%- end %>
+
+<%- else %>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'ERROR');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+
+<%- end %>
+enable_form_after_submit_finish();
+$('#new_membership_submit').attr('disabled', true);
+datapick_config();

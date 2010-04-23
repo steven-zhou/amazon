@@ -3,7 +3,7 @@ require 'capistrano/ext/multistage'
 set :scm, :git
 set :deploy_via, :remote_cache
 # set :deploy_via, :export
-# set :deploy_via, :copy
+#set :deploy_via, :copy
 set :copy_strategy, :export
 set :copy_exclude, [".git/*", ".svn/*"]
 set :user, :rails

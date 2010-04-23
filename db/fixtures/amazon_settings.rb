@@ -1,9 +1,21 @@
 puts "Initializing Amazon Setting"
 Title.create :name => "Mr", :status => true,:to_be_removed =>false
-Title.create :name => "Mrs", :status => true,:to_be_removed =>false
 Title.create :name => "Ms", :status => true,:to_be_removed =>false
+Title.create :name => "Mrs", :status => true,:to_be_removed =>false
+Title.create :name => "Miss", :status => true,:to_be_removed =>false
+Title.create :name => "Master", :status => true,:to_be_removed =>false
+Title.create :name => "Madam", :status => true,:to_be_removed =>false
+Title.create :name => "Lady", :status => true,:to_be_removed =>false
+Title.create :name => "Lord", :status => true,:to_be_removed =>false
+Title.create :name => "Sir", :status => true,:to_be_removed =>false
 Title.create :name => "Dr", :status => true,:to_be_removed =>false
 Title.create :name => "Professor", :status => true,:to_be_removed =>false
+Title.create :name => "Associate Professor", :status => true,:to_be_removed =>false
+Title.create :name => "Reverent", :status => true,:to_be_removed =>false
+Title.create :name => "Bishop", :status => true,:to_be_removed =>false
+Title.create :name => "Earl", :status => true,:to_be_removed =>false
+Title.create :name => "Countess", :status => true,:to_be_removed =>false
+Title.create :name => "Capt", :status => true,:to_be_removed =>false
 Gender.create :name => "Male", :status => true,:to_be_removed =>false
 Gender.create :name => "Female", :status => true,:to_be_removed =>false
 Religion.create :name => "Christianity", :status => true,:to_be_removed =>false
@@ -21,11 +33,10 @@ Language.create :name => "Arabic", :status => true,:to_be_removed =>false
 Language.create :name => "Chinese", :status => true,:to_be_removed =>false
 IndustrySector.create :name => "Goverment", :description => "1", :status => true,:to_be_removed =>false
 IndustrySector.create :name => "Private", :description => "2", :status => true,:to_be_removed =>false
-AddressType.create :name => "Home", :status => true,:to_be_removed =>false
 AddressType.create :name => "Business", :status => true,:to_be_removed =>false
-AddressType.create :name => "Mail", :status => true,:to_be_removed =>false
-AddressType.create :name => "Holiday", :status => true,:to_be_removed =>false
-AddressType.create :name => "Overseas", :status => true,:to_be_removed =>false
+AddressType.create :name => "Private", :status => true,:to_be_removed =>false
+AddressType.create :name => "Postal", :status => true,:to_be_removed =>false
+AddressType.create :name => "Delivery", :status => true,:to_be_removed =>false
 NoteType.create :name => "Business", :status => true,:to_be_removed =>false
 NoteType.create :name => "Personal", :status => true,:to_be_removed =>false
 NoteType.create :name => "ToDo", :status => true,:to_be_removed =>false
@@ -86,9 +97,9 @@ TerminationMethod.create :name => "By consent", :status => true,:to_be_removed =
 TerminationMethod.create :name => "By notice", :status => true,:to_be_removed =>false
 OrganisationType.create :name => "Public", :status => true,:to_be_removed =>false
 OrganisationType.create :name => "Pty Ltd", :status => true,:to_be_removed =>false
-SecurityQuestion.create :name => "What is your favorite pet's name?", :status => true,:to_be_removed =>false
-SecurityQuestion.create :name => "What is your father's name?", :status => true,:to_be_removed =>false
-SecurityQuestion.create :name => "What is your mother's name?", :status => true,:to_be_removed =>false
+#SecurityQuestion.create :name => "What is your favorite pet's name?", :status => true,:to_be_removed =>false
+#SecurityQuestion.create :name => "What is your father's name?", :status => true,:to_be_removed =>false
+#SecurityQuestion.create :name => "What is your mother's name?", :status => true,:to_be_removed =>false
 BusinessCategory.create :name => "Sales", :description => "10", :status => true,:to_be_removed =>false
 BusinessCategory.create :name => "Wholesaler", :description => "11", :status => true,:to_be_removed =>false
 BusinessCategory.create :name => "Service", :description => "12", :status => true,:to_be_removed =>false
@@ -109,6 +120,14 @@ LinkModule.create(:name => "Miscellaneous", :status => true,:to_be_removed =>fal
 ReceivedVia.create(:name => "Phone", :status => true,:to_be_removed =>false)
 ReceivedVia.create(:name => "Internet", :status => true,:to_be_removed =>false)
 ReceivedVia.create(:name => "Fax", :status => true,:to_be_removed =>false)
-MailMergeCategory.create(:name => "All", :status => true,:to_be_removed =>false)
+TemplateCategory.create(:name => "Others", :status => true,:to_be_removed =>false, :description => "can not be deleted")
+TemplateCategory.create(:name => "Membership", :status => true,:to_be_removed =>false)
 MembershipType.create(:name => "Full Member", :status => true,:to_be_removed =>false)
-MembershipStatus.create(:name => "Financial", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "Prospective", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "In-review", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "Rejected", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "Active", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "Suspended", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "Terminated", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "Archived", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "Removed", :status => true,:to_be_removed =>false)

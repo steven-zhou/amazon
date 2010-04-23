@@ -1,0 +1,39 @@
+.right{:style => "margin-bottom:3px;"}
+  =link_to_function image_tag('Icons/Core/album.png'), :class => "show_album", :page_show => "album", :page => 1 ,:url => "/grids/show_list_grid",:prev => "grid"
+%br.clear
+%table#search_list_results{:current_operation => "#{session[:current_operation]}",:active_tab =>"#{session[:active_tab]}",:active_sub_tab => "#{session[:active_sub_tab]}"}
+
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $("#search_list_results").flexigrid(
+    {
+    url: '/grids/show_list_grid',
+    dataType: 'json',
+    colModel : [
+    {display: 'ID', name : 'id', width : 40, sortable : true, align: 'left'},
+    {display: 'First Name', name : 'first_name', width : 55, sortable : true, align: 'left'},
+    {display: 'Family Name', name : 'family_name', width : 165, sortable : true, align: 'left'},
+
+    {display: 'Phone', name : 'primary_phone_num', width : 150, sortable : true, align: 'left'},
+    {display: 'Email', name : 'primary_email_address', width : 140, sortable : true, align: 'left'}
+
+    ],
+    searchitems : [
+    {display: 'First Name', name : 'first_name'},
+    {display: 'Family Name', name : 'family_name'},
+
+    {display: 'Phone', name : 'primary_phone_num'},
+    {display: 'Email', name : 'primary_email_address'}
+
+    ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp:true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

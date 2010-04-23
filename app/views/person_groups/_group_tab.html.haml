@@ -5,7 +5,7 @@
   .title
     = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"new_option toggle_button", :field => "person_group", :toggle_id_name => "new_group"  if (!person.nil? && !person.new_record?)
     &nbsp
-  %h1 New Group
+  %h1 Assign To
   %input.hidden{:id => "person_group_mode", :mode => "show"}
 
   .div{:style=>"display:none", :id => "new_group",:name => "new_group"}

@@ -1,6 +1,4 @@
 var target_form = $("#<%=escape_javascript(@current_action)%> form");
-  
-  
 <% unless flash[:error].nil? %>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_message').dialog( {
@@ -31,4 +29,9 @@ var target_form = $("#<%=escape_javascript(@current_action)%> form");
   $('#flash_feedback').fadeIn("slow");
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
   enable_form_after_submit_finish_extension(target_form.attr('id'), true);
+  $('.password_check').html('');
+$('#new_password_text').html('');
 <%end%>
+$(function(){
+$('.password').pstrength();
+});

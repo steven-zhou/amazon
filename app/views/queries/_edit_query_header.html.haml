@@ -1,4 +1,4 @@
-.container.single_container
+.full_container.single_container
   -form_for @query_header, :url => query_header_path(@query_header),:html => {:class => 'ajax_form', :id => "edit_query_header"} do |f|
     .form_line
       .field_25
@@ -13,4 +13,4 @@
       -#.field_10
       -#  = f.label :status, '&nbsp'
       -#  = f.label :status, 'Active', :style =>"margin-top:7px;"
-      %br.clear
+      

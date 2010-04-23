@@ -1,10 +1,14 @@
 /show organisation notes details
 - if !@organisation.sorted_notes.blank?
+
   .title
     %h1 Note Details
   %br.clear
-
-  %table#show_notes_grid{:class => "selectable_grid", :db_click_function => "false", :db_click_url => "/notes/",:edit=>"false"}
+  %input.hidden{:id => "note_mode", :mode => "show"}
+  %table#show_notes_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/notes/show_note/",:db_show=>"true",:field=>"note"}
+  %br
+  #show_person_note{:class => "header_container", :style => "display:none;"}
+    =render :partial => 'show_note_in_profile'
 - else
   .no_record
     %h1 No Record
@@ -23,23 +27,20 @@
       sortable : true,
       align: 'left'
       },
-
+      {
+      display: 'Type',
+      name : 'amazon_settings.name',
+      width : 60,
+      sortable : true,
+      align: 'left'
+      },
       {
       display: 'Label',
       name : 'label',
-      width : 40,
+      width : 60,
       sortable : true,
       align: 'left'
       },
-
-      {
-      display: 'Short Description',
-      name : 'short_description',
-      width : 80,
-      sortable : true,
-      align: 'left'
-      },
-
       {
       display: 'Body Text',
       name : 'body_text',
@@ -62,8 +63,8 @@
       },
 
       {
-      display: 'Short Description',
-      name : 'short_description'
+      display: 'Type',
+      name : 'amazon_settings.name'
       },
 
       {
@@ -78,7 +79,6 @@
       sortname: "id",
       sortorder: "asc",
       usepager: true,
-
       useRp: true,
       rp: 20,
       showTableToggleBtn: false,

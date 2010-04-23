@@ -1,0 +1,35 @@
+
+-form_tag("/message_templates/mail_document_filter", {:class => "ajax_form", :id => "mail_document_filter_form"}) do
+  .full_container
+    %h2 Person Mail Documents Filter
+    .form_line
+      .field_25
+        %label User Name
+        %input{:id => "mail_document_filter_user_name",:value => "#{@current_user.user_name}",:name => "mail_document_filter[user_name]"}
+      .field_25
+        %label Start Date
+        %input{:class => "startdatepick",:id => "mail_document_filter_start_date",:end_date => "mail_document_filter_end_date", :value => "01-01-1900", :name => "mail_document_filter[start_date]"}
+      .field_25
+        %label End Date
+        %input{:class => "enddatepick",:id => "mail_document_filter_end_date",:start_date => "mail_document_filter_start_date", :value => "31-12-3000", :name => "mail_document_filter[end_date]"}
+      .field_25.hidden
+        %input{:id => "mail_document_filter_type",:value => "person",:name => "mail_document_filter[type]"}
+      .field_15
+        %label &nbsp
+        =submit_tag 'Submit', :id => "mail_document_submit"
+
+#current_user_document
+  -#.full_container
+    - if @mail_documents.empty?
+      Mail Document folder is empty, please create mail
+    - else
+      %h1 Available Mail Documents
+      %input.hidden{:id => "mail_document_mode", :mode => "show"}
+     
+      - for mail_document in @mail_documents do
+        .container.toggle_options{:style => "width:26%;margin:1%;", :field => "mail_document"}
+          .title{:style => "width:70%;padding-bottom:2px;padding-top:2px;"}
+            = link_to "#{mail_document}", "/temp/"+@current_user.user_name+"/merge_docs/#{mail_document}"
+          .options{:style => "display:none;"}
+            = link_to image_tag("/images/delete_icon.png?1264549396"), :class => 'ajax_call', :params1 => "#{mail_document}",:params2 => "#{@mail_documents}", :method => "delete", :url => "/message_templates/destroy", :message => "delete this pdf?"
+         

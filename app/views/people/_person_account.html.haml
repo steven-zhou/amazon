@@ -7,7 +7,7 @@
           %h2{:class=>("red" if AccountType.find(person_account.account_type_id).to_be_removed == true)}= "#{AccountType.find(person_account.account_type_id).name}"
 
         %br.clear
-      %div{:style => "float:right;"}
+      %div{:style => "float:right;text-align:right;"}
         = format_bank_account(person_account)
 -else
   .no_record

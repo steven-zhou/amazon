@@ -1,0 +1,2 @@
+$('#extra_div_<%=escape_javascript(@position.to_s)%>').html(" <%= escape_javascript(render(:partial => '/extras/display_extra', :locals => {:extra => @extra, :group => @group})) %>");
+$('#extra_mode').attr("mode", "show");

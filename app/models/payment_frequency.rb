@@ -3,6 +3,7 @@ class PaymentFrequency < AmazonSetting
   acts_as_list
 
   has_many :employments
+  has_many :fee_items,:class_name=>"FeeItem",:foreign_key=>"payment_frequency_id"
 
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "A payment frequency already exists with the same name."

@@ -1,33 +1,45 @@
-%script{:type => "text/javascript"}
-  :plain
-    $(function() {
-      $('.new_email_required_field').keyup(function() {
-          if($('#new_email_subject').val() == null || $('#message_template_id').val() == null || $('#list_header_id').val() == '') {
-              $('#new_email_submit').attr('disabled', true);
-          } else {
-              $('#new_email_submit').removeAttr('disabled');
-          }
-      });
-    });
--#.full_container#email
-  -#%div#email_form
-- form_for :email, nil, :url => { :action => "send_email" }, :html => {:class => 'ajax_form', :id => "send_email_form"}  do |f|
+- form_for :email, nil, :url => { :action => "send_email" }, :html => {:class => 'ajax_form', :id => "send_email_form",:submit_button_id=>"new_email_submit"}  do |f|
   .full_container
     %h2 Email Message
     .form_line
-      .field_30
+      .field_25
+        = f.label :from_email, "<span class='asterisk'>*</span>Email Sender Address"
+        = f.text_field :from_email, :class => 'select_ban_submit', :id => "input_email"
+        %select{:name => "email[from_email]", :id => "select_email", :style => "display:none;", :disabled => true}
+          - ClientOrganisation.first.emails.each do |i|
+            %option{:value => ""}
+            %option{:value => "#{i.value}"} #{i.value}
+
+      .field_15
+        %label Select From Existing
+        %input{:type => "checkbox", :id => "triger_select"}
+    
+      .field_25
         = f.label :subject, "<span class='asterisk'>*</span>Subject"
-        = f.text_field :subject, :id => "new_email_subject", :style => "width:250px", :class => 'new_email_required_field'
-      .field_30
+        = f.text_field :subject, :id => "new_email_subject", :class => 'select_ban_submit'
+
+    .form_line
+      .field_25
+        = f.label :subject, "<span class='asterisk'>*</span>List/Query"
+        %select{:id => "list_header_id", :name => "list_header_id", :class => 'select_ban_submit' }
+          %option{:value => "0"} --------------------List--------------------------------
+          - @entity_list_headers.each do |r|
+            %option{:value => "list_#{r.id}"} #{r.name}
+          %option{:value => "0"} --------------------Query------------------------------
+          - @entity_query_headers.each do |r|
+            %option{:value => "query_#{r.id}"} #{r.name}
+      .field_25
+        %label <span class='asterisk'>*</span>Template Category
+        = collection_select :message_template, :template_category_id, TemplateCategory.active, :id, :name, {:include_blank=>true}, {:class => "select_ajax_call clear_select compulsory_field", :method => "GET", :url => "/message_templates/find_templates", :update_field => "message_template_id", :type_class => "#{@entity_type}_email_template"}
+
+      .field_25
         = f.label :subject, "<span class='asterisk'>*</span>Template"
-        %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px", :class => 'new_email_required_field' }
-          - @message_templates.each do |r|
+        %select{:id => "message_template_id", :name => "message_template_id", :class => 'select_ban_submit compulsory_field' }
+          %option
+          -# @message_templates.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
-      .field_30
-        = f.label :subject, "<span class='asterisk'>*</span>List"
-        %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px", :class => 'new_email_required_field' }
-          - @list_headers.each do |r|
-            %option{:value => "#{r.id}"} #{r.name}
-      .field_5
-        = submit_tag "Submit", :id => "new_email_submit", :style => "margin-top:10px;", :disabled => true
+    .form_line
+      .field_30{:style => "float:right;"}
+        %label &nbsp
+        = submit_tag "Submit", :id => "new_email_submit", :disabled => true
 

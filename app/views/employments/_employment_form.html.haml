@@ -1,8 +1,8 @@
 -# The options to edit or add an employment
 .form_line{:style => "float:none;"}
   .field_25{:style => "margin-right: 2px;"}
-    =employment.label :organisation_id, "<span class='asterisk'>*</span>Organisation ID"
-    =employment.text_field :organisation_id, :class=>"find_organisation_field mandantory_field", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+    =employment.label :organisation_id, "<span class='asterisk'>*</span>Employer ID"
+    =employment.text_field :organisation_id, :class=>"find_organisation_field compulsory_field copy_to", :copy_field => @employment.new_record? ? "employment_workplace_id" : "employment_#{@employment.id}_workplace_id", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
   .field_5
     %label &nbsp;
     = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => @employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id", :title=>"Search"
@@ -12,35 +12,52 @@
       %span{:class=>"viewname", :id=>"organisation_name_container_0"} &nbsp;
     -else
       %span{:class=>"viewname", :id=>"organisation_name_container_#{@employment.id}"} #{@employment.organisation.full_name}
-  -#.field_33
-    =employment.label :status, "Status"
-    =employment.radio_button :status, true, :style => "width:10%", :checked => true
-    %label{:style => "display:inline"} Active
-    =employment.radio_button :status, false, :style => "width:10%"
-    %label{:style => "display:inline"} Inactive
+
+.form_line{:style => "float:none;"}
+  .field_25{:style => "margin-right: 2px;"}
+    =employment.label :workplace_id, "<span class='asterisk'>*</span>Workplace ID"
+    =employment.text_field :workplace_id, :class=>"find_organisation_field compulsory_field", :update_field => "employment_workplace", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:mandantory_field6=>@employment.new_record? ? "employment_workplace_id" : "employment_#{@employment.id}_workplace_id",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit",:mandantory_field7=>@employment.new_record? ? "employment_workplace_reference" : "employment_#{@employment.id}_workplace_reference",:mandantory_field8=>@employment.new_record? ? "employment_union_reference" : "employment_#{@employment.id}_union_reference"
+  .field_5
+    %label &nbsp;
+    = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => @employment.new_record? ? "employment_workplace_id" : "employment_#{@employment.id}_workplace_id", :title=>"Search"
+  .field_60
+    %label &nbsp;
+    -if @employment.new_record?
+      %span{:class=>"viewname", :id=>"workplace_name_container_0"} &nbsp;
+    -else
+      %span{:class=>"viewname", :id=>"workplace_name_container_#{@employment.id}"} #{@employment.workplace.full_name}
+
 
 .form_line
-  .field_23
-    =employment.label :staff_reference, "<span class='asterisk'>*</span>Reference NO."
-    =employment.text_field :staff_reference,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
-  .field_23
+  .field_30
+    =employment.label :staff_reference, "<span class='asterisk'>*</span>Employer Ref. NO."
+    =employment.text_field :staff_reference,:class=>"compulsory_field", :disabled=>@employment.status == false
+  .field_30
+    =employment.label :workplace_reference, "<span class='asterisk'>*</span>Workplace Ref. NO."
+    =employment.text_field :workplace_reference,:class=>"compulsory_field", :disabled=>@employment.status == false
+  .field_33
+    =employment.label :union_reference, "<span class='asterisk'>*</span>Union Ref. NO."
+    =employment.text_field :union_reference,:class=>"compulsory_field", :disabled=>@employment.status == false
+
+.form_line
+  .field_30
     =employment.label :department_id, "Department"
     =employment.collection_select :department_id, Department.active_department, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-  .field_23
+  .field_30
     =employment.label :section_id, "Section"
     =employment.collection_select :section_id, Section.active_section, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-  .field_23
+  .field_33
     =employment.label :cost_centre_id, "Cost Centre"
     =employment.collection_select :cost_centre_id, CostCentre.active_cost_centre, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
 
 
 .header_container
-  .form_line
-    .field_100 Position
+  %div{:style => "float:left;width:100%;"}
+    Position
   .form_line
     .field_30
       =employment.label :position_name, "<span class='asterisk'>*</span>Name"
-      =employment.text_field :position_name,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+      =employment.text_field :position_name,:class=>"compulsory_field", :disabled=>@employment.status == false
     .field_30
       =employment.label :position_title_id, "Title"
       =employment.collection_select :position_title_id, PositionTitle.active_position_title, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
@@ -51,7 +68,7 @@
   .form_line
     .field_30
       =employment.label :commenced_date, "<span class='asterisk'>*</span>Start Date"
-      =employment.text_field :commenced_date, :class=>@employment.status==false ? "" : "startdatepick mandantory_field", :end_date=>@employment.new_record? ? "employment_term_end_date" : "employment_#{@employment.id}_term_end_date", :value=>@employment.commenced_date.to_s, :disabled=>@employment.status == false, :style => "width:78% !important;" ,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+      =employment.text_field :commenced_date, :class=>@employment.status==false ? "" : "startdatepick compulsory_field", :end_date=>@employment.new_record? ? "employment_term_end_date" : "employment_#{@employment.id}_term_end_date", :value=>@employment.commenced_date.to_s, :disabled=>@employment.status == false, :style => "width:78% !important;"
     .field_30
       =employment.label :term_end_date, "End Date"
       =employment.text_field :term_end_date, :class=>@employment.status==false ? "" : "enddatepick", :start_date=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date", :value=>@employment.term_end_date.to_s, :disabled=>@employment.status == false, :style => "width:78% !important;"
@@ -79,7 +96,7 @@
   .form_line
     .field_25{:style => "margin-right: 2px;"}
       =employment.label :hired_by, "<span class='asterisk'>*</span>Hired By"
-      =employment.text_field :hired_by, :class=>"find_person_field mandantory_field", :update=>"recruiter_container", :input_field_id=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+      =employment.text_field :hired_by, :class=>"find_person_field compulsory_field", :update=>"recruiter_container", :input_field_id=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by", :title=>"Search"
@@ -104,10 +121,9 @@
         %span{:class=>"viewname", :id=>@employment.new_record? ? "supervisor_container_0" : "supervisor_container_#{@employment.id}"} &nbsp;
 
 .header_container
-  .form_line
-    .field_100
-      =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"
-      = "Payment"
+  %div{:style => "float:left;width:100%;"}
+    =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"
+    = "Payment"
 
   %div{:style => "display:none", :id => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"}
     .form_line{:style => "float:none;"}
@@ -130,19 +146,24 @@
         =employment.collection_select :payment_frequency_id, PaymentFrequency.active_payment_frequency, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
 
     .form_line      
-      .field_45
-        =employment.label :payment_method_id, "Payment Method"
-        =employment.collection_select :payment_method_id, PaymentMethod.active_payment_method, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-      .field_50
+      .field_30
+        =employment.label :payroll_method_id, "Payroll Method"
+        =employment.collection_select :payroll_method_id, PayrollMethod.active_payroll_method, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
+      .field_30
+        =employment.label :payroll_center, "Payroll Center"
+        %select{:name => "employment[payroll_center]", :id => "employment_payroll_center", :disabled=>@employment.status == false}
+          %option{:value => "Employer"} Employer
+          %option{:value => "Workplace"} Workplace
+        
+      .field_33
         =employment.label :payment_day_id, "Payment Day"
         =employment.collection_select :payment_day_id, PaymentDay.active_payment_day, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
 
 
 .header_container
-  .form_line
-    .field_100
-      =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"
-      = "Suspension"
+  %div{:style => "float:left;width:100%;"}
+    =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"
+    = "Suspension"
 
   %div{:style => "display:none", :id => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"}
     .form_line{:style => "float:none;"}
@@ -171,7 +192,7 @@
           %span{:class=>"viewname", :id=>@employment.new_record? ? "suspender_container_0" : "suspender_container_#{@employment.id}"} &nbsp;
 
     .form_line
-      .field_25
+      .field_27
         =employment.label :suspension_reason, "Suspension Reason"
         =employment.text_field :suspension_reason, :disabled=>@employment.status == false
       .field_70
@@ -179,10 +200,9 @@
         =employment.text_field :suspension_remarks, :disabled=>@employment.status == false
 
 .header_container
-  .form_line
-    .field_full
-      =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"
-      = "Termination"
+  %div{:style => "float:left;width:100%;"}
+    =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"
+    = "Termination"
 
   %div{:style => "display:none", :id => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"}
     .form_line{:style => "float:none;"}
@@ -211,7 +231,7 @@
           %span{:class=>"viewname", :id=>@employment.new_record? ? "terminator_container_0" : "terminator_container_#{@employment.id}"} &nbsp;
 
     .form_line
-      .field_25
+      .field_27
         =employment.label :termination_reason, "Termination Reason"
         =employment.text_field :termination_reason, :disabled=>@employment.status == false
       .field_70

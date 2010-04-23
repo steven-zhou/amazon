@@ -1,10 +1,9 @@
-class PaymentMethodType < TagType
+class PaymentMethodType < Tag
 
   acts_as_list
-  belongs_to :payment_method_meta_type, :class_name => "PaymentMethodMetaType", :foreign_key => "tag_meta_type_id"
-  has_many :payment_methods
+  belongs_to :payment_method_meta_type, :class_name => "PaymentMethodMetaType", :foreign_key => "tag_type_id"
 
-
+  default_scope :order => "name ASC"
   after_create :assign_priority
   before_destroy :reorder_priority
 
@@ -17,6 +16,7 @@ class PaymentMethodType < TagType
   def reorder_priority
     self.remove_from_list
   end
+
 
 end
 

@@ -1,0 +1,13 @@
+%input.hidden{:id => "subscription_fee_mode", :mode => "show"}
+
+-#  when you in this page list all the structure here----user for add + grid
+
+#add_new_subscription_fee
+  =render :partial => "fee_items/new_subscription_fee_item"
+
+#existing_subscription_fee
+  = render :partial => "fee_items/existing_subscription_fee_item"
+
+#edit_subscription_fee{:style => "display:none;margin-top:10px;float:left;"}
+  #edit_subscription_fee_form
+

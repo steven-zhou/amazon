@@ -1,0 +1,22 @@
+.container
+  %h1 Reviewer
+  .form_line
+    .field_20
+      %label Reviewer ID
+      %div.display_field_bg
+        =@membership.nil? ? "" : @membership.reviewed_by
+        %input{:name=>"field",:value=>@membership.person_id,:class=>"hidden membership_person_lookup"}
+    .field_40
+      %label Initiator
+      .display_field_bg#reviewer_name
+        = @membership.nil? ? "" : @membership.initiated_by.nil? ? "" : Person.find(@membership.reviewed_by).name
+    .field_30
+      %label Initiator Date
+      .display_field_bg
+        =@membership.nil? ? "" : @membership.reviewed_date.nil? ? "" : @membership.reviewed_date
+  .form_line{:style => "height:auto;"}
+    .field_100{:style => "height:auto;"}
+      %label Outcomes
+      .display_field_bg
+        =@membership.nil? ? "" : @membership.reviewed_comment.nil? ? "" : @membership.reviewed_comment
+    %br.clear

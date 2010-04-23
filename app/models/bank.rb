@@ -7,6 +7,8 @@ class Bank < ActiveRecord::Base
   validates_presence_of :short_name, :message => "You must specify a short name for a bank."
   validates_presence_of :branch_name, :message => "You must specify a branch name."
   validates_presence_of :branch_number, :message => "You must specify a branch number."
+
+  validates_uniqueness_of :branch_number
   default_scope :order => "id ASC"
 
   def display_name

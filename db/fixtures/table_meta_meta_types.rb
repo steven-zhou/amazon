@@ -88,3 +88,7 @@ TableMetaType.create :name => "value", :tag_meta_type_id => contacts.id, :descri
 TableMetaType.create :name => "post_value", :tag_meta_type_id => contacts.id, :description => "Post_value (e.g. 201)",  :status => true, :category => "String", :to_be_removed =>false
 TableMetaType.create :name => "type", :tag_meta_type_id => contacts.id, :description => "Type (e.g. Phone)",  :status => true, :category => "String", :to_be_removed =>false
 TableMetaType.create :name => "contact_meta_type", :tag_meta_type_id => contacts.id, :description => "Contact Type (e.g. Home)",  :status => true, :category => "Integer FK", :to_be_removed =>false
+
+#Extras Table
+extras = TableMetaMetaType.create :name => "extras",  :description => "extras table", :status => true, :category => "enitity", :to_be_removed =>false
+TableMetaType.create :name => "group_value", :tag_meta_type_id => extras.id, :description => "Group_value (e.g. Any String)",  :status => true, :category => "String", :to_be_removed =>false

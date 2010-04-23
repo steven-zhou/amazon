@@ -54,13 +54,17 @@
       - else
         <p>Query</p>
         %ul
-          %li{:id => @current_action == "new" ? "selected" : ""}
+          %li{:id => (["org_new", "new"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/add.png')} New",{:controller => "query_headers", :action => "new"}, :controller => "query_headers", :action => "new",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/add.png", :title => "New Query"
+          %li{:id => (["org_index", "index"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit",{:controller => "query_headers", :action => "index"}, :controller => "query_headers", :action => "index",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Edit Query"
+          -#%li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/add.png')} Person New",{:controller => "query_headers", :action => "new"}, :controller => "query_headers", :action => "new",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/add.png", :title => "Person Query New"
-          %li{:id => @current_action == "index" ? "selected" : ""}
+          -#%li{:id => @current_action == "index" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/edit_button.graphic.png')}Person Edit",{:controller => "query_headers", :action => "index"}, :controller => "query_headers", :action => "index",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Person Query Edit"
-          %li{:id => @current_action == "org_new" ? "selected" : ""}
+          -#%li{:id => @current_action == "org_new" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/add.png')} Org New", {:controller => "query_headers", :action => "org_new"},:controller => "query_headers", :action => "org_new",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/add.png", :title => "Org Query New"
-          %li{:id => @current_action == "org_index" ? "selected" : ""}
+          -#%li{:id => @current_action == "org_index" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Org Edit",{:controller => "query_headers", :action => "org_index"}, :controller => "query_headers", :action => "org_index",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Org Query Edit"
     .bottom
 
@@ -73,13 +77,17 @@
       - else
         <p>List of lists</p>
         %ul
-          %li{:id => @current_action == "manage_list" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Person Manager",{:controller => "list_headers", :action => "manage_list"}, :controller => "list_headers", :action => "manage_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Person List Manager"
-          %li{:id => @current_action == "compile_list" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Person Compile",{:controller => "list_headers", :action => "compile_list"}, :controller => "list_headers", :action => "compile_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Lol/list_compiler.png", :title => "Person List Compile"
-          %li{:id => @current_action == "org_manage_list" ? "selected" : ""}
+          -#%li{:id => @current_action == "manager" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Manager",{:controller => "list_headers", :action => "manager"}, :controller => "list_headers", :action => "manager",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "List Manager"
+          %li{:id => (["org_manage_list", "manage_list"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Manager",{:controller => "list_headers", :action => "manage_list"}, :controller => "list_headers", :action => "manage_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Person List Manager"
+          -# %li{:id => @current_action == "compiler" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Compiler",{:controller => "list_headers", :action => "compiler"}, :controller => "list_headers", :action => "compiler",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Lol/list_compiler.png", :title => "List Compiler"
+          %li{:id => (["org_compile_list", "compile_list"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Compiler",{:controller => "list_headers", :action => "compile_list"}, :controller => "list_headers", :action => "compile_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Lol/list_compiler.png", :title => "Person List Compile"
+          -#%li{:id => @current_action == "org_manage_list" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Org Manager",{:controller => "list_headers", :action => "org_manage_list"}, :controller => "list_headers", :action => "org_manage_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Organisation List Manager"
-          %li{:id => @current_action == "org_compile_list" ? "selected" : ""}
+          -# %li{:id => @current_action == "org_compile_list" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Org Compile",{:controller => "list_headers", :action => "org_compile_list"}, :controller => "list_headers", :action => "org_compile_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Lol/list_compiler.png", :title => "Organisation List Compile"
     .bottom
 
@@ -116,14 +124,12 @@
     .top
     .item
       - if @current_controller != "communication"
-        = link_to "#{image_tag('Icons/communication/contact.png')} Contact", :controller => "communication", :action => "email"
+        = link_to "#{image_tag('Icons/communication/contact.png')} Contact", :controller => "communication", :action => "person_email_merge"
       - else
-        <p>Contact</p>
+        <p>Contact Manager</p>
         %ul
-          %li{:id => @current_action == "email" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/communication/email.png')} Email",{:controller => "communication", :action => "email"}, :controller => "communication", :action => "email",:class => "draggable",:icon_module=>"core",:image_url => "Icons/communication/email.png", :title => "Email"
-          %li{:id => @current_action == "person_mail_merge" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/Contacts/Person_mail.png')} Person Mail",{:controller => "communication", :action => "person_mail_merge"}, :controller => "communication", :action => "person_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Contacts/Person_mail.png", :title => "PersonMail"
-          %li{:id => @current_action == "organisation_mail_merge" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/Contacts/org_mail.png')} Org Mail",{:controller => "communication", :action => "organisation_mail_merge"}, :controller => "communication", :action => "organisation_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Contacts/org_mail.png", :title => "OrganisationMail"
+          %li{:id => (["person_email_merge", "organisation_email_merge"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/communication/email.png')} Email",{:controller => "communication", :action => "person_email_merge"}, :controller => "communication", :action => "person_email_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/communication/email.png", :title => "Email"
+          %li{:id => (["person_mail_merge", "organisation_mail_merge"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Core/Contacts/Person_mail.png')} Mail",{:controller => "communication", :action => "person_mail_merge"}, :controller => "communication", :action => "person_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Contacts/Person_mail.png", :title => "Mail"
     .bottom

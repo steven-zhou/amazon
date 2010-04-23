@@ -1,0 +1,22 @@
+#header
+  #page_title
+  #lol
+    %br.clear
+.tab_switch.alert_with_link_container{:style => "margin-left:15px;"}
+
+  .tab_menu_switch_left.active_menu.left{:field =>"review_page"}
+  .container_menu_icon.active_menu.left{:align => 'center'}
+    = link_to "Person", person_email_merge_communication_path()
+  .tab_menu_switch_right.active_menu.left{:field =>"review_page"}
+
+
+
+  .tab_menu_switch_left.left{:field =>"finalize_page"}
+  .container_menu_icon.left{:align => 'center'}
+    = link_to "Organisation", organisation_email_merge_communication_path()
+  .tab_menu_switch_right.left{:field =>"finalize_page"}
+
+%br.clear
+
+.full_container
+  = render :partial => "person_email"

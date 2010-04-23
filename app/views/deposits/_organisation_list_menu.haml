@@ -1,0 +1,29 @@
+- form_tag('/transactions/show_organisational_transaction', :id => "organisation_list") do
+  %div#loleft
+    .lolfont_left{:style => "margin-left: 65px;"}
+      = label_tag 'organisation_id', 'System ID', :style => 'clear:both'
+    %div
+      .arrow_block
+        = link_to_function((image_tag 'Icons/Core/Lol/go-first.png'), :url =>"/receipting/show_organisational_deposit", :title=>"First", :class => "transaction_navigator")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-previous.png'), :url =>"/receipting/show_organisational_deposit", :title=>"Previous", :class => "transaction_navigator")
+      = text_field_tag 'organisation_id', @organisation.id, {:onblur => 'system_id_check_input_change_or_not_transaction();',:id => 'system_id_tag', :class=> 'arrow_block change_without_check_js',:style =>"width: 100px",:form_name => "organisation_list"}
+      %input{:style => "display:none;", :id => "current_tab_id", :name => "current_tab_id"}
+      %input{:style => "display:none;", :id => "target", :name => "target"}
+      .arrow_block
+        = link_to_function((image_tag 'Icons/Core/Lol/go-next.png'), :url =>"/receipting/show_organisational_deposit", :title=>"Next", :class => "transaction_navigator")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-last.png'), :url =>"/receipting/show_organisational_deposit", :title=>"Last", :class => "transaction_navigator")
+  .right
+    %div#loleft{:style => "margin-left: 10px;"}
+      .lolfont_left
+        = label_tag 'list_header_id', 'List'
+      #lol_select
+        %select{:id => "transaction_list_header", :disabled => (@list_headers.blank?), :name => "list_header_id", :style => "width:150px" }
+          - @list_headers.each do |r|
+            %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
+
+    %div#loleft{:style => "margin-left: 10px;"}
+      .lolfont_left
+
+      #lol_select{:style => "margin-top: 12px;"}
+        =image_tag('application_view_detail.png', :class => "general_show_all_list_organisations", :organisation_id => @organisation.id)
+    %br.clear

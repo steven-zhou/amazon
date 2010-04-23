@@ -10,14 +10,17 @@
     - to_be_removed = @organisation.to_be_removed ? "Retrieve" : " Remove"
     = link_to_function "#{to_be_removed}",:class=>"ajax_call",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;",:method =>"DELETE",:url=>"/organisations/"+@organisation.id.to_s,:light_box =>"true",:message =>@organisation.to_be_removed ? "Retrieve this Organisation" : "Remove this Organisation"
     -unless @organisation.to_be_removed
-      - status = @organisation.status ? "Active" : "Inactive"
-      = link_to_function "#{status}",:class=> "ajax_call",:id=>"organisation_active_button",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;", :method => "GET", :url => "/organisations/change_status", :param1 => @organisation.id, :light_box => "true",:message =>@organisation.status ? "Inactive this Organisation" : "Active this Organisation"
+      - status = @organisation.status ? "Inactivate" : "Activate"
+      = link_to_function "#{status}",:class=> "ajax_call",:id=>"organisation_active_button",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;", :method => "GET", :url => "/organisations/change_status", :param1 => @organisation.id, :light_box => "true",:message =>@organisation.status ? "Inactivate this Organisation" : "Activate this Organisation"
+  
   %div.display_field_bg{:style=>"margin-left: 4px;"}
     =@organisation.custom_id
 .form_line{:style=>"width: 200px; margin-top: 2px;"}
   .field_80
     = label_tag 'onrecord_since', 'On Record Since', :style=>"font-size:12px;display:inline;"
+    = (link_to "overview", organisation_treeview_organisations_path(:id => @organisation), :class=> "get",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;") unless @organisation.level.nil?
    
   %div.display_field_bg{:style=>"margin-left: 4px;"}
     =@organisation.onrecord_since.to_s
+
 %br

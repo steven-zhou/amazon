@@ -1,0 +1,21 @@
+$('#default_value_content').html("<%=escape_javascript(render(:partial =>  "user_preferences/show_default_value.html.haml"))%>")
+
+$('#default_value_dialog').dialog({
+modal: true,
+resizable: true,
+draggable: true,
+height: 'auto',
+width: 900
+});
+
+$('#default_value_dialog').dialog('option', 'title', 'Defaul Value');
+$('#default_value_dialog').parent().css('background-color','#D1DDE6');
+$("#default_value_dialog").css('background-color','#D1DDE6');
+$("#default_value_dialog").dialog('open');
+
+    datapick_config();
+    start_end_date_pick();
+
+
+      $('#ui-datepicker-div').css('z-index', '1035');
+   

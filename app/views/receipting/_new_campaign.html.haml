@@ -1,8 +1,0 @@
-.full_container
-  .options
-    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "campaign", :title=>"Close", :class => "close_option", :toggle_id_name => "new_campaign_form"
-  .title
-    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "campaign", :title => "New", :method => "GET", :url => "/receipting/new_campaign"
-    &nbsp
-  %h2 New Campaign
-  #new_campaign_form{:style => "float:left;"}

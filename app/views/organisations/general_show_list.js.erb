@@ -1,13 +1,11 @@
-$('#show_organisation_list_content').html('<%= escape_javascript(render(:partial => "/organisations/general_search_list_results", :locals =>{:organisations => @organisations})) %>');
 $('#show_organisation_list_grid').dialog({
   modal: true,
   resizable: false,
   draggable: true,
   position: "center",
   width: 680,
-  height: 600,
-  buttons: {
-  }
+  height: 600
 });
+$('#show_organisation_list_content').show().html('<%= escape_javascript(render(:partial => "/organisations/general_search_list_results", :locals =>{:organisations => @organisations})) %>');
 $('#show_organisation_list_grid').dialog('option','title','Show Organisation List');
 $('#show_organisation_list_grid').dialog('open');

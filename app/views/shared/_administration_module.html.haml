@@ -6,14 +6,18 @@
 - routing[:administrations][:role_conditions]           = {:controller => "configuration", :action => "role_conditions"}
 - routing[:administrations][:roles_management]          = {:controller => "configuration", :action => "roles_management" }
 - routing[:administrations][:contact_types]             = {:controller => "configuration", :action => "contact_types" }
+- routing[:administrations][:payment_methods]           = {:controller => "configuration", :action => "payment_methods" }
+- routing[:administrations][:tax_items]                 = {:controller => "configuration", :action => "tax_items" }
+- routing[:administrations][:fee_types]                 = {:controller => "configuration", :action => "fee_types" }
 - routing[:administrations][:duplication_check]         = {:controller => "configuration", :action => "duplication_check" }
+- routing[:administrations][:extra_custom_field]        = {:controller => "configuration", :action => "extra_custom_field" }
 - routing[:administrations][:group_permissions]         = {:controller => "security", :action => "group_permissions" }
 - routing[:administrations][:group_lists]               = {:controller => "security", :action => "group_lists" }
 - routing[:administrations][:security_groups]           = {:controller => "security", :action => "security_groups" }
 - routing[:administrations][:user_accounts]             = {:controller => "users", :action => "user_accounts" }
 - routing[:administrations][:user_groups]               = {:controller => "users", :action => "user_groups" }
 - routing[:administrations][:user_lists]                = {:controller => "users", :action => "user_lists" }
--
+
 - controller = routing[@current_controller.to_sym][@current_action.to_sym][:controller]
 - action = routing[@current_controller.to_sym][@current_action.to_sym][:action]
 
@@ -31,11 +35,13 @@
           %li{:id => @current_action == "parameters" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/system_parameters.png')} Parameters",{:controller => "client_setups", :action => "parameters"}, :controller => "client_setups", :action => "parameters",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/system_parameters.png", :title => "Parameters"
           %li{:id => @current_action == "client_bank_accounts" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Bank Accounts",{:controller => "client_setups", :action => "client_bank_accounts"}, :controller => "client_setups", :action => "client_bank_accounts",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Banks Accounts"
+            = link_to "#{image_tag('Icons/Admin/System Setup/bank_account.png')} Bank Accounts",{:controller => "client_setups", :action => "client_bank_accounts"}, :controller => "client_setups", :action => "client_bank_accounts",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/bank_account.png", :title => "Banks Accounts"
           %li{:id => @current_action == "license_info" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info",{:controller => "client_setups", :action => "license_info"}, :controller => "client_setups", :action => "license_info",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/license_info.png", :title => "License Info"
           %li{:id => @current_action == "system_log_management" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/system_log.png')} Audit Trail",{:controller => "client_setups", :action => "system_log_management"}, :controller => "client_setups", :action => "system_log_management",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/system_log.png", :title => "Audit Trail"
+          %li{:id => @current_action == "organisation_structure" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Org Structure", {:controller => "client_setups", :action => "organisation_structure"}, :controller => "client_setups", :action => "organisation_structure",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Organisation Structure"
     .bottom
 
   - # Configuration Menu
@@ -43,9 +49,9 @@
     .top
     .item
       - if controller != "configuration"
-        = link_to "#{image_tag('Icons/Admin/Configuration/configuration.png')} Configuration", :controller => "administrations", :action => "system_data"
+        = link_to "#{image_tag('Icons/Admin/Configuration/configuration.png')} Data Setup", :controller => "administrations", :action => "system_data"
       -else
-        <p>Configuration</p>
+        <p>Data Setup</p>
         %ul
           %li{:id => action == "system_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/system-data.png')} System Data",{:controller => "administrations", :action => "system_data"}, :controller => "administrations", :action => "system_data",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/system-data.png", :title => "System Data"
@@ -63,6 +69,14 @@
             = link_to "#{image_tag('Icons/Admin/Configuration/contact_types.png')} Contact Types",{:controller => "administrations", :action => "contact_types"}, :controller => "administrations", :action => "contact_types",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/contact_types.png", :title => "Contact Types"
           %li{:id => action == "duplication_check" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/duplications.png')} Dups Check",{:controller => "administrations", :action => "duplication_check"}, :controller => "administrations", :action => "duplication_check",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/duplications.png", :title => "Dups Check"
+          %li{:id => action == "payment_methods" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Configuration/payments_methods.png')} Payment Methods", {:controller => "administrations", :action => "payment_methods"}, :controller => "administrations", :action => "payment_methods",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/payments_methods.png", :title => "Payment Methods"
+          %li{:id => action == "tax_items" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Tax Items", {:controller => "administrations", :action => "tax_items"}, :controller => "administrations", :action => "tax_items",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Tax Items"
+          %li{:id => action == "fee_types" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Fee Types", {:controller => "administrations", :action => "fee_types"}, :controller => "administrations", :action => "fee_types",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Fee Types"
+          %li{:id => action == "extra_custom_field" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Configuration/extra_field.png')} Custom Field", {:controller => "administrations", :action => "extra_custom_field"}, :controller => "administrations", :action => "extra_custom_field",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/extra_field.png", :title => "Custom Field"
     .bottom
 
   - # Security Menu
@@ -75,7 +89,7 @@
         <p>Security Groups</p>
         %ul
           %li{:id => action == "security_groups" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Manager",{:controller => "administrations", :action => "security_groups"}, :controller => "administrations", :action => "security_groups",:class => "draggable",:icon_module=>"administration",:image_url => "'Icons/Admin/Security/group_manager.png", :title => "Manager"
+            = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Manager",{:controller => "administrations", :action => "security_groups"}, :controller => "administrations", :action => "security_groups",:class => "draggable",:icon_module=>"administration", :image_url => "Icons/Admin/Security/group_manager.png", :title => "Manager"
           %li{:id => action == "group_lists" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Security/group_list.png')} Lists",{:controller => "administrations", :action => "group_lists"}, :controller => "administrations", :action => "group_lists",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Security/group_list.png", :title => "Lists"
           %li{:id => action == "group_permissions" ? "selected" : ""}
@@ -105,9 +119,9 @@
     .top
     .item
       - if !(@current_controller == "maintenance" || @current_controller == "banks" )
-        = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} Maintenance", :controller => "maintenance", :action => "system_backup"
+        = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} House Keeping", :controller => "maintenance", :action => "system_backup"
       - else
-        <p>Maintenance</p>
+        <p>House Keeping</p>
         %ul
           %li{:id => @current_action == "system_backup" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Maintenance/database_backup.png')} Data Backup",{ :controller => "maintenance", :action => "system_backup"}, :controller => "maintenance", :action => "system_backup",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Maintenance/database_backup.png", :title => "Data Backup"
@@ -118,7 +132,7 @@
           %li{:id => @current_action == "country_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Maintenance/country_data.png')} Country Data",{:controller => "maintenance", :action => "country_data"}, :controller => "maintenance", :action => "country_data",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Maintenance/country_data.png", :title => "Country Data"
           %li{:id => @current_action == "list" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Maintenance/bankdata.png')} Bank Data",{:controller => "banks", :action => "list"}, :controller => "banks", :action => "list",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Bank Data"
+            = link_to "#{image_tag('Icons/Admin/Maintenance/bankdata.png')} Bank Data",{:controller => "banks", :action => "list"}, :controller => "banks", :action => "list",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Maintenance/bankdata.png", :title => "Bank Data"
     .bottom
 
   - # Testing Nightly Process
@@ -126,12 +140,12 @@
     .top
     .item
       - if !(@current_controller == "nightly_processes")
-        = link_to "#{image_tag('Icons/Admin/Nightlyprocess.png')} NightlyProcess", {:controller => "nightly_processes", :action => "index"}, :controller => "nightly_processes", :action => "index",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Nightlyprocess.png", :title => "nightly_processes"
+        = link_to "#{image_tag('Icons/Admin/Nightlyprocess.png')} NightlyProcess", :controller => "nightly_processes", :action => "index"
       - else
-        <p>Nightly Process</p>
+        <p>NightlyProcess</p>
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Nightlyprocess.png')} Test", {:controller => "nightly_processes", :action => "index"}, :controller => "nightly_processes", :action => "index",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Nightlyprocess.png", :title => "nightly_processes"
+            = link_to "#{image_tag('Icons/Admin/Nightlyprocess.png')} NightlyProcess", {:controller => "nightly_processes", :action => "index"}, :controller => "nightly_processes", :action => "index",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Nightlyprocess.png", :title => "nightly_processes"
     .bottom
 
   -# Global Change
@@ -139,7 +153,7 @@
     .top
     .item
       -if !(@current_controller == "global_changes")
-        = link_to "#{image_tag('Icons/Admin/Global Changes/global_changes.png')} Global Change",{:controller => "global_changes", :action => "index"},:controller => "global_changes",:action => "index", :class => "draggable", :icon_module => "administration", :image_url => "Icons/Admin/Global Changes/global_changes.png", :title => "global_changes"
+        = link_to "#{image_tag('Icons/Admin/Global Changes/global_changes.png')} Global Change", :controller => "global_changes", :action => "index"
       -else
         <p>Global Change</p>
         %ul

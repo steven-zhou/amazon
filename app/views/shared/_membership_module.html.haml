@@ -1,0 +1,33 @@
+%ul#menu
+
+  - # New Menu
+  %li{:id => @current_controller == "membership" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "membership"
+        = link_to "#{image_tag('icon_holder.png')} Management", :controller => "membership", :action => "step_1", :id => (@membership.nil?) ? "" : @membership.id
+      - else
+        <p>Management</p>
+        %ul       
+          %li{:id => (["step_2", "step_1"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Application", {:controller => "membership", :action => "step_1"}, :class => "draggable", :controller => "membership", :action => "step_1", :icon_module=>"membership",:image_url => "icon_holder.png", :title => "Application"
+          %li{:id => @current_action == "life" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Life", {:controller => "membership", :action => "life"} , :class => "draggable", :controller => "membership", :action => "life",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Life"
+          %li{:id => @current_action == "end_cycle" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} End", {:controller => "membership", :action => "end_cycle"}, :class => "draggable", :controller => "membership", :action => "end_cycle", :icon_module => "membership", :image_url => "icon_holder.png", :title => "End"
+          %li{:id => @current_action == "log" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Log", {:controller => "membership", :action => "log"}, :class => "draggable", :controller => "membership", :action => "log", :icon_module => "membership", :image_url => "icon_holder.png", :title => "Log"
+          %br.clear
+    .bottom
+
+  -# configration for membership
+  %li{:id => @current_controller == "membership_administrations" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "membership_administrations"
+        = link_to "#{image_tag('Icons/Receipting/campaigns.png')} Admin", :controller => "membership_administrations", :action => "fee_items"
+      -else
+        <p>Admin</p>
+        %ul
+          %li{:id => @current_action == "fee_items" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Receipting/campaigns.png')} Fee Items", {:controller => "membership_administrations", :action => "fee_items"}, :class => "draggable", :controller => "membership_administrations", :action => "fee_items", :icon_module=>"membership",:image_url => "Icons/Receipting/campaigns.png", :title => "fee_items"

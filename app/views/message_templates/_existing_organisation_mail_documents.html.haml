@@ -1,0 +1,21 @@
+
+-form_tag("/message_templates/mail_document_filter", {:class => "ajax_form", :id => "org_mail_document_filter_form"}) do
+  .full_container
+    %h2 Organisation Mail Documents Filter
+    .form_line
+      .field_25
+        %label User Name
+        %input{:id => "mail_document_filter_user_name",:value => "#{@current_user.user_name}",:name => "mail_document_filter[user_name]"}
+      .field_25
+        %label Start Date
+        %input{:class => "startdatepick",:id => "mail_document_filter_start_date",:end_date => "mail_document_filter_end_date", :value => "01-01-1900", :name => "mail_document_filter[start_date]"}
+      .field_25
+        %label End Date
+        %input{:class => "enddatepick",:id => "mail_document_filter_end_date",:start_date => "mail_document_filter_start_date", :value => "31-12-3000", :name => "mail_document_filter[end_date]"}
+      .field_25.hidden
+        %input{:id => "mail_document_filter_type",:value => "organisation",:name => "mail_document_filter[type]"}
+      .field_15
+        %label &nbsp
+        =submit_tag 'Submit', :id => "mail_document_submit"
+
+#current_user_document

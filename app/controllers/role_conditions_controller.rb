@@ -37,8 +37,8 @@ class RoleConditionsController < ApplicationController
 
   #new design--------------------------------------------
   def role_condition_show_roles
-    @roles = Role.find_role_type_by_id(params[:role_type_id]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
-    @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
+    @roles = Role.find_role_type_by_id(params[:role_type_id]) unless (params[:role_type_id].blank?)
+    @role_type = RoleType.find_by_id(params[:role_type_id])
     @role_type_id = params[:role_type_id]
     respond_to do |format|
       format.js

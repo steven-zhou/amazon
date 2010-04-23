@@ -1,3 +1,33 @@
+$('.post_spinner').hide();
+<% if flash[:error].nil? %>
 $('.postcode_auto').val('<%=escape_javascript("#{@postcode_id}")%>');
 $('.country_value').val('<%=escape_javascript("#{@postcode_country_name}")%>');
+<%-else%>
+
+ $("#flash_message_text").html("<%= escape_javascript(flash[:error]) %>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Yes: function() {
+  $(this).dialog('destroy');
+  },
+  No: function() {
+  $(".suburb_value").val("");
+  $(".state_value").val("");
+  $(".postcode_auto").val("");
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'Warning');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+ $('#flash_message').dialog('open');
+
+<%-end%>
 

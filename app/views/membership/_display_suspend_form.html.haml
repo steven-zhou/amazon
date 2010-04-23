@@ -1,0 +1,22 @@
+.container
+  %h1 Suspend
+  .form_line
+    .field_20
+      %label Suspend ID
+      %div.display_field_bg
+        =@membership.nil? ? "" : @membership.suspended_by
+        %input{:name=>"field",:value=>@membership.person_id,:class=>"hidden membership_person_lookup"}
+    .field_40
+      %label Suspender
+      .display_field_bg#suspended_name
+        = @membership.nil? ? "" : @membership.suspended_by.nil? ? "" : Person.find(@membership.suspended_by).name
+    .field_30
+      %label Initiator Date
+      .display_field_bg
+        =@membership.nil? ? "" : @membership.suspended_date.nil? ? "" : @membership.suspended_date
+  .form_line{:style => "height:auto;"}
+    .field_100{:style => "height:auto;"}
+      %label Outcomes
+      .display_field_bg
+        =@membership.nil? ? "" : @membership.suspended_comment.nil? ? "" : @membership.suspended_comment
+    %br.clear
