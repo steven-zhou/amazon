@@ -3742,46 +3742,24 @@ mail_merge_insert_name = function(this_form){
   var table = $("#"+current_form).find(".select_table_word").val();
   var field = $("#"+current_form).find(".select_field_word").val();
   var data_type = $("#"+current_form).find(".data_type").val();
+  var value = "";
   if (table == "people" || table == "organisations"){
     if(data_type == "Integer FK"){
-
-      var value = "<%=@"+table+"."+field+".try(:name)"+"%>";
-
-
+      value = "<%=@"+table+"."+field+".try(:name)"+"%>";
     }else{
-
-      var value = "<%=@"+table+"."+field+"%>";
-
+      value = "<%=@"+table+"."+field+"%>";
     }
-
   }else{
-
     if(data_type == "Integer FK"){
-
       if(field == "country"){
-
-        var value = "<%="+prefix_table_name+table+".first.try(:"+field+")"+".try(:short_name)"+"%>";
-
-
+        value = "<%="+prefix_table_name+table+".first.try(:"+field+")"+".try(:short_name)"+"%>";
       }else{
-
-        var value = "<%="+prefix_table_name+table+".first.try(:"+field+")"+".try(:name)"+"%>";
-
+        value = "<%="+prefix_table_name+table+".first.try(:"+field+")"+".try(:name)"+"%>";
       }
-
-
     }else{
-
-      var value = "<%="+prefix_table_name +table+".first.try(:"+field+")"+"%>";
-
+      value = "<%="+prefix_table_name +table+".first.try(:"+field+")"+"%>";
     }
-
   }
-
-
-  //var value = $("#select_word").val();
-
-
   window.tinyMCE.execCommand('mceInsertContent', false, value);
 };
 
