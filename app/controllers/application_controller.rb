@@ -165,9 +165,9 @@ class ApplicationController < ActionController::Base
     FileTest.exist?("public/temp/default-header.html") ? "" : file_open_puts("","public/temp/default-header.html")
     FileTest.exist?("public/temp/default-footer.html") ? "" : file_open_puts("","public/temp/default-footer.html")
     #--page-size A4 --header-center EmZee --header-right 'Page [page] of [toPage]' --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
-    pdf_options['default_option'] ||= "--page-size A4 --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
+    pdf_options['default_option'] ||= "--page-size A4"
     pdf_options['header'] ||= "--header-html public/temp/default-header.html"
-    pdf_options['footer'] ||= "--footer-html public/temp/default-footer.html --footer-spacing -5"
+    pdf_options['footer'] ||= "--footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
     pdf_options['extra_option'] ||= ""   
     system "wkhtmltopdf #{ @file_dir}/#{html_name}.html #{@file_dir}/#{pdf_name}.pdf #{pdf_options['default_option']+" "+pdf_options['header']+" "+pdf_options['footer']+" "+pdf_options['extra_option']}"
   end

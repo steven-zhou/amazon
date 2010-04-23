@@ -1,15 +1,10 @@
-
 <%- if @date_valid%>
-
   <%-if @type == "person"-%>
     $("#current_user_document" ).html('<%=escape_javascript(render(:partial => "message_templates/person_mail_document_enquiry_result", :locals => {:query => @mail_documents})) %>');
   <%- else %>
     $("#current_user_document" ).html('<%=escape_javascript(render(:partial => "message_templates/organisation_mail_document_enquiry_result", :locals => {:query => @mail_documents})) %>');
   <%- end %>
-
 <%- else %>
-
-
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_message').dialog( {
   modal: true,
@@ -29,5 +24,4 @@
   $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 <%- end %>
-
 enable_form_after_submit_finish();

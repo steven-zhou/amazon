@@ -2,7 +2,7 @@
   var cash_form = $('#cash_detail_form');
   var cheque_form = $('#cheque_detail_form');
   var credit_card_form = $('#credit_card_detail_form');
-  $("#receipt_type").html("<%= escape_javascript("#{@options}") %>");
+  $("#receipt_type").html("<%= escape_javascript("#{@options}") %>").removeAttr('disabled');
 <% else %>
   var cash_form = $('#edit_cash_detail_form');
   var cheque_form = $('#edit_cheque_detail_form');
