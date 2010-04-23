@@ -1,5 +1,5 @@
 if ("<%= escape_javascript(@username_retrieval) %>" == "true") {
-  $("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "/signin/username_retrieval_success"))%>");
+  $("#username_retrieval_security_questions").replaceWith("<%= escape_javascript(render(:partial => "/signin/username_retrieval_success"))%>");
 } else {
-  $("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "/signin/username_retrieval_fail"))%>");
+  $("#username_retrieval_security_questions").replaceWith("<%= escape_javascript(render(:partial => "/signin/username_retrieval_fail"))%>");
 }
