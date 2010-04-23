@@ -2433,13 +2433,17 @@ $(function(){
 
   $("#system_data_id").live('change',function(){
 
+
+
     if ($(this).val()==null)
     {
+
       $("#global_run").attr('disabled',true);
       
     }
     else
     {
+
       $("#global_run").attr('disabled',false);
 
     }
@@ -2492,16 +2496,24 @@ $(function(){
         else
         {
           $('#input_data_value').css('display','none');
-          $("#global_run").attr('disabled',false);
+          if ($('#system_data_id').val()==null)
+          {
+            $("#global_run").attr('disabled',true);
+          }
+          else
+          {
+            $("#global_run").attr('disabled',false);
+          }
+        
         }
 
 
-        if($('#select_system_data').css('display')=='none')
-        {
-          $('#global_change_label').css('display','');
-          $('#input_data_value').css('display','');
-          $('#global_change_checkbox').css('display','');
-        }
+        //        if($('#select_system_data').css('display')=='none')
+        //        {
+        //          $('#global_change_label').css('display','');
+        //          $('#input_data_value').css('display','');
+        //          $('#global_change_checkbox').css('display','');
+        //        }
      
         if ($('#global_change_table_name').val()=="note")
         {
@@ -2524,7 +2536,17 @@ $(function(){
       {
         $('#global_change_value').val("");
         $('#input_data_value').css('display','none');
-        $("#global_run").attr('disabled',false);
+
+
+        if($('#system_data_id').val()==null)
+        {
+          $("#global_run").attr('disabled',true);
+        }
+        else
+        {
+          $("#global_run").attr('disabled',false);
+        }
+
         if($('#select_system_data').css('display')=='none')
         {
           $('#global_change_label').css('display','none');
@@ -2639,7 +2661,16 @@ $(function(){
         else
         {
           $('#org_input_data_value').css('display','none');
-          $("#org_global_run").attr('disabled',false);
+
+          if($('#org_system_data_id').val()==null)
+          {
+            $("#org_global_run").attr('disabled',true);
+          }
+          else
+          {
+            $("#org_global_run").attr('disabled',false);
+          }
+         
         }
 
         if ($('#org_global_change_table_name').val()=="note")
@@ -2663,7 +2694,15 @@ $(function(){
       {
         $('#org_global_change_value').val("");
         $('#org_input_data_value').css('display','none');
-        $("#org_global_run").attr('disabled',false);
+        if($('#org_system_data_id').val()==null)
+        {
+          $("#org_global_run").attr('disabled',true);
+        }
+        else
+        {
+          $("#org_global_run").attr('disabled',false);
+        }
+
         if($('#org_select_system_data').css('display')=='none')
         {
           $('#org_global_change_label').css('display','none');
