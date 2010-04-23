@@ -67,6 +67,7 @@ class PeopleController < ApplicationController
       @active_sub_tab = params[:active_sub_tab]
       #when it is cal show action
       if request.get?
+        
         if @list_headers.blank?
           @list_header = ListHeader.new
           @person = Person.new
@@ -98,7 +99,7 @@ class PeopleController < ApplicationController
               #else
             end
           end
-        end
+         end
       end
 
       if request.post?
