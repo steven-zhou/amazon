@@ -4,7 +4,7 @@
       %h1 Bank Account Details
 
     %br.clear
-    #group_list
+    #group_list{:style => "text-align:right;"}
       = render :partial => '/organisations/client_bank_account', :collection => ClientBankAccount.active_client_bank_account
 -else
   = render :partial => "/organisation_bank_accounts/account_tab",:locals =>{:organisation => @organisation}

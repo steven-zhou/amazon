@@ -2,7 +2,8 @@
   .form_line
     .field_40
       = f.label :entity_type, "<span class='asterisk'>*</span>Entity Type"
-      %select{:id => "extension_entity_type", :name => "receipt[entity_type]", :class => "entity_type_change", :input_field => "new_entity_id", :update_field => "new_entity_name", :lookup_field => "new_entity_lookup"}
+      %select{:id => "extension_entity_type", :name => "receipt[entity_type]", :class => "entity_type_change compulsory_field", :input_field => "new_entity_id", :update_field => "new_entity_name", :lookup_field => "new_entity_lookup"}
+        %option
         %option{:value => "Person", :selected => (@first_time && session[:entity_type]=="Person")} Person
         %option{:value => "Organisation", :selected => (@first_time && session[:entity_type]=="Organisation")} Organisation
       %input{:name=>"receipt[deposit_id]",:value=>"#{@deposit.id}",:class =>"hidden"}
